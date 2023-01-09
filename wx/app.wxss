@@ -1,0 +1,11 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: Source Han Sans CN;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+}

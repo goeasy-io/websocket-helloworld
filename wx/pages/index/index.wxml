@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">GoEasy示例</text>
+    <text class="description">Hello World</text>
+  </view>
+  <view class="send-box">
+    <input model:value="{{message}}" />
+    <text bindtap="sendMessage">发送</text>
+  </view>
+  <view class="message-container">
+    <view class="message-content">
+      <view class="message-text" wx:for="{{messages}}" wx:key="index">{{item}}</view>
+    </view>
+  </view>
+</view>

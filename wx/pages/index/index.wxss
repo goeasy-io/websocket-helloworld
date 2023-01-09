@@ -1,0 +1,62 @@
+/**index.wxss**/
+.header {
+  margin-top: 108rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #D02129;
+}
+
+.header .title {
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 48rpx;
+}
+
+.header .description {
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 56rpx;
+  font-weight: bold;
+  margin-top: 30rpx;
+}
+
+.send-box {
+  display: flex;
+  align-items: center;
+  height: 80rpx;
+  margin-top: 64rpx;
+  margin-bottom: 64rpx;
+}
+
+.send-box input {
+  background: #EFEFEF;
+  border: 1px solid #C8C7CC;
+  border-radius: 12rpx;
+  flex-grow: 1;
+  padding: 16rpx;
+}
+
+.send-box text {
+  color: #D02129;
+  margin-left: 18rpx;
+  font-size: 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: right;
+  width: 80rpx;
+}
+
+.message-container{
+  min-height: 600rpx;
+  display: flex;
+}
+.message-content {
+  background-color: #FFFFFF;
+  border: 2rpx solid #DADADA;
+  flex: 1;
+}
+
+.message-text {
+  padding: 8rpx 22rpx;
+}
