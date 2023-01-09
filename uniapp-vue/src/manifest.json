@@ -6,7 +6,7 @@
     "versionCode" : "100",
     "transformPx" : false,
     "h5" : {
-        "publicPath" : "/",
+        "publicPath" : "/show-helloworld/1.0.0/uniapp/",
         "devServer" : {
             "port" : 9007,
             "disableHostCheck" : true,
@@ -14,7 +14,7 @@
         },
         "router" : {
             "mode" : "history",
-            "base" : "/"
+            "base" : "/show-helloworld/1.0.0/uniapp/"
         }
     },
     /* 5+App特有相关 */
