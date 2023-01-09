@@ -1,42 +1,50 @@
-# Helloworld
+# GoEasy PubSub
 
-#### 介绍
-uniapp-vue
-uniapp-nvue
-wx
-web-vue3
-web-react
+[GoEasy PubSub](https://www.goeasy.io)是...
+
+## 体验在线示例和源码(免注册)
+* [PubSub示例体验]()
 
 
-#### 软件架构
-软件架构说明
+## Demo源码说明
+
+````
+helloworld------------------包含四个版本的PubSub聊天demo
+    ├── uniapp-vue---------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android）
+    │    └── src-------------源码根目录  
+    │         └── README.MD--运行步骤
+    ├── uniapp-nvue------------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android）
+    │    └── README.MD-------运行步骤
+    ├── web-vue3------------------PC版Demo，基于vue3开发   
+    │    └── README.MD-------运行步骤
+    └── wx-------------------微信小程序原生开发
+         └── README.MD-------运行步骤
+````
 
 
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+## 应用场景
 
 
-#### 特技
+| 场景分类    | 场景     |
+|---------|--------|
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+
+
+## 主要功能和开发文档
+[GoEasy PubSub开发文档](https://docs.goeasy.io/2.x/pubsub)
+
+| 场景分类    | 场景     |
+|---------|--------|
+
+
+## GoEasy PubSub优势
+
+| 优势 | 描述                                             |
+|---------|--------|
+
+
+## 获得帮助和技术支持
+可查阅GoEasy开发文档，或者访问GoEasy官网，在线咨询技术人员，或拨打官方技术支持电话。
+* [GoEasy PubSub开发文档](https://docs.goeasy.io/2.x/pubsub)
+
