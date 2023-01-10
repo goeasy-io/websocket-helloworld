@@ -1,7 +1,6 @@
 // 运行 npm run serve -- --appkey=BC-xxxxxxx
 
 let argv = process.env.npm_config_argv;
-console.log('argv',argv)
 if (argv) {
     argv = JSON.parse(argv);
     const cooked = argv.cooked;
