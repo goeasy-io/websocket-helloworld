@@ -137,10 +137,8 @@ upgrade_versions() {
 # 推送至打包后文件夹到page项目
 deploy() {
     echo "----------start execute deploy----------"
-    cd build/$versionDir
     ls
-    cd ../
-    cd ../
+    echo "----------AAAAAAAAAAAAA----------"
     if [ -d "show-helloworld" ]; then
       rm -rf show-helloworld
     fi
@@ -149,12 +147,19 @@ deploy() {
     if [ -d "show-helloworld/$versionDir" ]; then
         rm -rf show-helloworld/$versionDir
     fi
+    echo "----------BBBBBBBBBBB----------"
+    ls
+    echo "----------CCCCCCCCCCCC----------"
     # 移动版本目录
     mv build/$versionDir show-helloworld/
-
+    echo "----------DDDDDDDDDDDDD----------"
+    ls
+    echo "----------EEEEEEEEEEEEE----------"
     # 切换仓库
     cd show-helloworld
+    echo "----------FFFFFFFFFFFFF----------"
     ls
+    echo "----------GGGGGGGGGGGGG----------"
     # 标记推送
     git add $versionDir
     git commit -m "[CD-build.sh]将$versionDir部署到pages"
