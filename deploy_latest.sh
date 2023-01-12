@@ -18,6 +18,10 @@ fi
 git_hub_usernamne=$2
 git_hub_token=$3
 
+git config --global user.email "${git_hub_usernamne}"
+git config --global user.name "${git_hub_usernamne}"
+git config --global user.password "${git_hub_token}"
+
 # 推送至show-helloworld
 if [ -d "show-helloworld" ]; then
     rm -rf show-helloworld
