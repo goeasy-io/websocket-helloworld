@@ -19,8 +19,8 @@ fi
 if [ -d "show-helloworld" ]; then
     rm -rf show-helloworld
 fi
-echo "https://${git_usernamne}:${git_password}@gitee.com/goeasy-io/show-helloworld.git"
-git clone https://${git_usernamne}:${git_password}@gitee.com/goeasy-io/show-helloworld.git
+echo "https://user:$git_hub_token@ghproxy.com/https://github.com/goeasy-io/show-helloworld.git"
+git clone https://user:$git_hub_token@ghproxy.com/https://github.com/goeasy-io/show-helloworld.git show-helloworld
 cd show-helloworld
 # 传入的versionDir不存在退出执行
 if [ -d $versionDir ]
@@ -36,14 +36,10 @@ if [ -d "index.html" ]; then
 fi
 # 拷贝versionDir下的index.html到根目录index.html
 cp $versionDir/index.html index.html
-# 设置信息
-git config user.name "${git_usernamne}"
-git config user.password "${git_password}"
-git config user.email "${git_email}"
 # 标记推送
 git add .
 git commit -m "[deploy.sh]将[$versionDir]版本部署到pages"
-git push
+git push -u origin main
 # 退出当前目录
 cd ../
 # 清理本地目录
