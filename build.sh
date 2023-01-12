@@ -142,6 +142,7 @@ deploy() {
     if [ -d "show-helloworld" ]; then
       rm -rf show-helloworld
     fi
+     echo "----------https://oauth2:$git_hub_token@github.com/goeasy-io/show-helloworld.git----------"
     git clone https://oauth2:$git_hub_token@github.com/goeasy-io/show-helloworld.git show-helloworld
     ls
     # 清除老数据
