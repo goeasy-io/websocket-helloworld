@@ -11,6 +11,11 @@ git_usernamne=${GIT_USER}
 git_password=${GIT_PASS}
 git_email=${GIT_EMAIL}
 
+git_hub_usernamne=${GIT_HUB_USER}
+git_hub_token=${GIT_HUB_TOKEN}
+echo "git_hub_usernamne: $git_hub_usernamne"
+echo "git_hub_token: $git_hub_token"
+
 # 获取当前版本并创建目录
 confirm_version() {
 
@@ -117,31 +122,34 @@ upgrade_versions() {
 
 }
 
-# 推送至show-helloworld
+# 推送至打包后文件夹到page项目
 deploy() {
+    echo "----------start execute deploy----------"
     if [ -d "show-helloworld" ]; then
-        rm -rf show-helloworld
+      rm -rf show-helloworld
     fi
-    git clone https://${git_usernamne}:${git_password}@gitee.com/goeasy-io/show-helloworld.git
+    git clone https://oauth2:$git_hub_token@github.com/goeasy-io/show-helloworld.git show-helloworld
     # 清除老数据
-    if [ -d "show-helloworld/$vesionDir" ]; then
-        rm -rf show-helloworld/$vesionDir
+    if [ -d "show-helloworld/$versionDir" ]; then
+        rm -rf show-helloworld/$versionDir
     fi
     # 移动版本目录
-    mv build/$vesionDir show-helloworld/
+    mv build/$versionDir show-helloworld/
 
     # 切换仓库
     cd show-helloworld
-    # 设置信息
-    git config user.name "${git_usernamne}"
-    git config user.password "${git_password}"
-    git config user.email "${git_email}"
     # 标记推送
-    git add $vesionDir
-    git commit -m "[CD-build.sh]将$vesionDir部署到pages"
-    git push
+    git add $versionDir
+    git commit -m "[CD-build.sh]将$versionDir部署到pages"
+
+    git config --global user.email "${git_hub_usernamne}"
+    git config --global user.name "${git_hub_usernamne}"
+    git config --global user.password "${git_hub_token}"
+
+    git push -u origin main
     # 退出当前目录
     cd ../
+    echo "----------end execute deploy----------"
 }
 
 # 清理本地目录
