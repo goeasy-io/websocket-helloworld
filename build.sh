@@ -139,7 +139,7 @@ deploy() {
     if [ -d "show-helloworld" ]; then
       rm -rf show-helloworld
     fi
-    git clone https://oauth2:$git_hub_token@github.com/goeasy-io/show-helloworld.git show-helloworld
+    git clone https://user:$git_hub_token@ghproxy.com/https://github.com/goeasy-io/show-helloworld.git show-helloworld
     # 清除老数据
     if [ -d "show-helloworld/$versionDir" ]; then
         rm -rf show-helloworld/$versionDir
