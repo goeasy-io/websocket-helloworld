@@ -162,7 +162,7 @@ deploy() {
     du -sh *
     echo "----------ffffssssss----------"
     cd ../../
-
+    ls
     # 移动版本目录
     mv build/$versionDir show-helloworld/
     echo "----------DDDDDDDDDDDDD----------"
