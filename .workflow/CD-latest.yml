@@ -8,11 +8,13 @@ triggers:
       prefix:
         - 跑不通_master
 variables:
+  latest_version: ''
   global:
     - GIT_EMAIL
     - GIT_PASS
     - GIT_USER
-  latest_version: ''
+    - GIT_HUB_USER
+    - GIT_HUB_TOKEN
 stages:
   - name: stage-b9750053
     displayName: deploy
