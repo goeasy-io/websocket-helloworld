@@ -194,7 +194,7 @@ clear_file() {
 
 confirm_version
 make_build_folder
-#build_web
+build_web
 #build_uniapp
 copy_html
 if [ "$ACTION" != "" ]; then
