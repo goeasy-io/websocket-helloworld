@@ -149,6 +149,7 @@ deploy() {
     echo "----------fffff----------"
     cd show-helloworld
     ls
+    cd ../
     echo "----------gggg----------"
     # 清除老数据
     if [ -d "show-helloworld/$versionDir" ]; then
