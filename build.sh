@@ -158,7 +158,9 @@ deploy() {
     echo "----------BBBBBBBBBBB----------"
     ls
     echo "----------CCCCCCCCCCCC----------"
+    pwd
     cd build/$versionDir
+    pwd
     du -sh *
     echo "----------ffffssssss----------"
     cd ../../
