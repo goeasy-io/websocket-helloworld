@@ -15,6 +15,9 @@ else
   exit 1
 fi
 
+git_hub_usernamne=$2
+git_hub_token=$3
+
 # 推送至show-helloworld
 if [ -d "show-helloworld" ]; then
     rm -rf show-helloworld
