@@ -29,7 +29,7 @@ confirm_version() {
         # release 版本
         cd web-vue3
         currentVersion=$(npm version patch --no-git-tag-version)
-        vesionDir=${currentVersion:1}
+        versionDir=${currentVersion:1}
         git add .
 
         cd ../uniapp-vue
@@ -48,12 +48,12 @@ confirm_version() {
         # build 版本
         cd web-vue3
         currentVersion=$(npm run env | grep npm_package_version | cut -d '=' -f 2)
-        vesionDir=$currentVersion
+        versionDir=$currentVersion
     else
         # 本地开发 版本
         cd web-vue3
         currentVersion=$(npm run env | grep npm_package_version | cut -d '=' -f 2)
-        vesionDir="show-helloworld/"$currentVersion
+        versionDir="show-helloworld/"$currentVersion
     fi
     # 退回根目录
     cd ../
@@ -68,9 +68,9 @@ make_build_folder() {
     if [ -d "build" ]; then
         rm -rf build
     fi
-    mkdir -p build/$vesionDir
+    mkdir -p build/$versionDir
 
-    echo "made dir: build/$vesionDir"
+    echo "made dir: build/$versionDir"
     echo "----------end execute make_build_folder----------"
 }
 # 构建web服务
@@ -79,7 +79,7 @@ build_web() {
     cd web-vue3
     npm install
     npm run build --appkey=$config_appkey
-    mv dist ../build/$vesionDir/web
+    mv dist ../build/$versionDir/web
     cd ../
     echo "----------end execute build_web----------"
 }
@@ -90,7 +90,7 @@ build_uniapp() {
     cd uniapp-vue
     npm install
     npm run build -- --appkey=$config_appkey
-    mv dist/build/h5 ../build/$vesionDir/uniapp
+    mv dist/build/h5 ../build/$versionDir/uniapp
     rm -rf dist
     cd ../
     echo "----------end execute build_uniapp----------"
@@ -99,13 +99,13 @@ build_uniapp() {
 # 拷贝index.html
 copy_html() {
     echo "----------start execute copy_html----------"
-    cp index.html build/$vesionDir/index.html
+    cp index.html build/$versionDir/index.html
     # 替换index.html中的路径
-    basePath="\/show-helloworld\/$vesionDir"
+    basePath="\/show-helloworld\/$versionDir"
     uniappPath=src\=$basePath\\/uniapp\\/
     webPath=src\=$basePath\\/web\\/
-    sed -i "s/src\=\"uniapp\/\"/$uniappPath/g" build/$vesionDir/index.html
-    sed -i "s/src\=\"web\/\"/$webPath/g" build/$vesionDir/index.html
+    sed -i "s/src\=\"uniapp\/\"/$uniappPath/g" build/$versionDir/index.html
+    sed -i "s/src\=\"web\/\"/$webPath/g" build/$versionDir/index.html
     echo "----------end execute copy_html----------"
 }
 
@@ -136,45 +136,20 @@ upgrade_versions() {
 
 # 推送至打包后文件夹到page项目
 deploy() {
-    echo "----------start execute deploy----------"
-    ls
-    echo "----------AAAAAAAAAAAAA----------"
     if [ -d "show-helloworld" ]; then
       rm -rf show-helloworld
     fi
-     echo "----------https://oauth2:$git_hub_token@github.com/goeasy-io/show-helloworld.git----------"
     git clone https://oauth2:$git_hub_token@github.com/goeasy-io/show-helloworld.git show-helloworld
-    du -sh *
-    ls
-    echo "----------fffff----------"
-    cd show-helloworld
-    ls
-    cd ../
-    echo "----------gggg----------"
     # 清除老数据
-#    if [ -d "show-helloworld/$versionDir" ]; then
-#        rm -rf show-helloworld/$versionDir
-#    fi
-    echo "----------BBBBBBBBBBB----------"
-    ls
-    echo "----------CCCCCCCCCCCC----------"
-    pwd
-    cd build/$versionDir
-    pwd
-    du -sh *
-    echo "----------ffffssssss----------"
-    cd ../../
-    ls
+    if [ -d "show-helloworld/$versionDir" ]; then
+        rm -rf show-helloworld/$versionDir
+    fi
     # 移动版本目录
     mv build/$versionDir show-helloworld/
-    echo "----------DDDDDDDDDDDDD----------"
-    ls
-    echo "----------EEEEEEEEEEEEE----------"
+
     # 切换仓库
     cd show-helloworld
-    echo "----------FFFFFFFFFFFFF----------"
-    ls
-    echo "----------GGGGGGGGGGGGG----------"
+
     # 标记推送
     git add $versionDir
     git commit -m "[CD-build.sh]将$versionDir部署到pages"
