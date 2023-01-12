@@ -152,9 +152,9 @@ deploy() {
     cd ../
     echo "----------gggg----------"
     # 清除老数据
-    if [ -d "show-helloworld/$versionDir" ]; then
-        rm -rf show-helloworld/$versionDir
-    fi
+#    if [ -d "show-helloworld/$versionDir" ]; then
+#        rm -rf show-helloworld/$versionDir
+#    fi
     echo "----------BBBBBBBBBBB----------"
     ls
     echo "----------CCCCCCCCCCCC----------"
