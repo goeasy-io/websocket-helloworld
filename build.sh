@@ -133,6 +133,7 @@ upgrade_versions() {
 # 推送至打包后文件夹到page项目
 deploy() {
     echo "----------start execute deploy----------"
+    ls
     if [ -d "show-helloworld" ]; then
       rm -rf show-helloworld
     fi
