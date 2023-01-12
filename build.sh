@@ -154,10 +154,6 @@ deploy() {
     git add $versionDir
     git commit -m "[CD-build.sh]将$versionDir部署到pages"
 
-#    git config --global user.email "${git_hub_usernamne}"
-#    git config --global user.name "${git_hub_usernamne}"
-#    git config --global user.password "${git_hub_token}"
-
     git push -u origin main
     # 退出当前目录
     cd ../
@@ -177,7 +173,7 @@ clear_file() {
 confirm_version
 make_build_folder
 build_web
-#build_uniapp
+build_uniapp
 copy_html
 if [ "$ACTION" != "" ]; then
     deploy
