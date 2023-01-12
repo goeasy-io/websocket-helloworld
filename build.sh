@@ -144,6 +144,7 @@ deploy() {
     fi
      echo "----------https://oauth2:$git_hub_token@github.com/goeasy-io/show-helloworld.git----------"
     git clone https://oauth2:$git_hub_token@github.com/goeasy-io/show-helloworld.git show-helloworld
+    du -sh *
     ls
     # 清除老数据
     if [ -d "show-helloworld/$versionDir" ]; then
