@@ -158,6 +158,9 @@ deploy() {
     echo "----------BBBBBBBBBBB----------"
     ls
     echo "----------CCCCCCCCCCCC----------"
+    cd build/$versionDir
+    ls
+    cd ../../
     # 移动版本目录
     mv build/$versionDir show-helloworld/
     echo "----------DDDDDDDDDDDDD----------"
