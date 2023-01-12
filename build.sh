@@ -6,13 +6,17 @@ if [ "$1" ]; then
     ACTION=$1
 fi
 
-config_appkey=${APPKEY}
-git_usernamne=${GIT_USER}
-git_password=${GIT_PASS}
-git_email=${GIT_EMAIL}
-
-git_hub_usernamne=${GIT_HUB_USER}
-git_hub_token=${GIT_HUB_TOKEN}
+config_appkey=$2
+git_email=$3
+git_usernamne=$4
+git_password=$5
+git_hub_usernamne=$6
+git_hub_token=$7
+echo "action: $ACTION"
+echo "config_appkey: $config_appkey"
+echo "git_email: $git_email"
+echo "git_usernamne: $git_usernamne"
+echo "git_password: $git_password"
 echo "git_hub_usernamne: $git_hub_usernamne"
 echo "git_hub_token: $git_hub_token"
 
@@ -133,7 +137,10 @@ upgrade_versions() {
 # 推送至打包后文件夹到page项目
 deploy() {
     echo "----------start execute deploy----------"
+    cd build/$versionDir
     ls
+    cd ../
+    cd ../
     if [ -d "show-helloworld" ]; then
       rm -rf show-helloworld
     fi
