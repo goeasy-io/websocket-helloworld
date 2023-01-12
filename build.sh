@@ -18,7 +18,7 @@ echo "git_hub_token: $git_hub_token"
 
 # 获取当前版本并创建目录
 confirm_version() {
-
+    echo "----------start execute confirm_version----------"
     originBranch=$(git rev-parse --abbrev-ref HEAD)
 
     if [ "$ACTION" = "r" ]; then
@@ -54,12 +54,12 @@ confirm_version() {
     # 退回根目录
     cd ../
     echo "version confirmed:$currentVersion"
-
+    echo "----------end execute confirm_version----------"
 }
 
 # 获取当前版本并创建目录
 make_build_folder() {
-
+    echo "----------start execute make_build_folder----------"
     # 创建版本目录
     if [ -d "build" ]; then
         rm -rf build
@@ -67,28 +67,34 @@ make_build_folder() {
     mkdir -p build/$vesionDir
 
     echo "made dir: build/$vesionDir"
+    echo "----------end execute make_build_folder----------"
 }
 # 构建web服务
 build_web() {
+    echo "----------start execute build_web----------"
     cd web-vue3
     npm install
     npm run build --appkey=$config_appkey
     mv dist ../build/$vesionDir/web
     cd ../
+    echo "----------end execute build_web----------"
 }
 
 # 构建custiner服务
 build_uniapp() {
+    echo "----------start execute build_uniapp----------"
     cd uniapp-vue
     npm install
     npm run build -- --appkey=$config_appkey
     mv dist/build/h5 ../build/$vesionDir/uniapp
     rm -rf dist
     cd ../
+    echo "----------end execute build_uniapp----------"
 }
 
 # 拷贝index.html
 copy_html() {
+    echo "----------start execute copy_html----------"
     cp index.html build/$vesionDir/index.html
     # 替换index.html中的路径
     basePath="\/show-helloworld\/$vesionDir"
@@ -96,10 +102,12 @@ copy_html() {
     webPath=src\=$basePath\\/web\\/
     sed -i "s/src\=\"uniapp\/\"/$uniappPath/g" build/$vesionDir/index.html
     sed -i "s/src\=\"web\/\"/$webPath/g" build/$vesionDir/index.html
+    echo "----------end execute copy_html----------"
 }
 
 # 升级web服务的版本
 upgrade_versions() {
+    echo "----------start execute upgrade_versions----------"
     if [ "$ACTION" = "r" ]; then
         git checkout -f $originBranch
     fi
@@ -119,7 +127,7 @@ upgrade_versions() {
     git push -u origin $originBranch
 
     echo "$currentVersion is build, next version $nextVersion"
-
+    echo "----------end execute upgrade_versions----------"
 }
 
 # 推送至打包后文件夹到page项目
@@ -138,6 +146,7 @@ deploy() {
 
     # 切换仓库
     cd show-helloworld
+    ls
     # 标记推送
     git add $versionDir
     git commit -m "[CD-build.sh]将$versionDir部署到pages"
@@ -154,10 +163,12 @@ deploy() {
 
 # 清理本地目录
 clear_file() {
+    echo "----------start execute clear_file----------"
     rm -rf show-helloworld
     rm -rf build
     rm -rf uniapp-vue/node_modules
     rm -rf web-vue3/node_modules
+    echo "----------end execute clear_file----------"
 }
 
 confirm_version
