@@ -2,10 +2,6 @@
 # 开启错误退出
 set -e
 
-git_usernamne=${GIT_USER}
-git_password=${GIT_PASS}
-git_email=${GIT_EMAIL}
-
 if ([ "$1" ])
 then
     versionDir=$1
