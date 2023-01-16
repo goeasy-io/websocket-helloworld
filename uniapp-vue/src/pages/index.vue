@@ -64,9 +64,9 @@ function subscribe () {
 
 function sendMessage () {
     if (message.value.trim() != "") {
-        let body = message.value;
+        let notificationBody = message.value;
         if (message.value.length >= 50) {
-            body = message.value.substring(0, 30) + "...";
+          notificationBody = message.value.substring(0, 30) + "...";
         }
         goEasy.pubsub.publish({
             channel: "my_channel",
@@ -75,7 +75,7 @@ function sendMessage () {
             //若不需要通知栏提醒，可以直接删掉notification
             notification: {
                 title: "收到一条新消息",
-                body: body      // 字段最长50字符
+                body: notificationBody      // 字段最长50字符
             },
             onSuccess: () =>  {
                 message.value = ''; //清空发送消息内容
