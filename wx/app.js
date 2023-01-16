@@ -11,26 +11,6 @@ App({
     },
     onLaunch: function () {
         this.extendDateFormat();
-
-        //建立连接
-        this.globalData.goEasy.connect({
-            onSuccess: function () {
-                console.log("GoEasy connect successfully.")
-            },
-            onFailed: function (error) {
-                console.log("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
-                wx.showModal({
-                    icon: "none",
-                    title: error.code.toString(),
-                    content: error.content,
-                    showCancel: false,
-                    duration: 6000
-                });
-            },
-            onProgress: function (attempts) {
-                console.log("GoEasy is connecting", attempts);
-            }
-        });
     },
     extendDateFormat() {
         Date.prototype.formatDate = function (fmt) {

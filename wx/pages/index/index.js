@@ -5,39 +5,62 @@ Page({
         message: "",
         messages: []
     },
-    onLoad: function () {
-		var self = this;
-		//接收（订阅)消息
-		pubSub.subscribe({
-		    channel: "my_channel",
-		    onMessage: function (message) {
-		        self.unshiftMessage(message.content);
-		    },
-		    onSuccess: function () {
-		        self.unshiftMessage('订阅成功.');
-		    },
-            onFailed: function (error) {
-                self.unshiftMessage("订阅失败，错误编码："+error.code+" 错误信息："+error.content);
-            }
-		});
+    onLoad() {
+        this.connectGoEasy();
     },
-    sendMessage: function () {
-        var self = this;
+    connectGoEasy() {
+        //建立连接
+        goEasy.connect({
+            onSuccess: () => {
+                console.log("GoEasy connect successfully.")
+                this.subscribe();
+            },
+            onFailed: (error) => {
+                console.log("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
+                wx.showModal({
+                    icon: "none",
+                    title: error.code.toString(),
+                    content: error.content,
+                    showCancel: false,
+                    duration: 6000
+                });
+            },
+            onProgress: (attempts) => {
+                console.log("GoEasy is connecting", attempts);
+            }
+        });
+    },
+    subscribe() {
+        //接收（订阅)消息
+        pubSub.subscribe({
+            channel: "my_channel",
+            onMessage: (message) => {
+                this.unshiftMessage(message.content);
+            },
+            onSuccess: () => {
+                this.unshiftMessage('订阅成功.');
+            },
+            onFailed: (error) => {
+                this.unshiftMessage("订阅失败，错误编码："+error.code+" 错误信息："+error.content);
+            }
+        });
+    },
+    sendMessage() {
         var content = this.data.message;
         if (content.trim() != '') {
             //发送消息
             pubSub.publish({
                 channel: "my_channel",
-                message: self.data.message,
-                onSuccess: function () {
+                message: this.data.message,
+                onSuccess: () => {
                     //清空发送消息内容
-                    self.setData({
+                    this.setData({
                         message: ''
                     });
                     console.log("send message success");
                 },
-                onFailed: function (error) {
-                    self.unshiftMessage("消息发送失败，错误编码："+error.code+" 错误信息："+error.content);
+                onFailed: (error) => {
+                    this.unshiftMessage("消息发送失败，错误编码："+error.code+" 错误信息："+error.content);
                 }
             });
         }
