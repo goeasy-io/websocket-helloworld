@@ -1,12 +1,13 @@
 <script>
+  import {inject} from 'vue'
   export default {
     globalData:{
 
     },
     onLaunch: function() {
-
-      //为了支持nvue能读到全局对象. 如果不需要支持nvue，main.js里挂在Vue.prototype,其他页面通过this.goEasy就可以获取
-      this.globalData.goEasy = this.goEasy;
+      const goEasy = inject('goEasy');
+      //为了支持nvue能读到全局对象. 如果不需要支持nvue，main.js里app.provide,其他页面通过inject就可以获取
+      this.globalData.goEasy = goEasy;
 
       console.log("App onLaunch");
     },

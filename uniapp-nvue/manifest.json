@@ -96,5 +96,6 @@
     },
     "mp-toutiao" : {
         "usingComponents" : true
-    }
+    },
+    "vueVersion" : "3"
 }
