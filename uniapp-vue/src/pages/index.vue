@@ -33,6 +33,7 @@ function connectGoEasy () {
     goEasy.connect({
         onSuccess: () => {
             console.log("GoEasy connect successfully.")
+            unshiftMessage("连接成功")
         },
         onFailed: (error) =>  {
             console.log("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
@@ -137,7 +138,7 @@ function formatDate(date, format) {
 .header .title {
     height: 25px;
     line-height: 25px;
-    font-size: 24px;
+    font-size: 21px;
 }
 
 .header .description {
