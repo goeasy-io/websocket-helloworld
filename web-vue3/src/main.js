@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router'
 import GoEasy from 'goeasy'
 
 const goEasy = GoEasy.getInstance({
@@ -10,7 +11,6 @@ const goEasy = GoEasy.getInstance({
 
 
 const app = createApp(App)
-app.provide('GoEasy', GoEasy);
 app.provide('goEasy', goEasy);
 
-app.mount('#app')
+app.use(router).mount('#app')

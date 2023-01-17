@@ -1,5 +1,5 @@
 //app.js
-import GoEasy from './utils/goeasy-2.5.11.min.js';
+import GoEasy from './utils/goeasy-2.5.20.min.js';
 
 App({
     globalData: {
@@ -11,26 +11,6 @@ App({
     },
     onLaunch: function () {
         this.extendDateFormat();
-
-        //建立连接
-        this.globalData.goEasy.connect({
-            onSuccess: function () {
-                console.log("GoEasy connect successfully.")
-            },
-            onFailed: function (error) {
-                console.log("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
-                wx.showModal({
-                    icon: "none",
-                    title: error.code.toString(),
-                    content: error.content,
-                    showCancel: false,
-                    duration: 6000
-                });
-            },
-            onProgress: function (attempts) {
-                console.log("GoEasy is connecting", attempts);
-            }
-        });
     },
     extendDateFormat() {
         Date.prototype.formatDate = function (fmt) {
@@ -48,7 +28,7 @@ App({
             for (var k in o)
                 if (o.hasOwnProperty(k)) {
                     if (new RegExp("(" + k + ")").test(fmt))
-                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 }
             return fmt;
         };

@@ -8,8 +8,9 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "goeasy": "^2.5.14",
-    "vue": "^3.2.13"
+    "goeasy": "^2.5.20",
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
