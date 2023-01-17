@@ -1,6 +1,6 @@
 {
   "name": "uni-preset-vue",
-  "version": "1.0.3",
+  "version": "1.0.4-0",
   "scripts": {
     "dev:app": "uni -p app",
     "dev:app-android": "uni -p app-android",
