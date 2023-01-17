@@ -77,7 +77,7 @@ make_build_folder() {
 build_web() {
     echo "----------start execute build_web----------"
     cd web-vue3
-    npm install
+    npm ci
     npm run build --appkey=$config_appkey
     mv dist ../build/$versionDir/web
     cd ../
@@ -88,7 +88,7 @@ build_web() {
 build_uniapp() {
     echo "----------start execute build_uniapp----------"
     cd uniapp-vue
-    npm install
+    npm ci
     npm run build --appkey=$config_appkey
     mv dist/build/h5 ../build/$versionDir/uniapp
     rm -rf dist
