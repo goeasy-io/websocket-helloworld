@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <view class="header">
-    <text class="title">GoEasy示例</text>
+    <text class="title">GoEasy微信小程序示例</text>
     <text class="description">Hello World</text>
   </view>
   <view class="send-box">

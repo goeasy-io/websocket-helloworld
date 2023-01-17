@@ -1,7 +1,7 @@
 <template>
     <view class="content">
         <view class="header">
-            <view class="title">GoEasy示例</view>
+            <view class="title">GoEasy Uniapp VUE3示例</view>
             <view class="description">Hello world</view>
         </view>
         <view class="send-box">

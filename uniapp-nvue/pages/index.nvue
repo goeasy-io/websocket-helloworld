@@ -1,7 +1,7 @@
 <template>
   <view class="content">
     <view class="header">
-      <text class="uni-title">GoEasy示例</text>
+      <text class="uni-title">GoEasy Uniapp NVUE3</text>
       <text class="uni-description">Hello world</text>
     </view>
     <view class="sendbox">

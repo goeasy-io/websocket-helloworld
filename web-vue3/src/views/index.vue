@@ -2,7 +2,7 @@
   <div class="index">
     <div class="container">
       <div class="header">
-        <span class="title">GoEasy示例</span>
+        <span class="title">GoEasy VUE3示例</span>
         <span class="description">Hello World</span>
       </div>
       <div class="send-box">

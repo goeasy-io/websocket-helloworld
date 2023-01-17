@@ -47,7 +47,7 @@ Page({
     },
     sendMessage() {
         var content = this.data.message;
-        if (content.trim() != '') {
+        if (content.trim() !== '') {
             //发送消息
             pubSub.publish({
                 channel: "my_channel",
