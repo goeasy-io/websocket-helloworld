@@ -1,25 +1,28 @@
-# PC版(H5) Demo运行步骤
+## GoEasy Websocket Vue3 HelloWorld示例运行步骤
 
+### 免费获取appkey
+1. 访问[GoEasy官网](https://www.goeasy.io)进行注册
+2. 登陆后，创建一个应用
+3. 进入应用详情，即可看到自己的appkey
 
-## 获取设置appkey
-* 访问http://www.goeasy.io  注册GoEasy账号，创建应用，获得appkey
-* 在main.js里将appkey替换为您自己的common key，运行即可
+### 替换appkey
+打开main.js，找到初始化GoEasy的地方，将appkey替换成您应用的common key
 
-## 运行步骤
+### 运行步骤
 
-将目录切换到helloworld/web/
+将目录切换到helloworld/web-vue3/
 
-#### 安装依赖
+##### 安装依赖
 ```
 npm ci
 ```
 
-#### 运行服务
+##### 运行服务
 
 ```
 npm run serve
 ```
 
-## 体验
-打开浏览器即可体验
 
+### 体验
+建议可以同时运行在多个浏览器窗口，体验多个客户端之间互动。

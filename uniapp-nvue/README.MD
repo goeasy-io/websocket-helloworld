@@ -1,18 +1,16 @@
-## 支持App,NVUE,VUE,H5,微信小程序和厂商通道
+## GoEasy Websocket Uniapp helloWorld示例(NVUE)运行步骤
 
-### 替换您的appkey
-打开app.vue，找到初始化GoEasy的地方，将appkey替换成您自己的appkey。  
 
-### 小程序注意事项
-如果开发微信小程序，需要登录到微信官方后台，将wx-hangzhou.goeasy.io加入到socket合法域名列表
+### 免费获取appkey
+1. 访问[GoEasy官网](https://www.goeasy.io)进行注册
+2. 登陆后，创建一个应用
+3. 进入应用详情，即可看到自己的appkey
 
-### 还没有appkey？  
-1. 请先去[GoEasy官网](https://www.goeasy.io)进行注册
-2. 创建一个应用
-3. 在应用详情页面即可查看到appkey
+### 替换appkey
+打开main.js，找到初始化GoEasy的地方，将appkey替换成您应用的common key  
 
 ### 体验
-建议可以同时在浏览器和手机同时运行，体验多个客户端之间互动。
+建议可以同时在多个手机运行，体验多个客户端之间互动。
 
 ### 体验通知栏提醒
 * 将Uniapp应用运行到手机上
@@ -22,6 +20,7 @@
     * 若手机APP在后台运行，手机收到通知栏提醒
 
 ### 接入厂商通道
-如果希望APP进程被杀掉后，仍然可以收到通知栏提醒，必须要接入厂商通道，详情请参阅[GoEasy接入厂商通道教程](https://www.goeasy.io/cn/doc/notification/manufacturer_integration.html)。
+如果希望APP进程被杀掉后，仍然可以收到通知栏提醒，必须要接入厂商通道，详情请参阅[GoEasy接入厂商通道教程](https://docs.goeasy.io/2.x/common/notification/manufacturer_integration)。
+
 
 
