@@ -12,10 +12,10 @@ variables:
     - ACTION
     - APPKEY
     - GIT_EMAIL
+    - GIT_HUB_TOKEN
+    - GIT_HUB_USER
     - GIT_PASS
     - GIT_USER
-    - GIT_HUB_USER
-    - GIT_HUB_TOKEN
 stages:
   - name: stage-e5664bd5
     displayName: Build
@@ -26,7 +26,7 @@ stages:
       - step: build@nodejs
         name: build_nodejs
         displayName: Nodejs 构建
-        nodeVersion: 14.16.0
+        nodeVersion: 16.14.2
         commands:
           - '# 设置信息'
           - git remote rm origin
