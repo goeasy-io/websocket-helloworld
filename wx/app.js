@@ -1,5 +1,5 @@
 //app.js
-import GoEasy from './utils/goeasy-2.5.11.min.js';
+import GoEasy from './utils/goeasy-2.5.20.min.js';
 
 App({
     globalData: {

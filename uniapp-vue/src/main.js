@@ -1,5 +1,5 @@
 import App from './App'
-import GoEasy from './lib/goeasy.esm.min.js'
+import GoEasy from './lib/goeasy-2.5.20.esm.min.js'
 
 const goEasy = GoEasy.getInstance({
   host:"hangzhou.goeasy.io",//应用所在的区域地址: 【hangzhou.goeasy.io |singapore.goeasy.io】
