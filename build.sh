@@ -89,7 +89,7 @@ build_uniapp() {
     echo "----------start execute build_uniapp----------"
     cd uniapp-vue
     npm install
-    npm run build -- --appkey=$config_appkey
+    npm run build --appkey=$config_appkey
     mv dist/build/h5 ../build/$versionDir/uniapp
     rm -rf dist
     cd ../
