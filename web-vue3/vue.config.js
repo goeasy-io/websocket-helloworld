@@ -1,12 +1,10 @@
 // 运行 npm run serve --appkey=BC-xxxxxxx
 
-let argv = process.env.npm_config_argv;
+let argv = process.argv;
 if (argv) {
-  argv = JSON.parse(argv);
-  const cooked = argv.cooked;
-  const length = argv.cooked.length;
+  const length = argv.length;
   if (!process.env.VUE_APP_APPKEY) {
-    process.env.VUE_APP_APPKEY = cooked[length - 1]
+      process.env.VUE_APP_APPKEY = argv[length - 1].split('--')[1];
   }
 }
 const config = require('./package.json');
