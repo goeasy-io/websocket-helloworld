@@ -2,8 +2,8 @@
   <div class="index">
     <div class="container">
       <div class="header">
-        <span class="title">GoEasy VUE3示例</span>
-        <span class="description">Hello World</span>
+        <span class="title">GoEasy Websocket Hello world</span>
+        <span class="description">VUE3示例</span>
       </div>
       <div class="send-box">
         <input v-model="content"/>
