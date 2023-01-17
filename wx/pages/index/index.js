@@ -6,14 +6,15 @@ Page({
         messages: []
     },
     onLoad() {
+        //建立连接
         this.connectGoEasy();
+        //接收（订阅)消息
+        this.subscribe();
     },
     connectGoEasy() {
-        //建立连接
         goEasy.connect({
             onSuccess: () => {
                 console.log("GoEasy connect successfully.")
-                this.subscribe();
             },
             onFailed: (error) => {
                 console.log("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
@@ -31,7 +32,6 @@ Page({
         });
     },
     subscribe() {
-        //接收（订阅)消息
         pubSub.subscribe({
             channel: "my_channel",
             onMessage: (message) => {

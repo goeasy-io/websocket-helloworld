@@ -26,18 +26,19 @@
   let content = ref('');
 
   onBeforeMount(() => {
+    //连接GoEasy
     connectGoEasy()
+    //接收消息
+    subscribe()
   })
 
   function connectGoEasy() {
-    //连接GoEasy
     goEasy.connect({
       onProgress: function (attempts) {
         console.log("GoEasy is connecting", attempts);
       },
       onSuccess: function () {
         console.log("GoEasy connect successfully.")
-        subscribe()
       },
       onFailed: function (error) {
         unshiftMessage("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
@@ -46,7 +47,6 @@
   }
 
   function subscribe() {
-    //接收消息
     goEasy.pubsub.subscribe({
       channel: "my_channel",
       onMessage: function (message) {
@@ -62,7 +62,7 @@
   }
 
   function sendMessage() {//发送消息
-    if (content.value.trim() != '') {
+    if (content.value.trim() !== '') {
       //发送消息
       goEasy.pubsub.publish({
         channel: "my_channel",
@@ -99,7 +99,7 @@
     for (let k in o)
       if (o.hasOwnProperty(k)) {
         if (new RegExp("(" + k + ")").test(format))
-          format = format.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+          format = format.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
       }
     return format;
   }

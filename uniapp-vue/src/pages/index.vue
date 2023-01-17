@@ -23,14 +23,16 @@ let message = ref('')
 let messages = ref([])
 
 onLoad(() => {
-    connectGoEasy();
+    //连接GoEasy
+    connectGoEasy()
+    //接收消息
+    subscribe()
 });
 
 function connectGoEasy () {
     goEasy.connect({
         onSuccess: () => {
             console.log("GoEasy connect successfully.")
-            subscribe()
         },
         onFailed: (error) =>  {
             console.log("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
@@ -63,7 +65,7 @@ function subscribe () {
 }
 
 function sendMessage () {
-    if (message.value.trim() != "") {
+    if (message.value.trim() !== "") {
         let notificationBody = message.value;
         if (message.value.length >= 50) {
           notificationBody = message.value.substring(0, 30) + "...";
@@ -108,7 +110,7 @@ function formatDate(date, format) {
     for (let k in o)
         if (o.hasOwnProperty(k)) {
             if (new RegExp("(" + k + ")").test(format))
-                format = format.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                format = format.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
         }
     return format;
 }
@@ -118,10 +120,8 @@ function formatDate(date, format) {
 <style>
 .content {
     padding: 20px 20px 0 20px;
-    font-family: Source Han Sans CN;
     width: 100%;
     height: 100%;
-    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     overflow: hidden;
