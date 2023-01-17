@@ -2,8 +2,8 @@
   <div class="index">
     <div class="container">
       <div class="header">
-        <span class="title">GoEasy VUE3示例</span>
-        <span class="description">Hello World</span>
+        <span class="title">GoEasy Websocket示例</span>
+        <span class="description">Vue3 Hello world</span>
       </div>
       <div class="send-box">
         <input v-model="content"/>
@@ -133,13 +133,13 @@
 
   .header .title {
     font-size: 24px;
+    font-weight: bold;
   }
 
   .header .description {
     margin-top: 10px;
     font-size: 28px;
     line-height: 25px;
-    font-weight: bold;
   }
 
   .send-box {

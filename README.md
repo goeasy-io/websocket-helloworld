@@ -11,7 +11,7 @@
 
 
 ## 体验在线示例和源码(免注册)
-* [GoEasy Websocket HelloWord在线体验](https://www.goeasy.io/cn/demos/demos.html#hello-world)
+* [GoEasy Websocket HelloWord在线体验](https://www.goeasy.io/cn/demos/demos.html#helloworld)
 
 
 ## Demo源码说明

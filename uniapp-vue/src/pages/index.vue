@@ -1,8 +1,8 @@
 <template>
     <view class="content">
         <view class="header">
-            <view class="title">GoEasy Uniapp VUE3示例</view>
-            <view class="description">Hello world</view>
+            <view class="title">GoEasy Websocket示例</view>
+            <view class="description">Uniapp Vue3 Hello world</view>
         </view>
         <view class="send-box">
             <input v-model="message"/>
@@ -138,14 +138,14 @@ function formatDate(date, format) {
 .header .title {
     height: 25px;
     line-height: 25px;
-    font-size: 21px;
+    font-size: 22px;
+    font-weight: bold;
 }
 
 .header .description {
     height: 25px;
     line-height: 25px;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 20px;
     margin-top: 10px;
 }
 
