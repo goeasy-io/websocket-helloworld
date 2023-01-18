@@ -2,11 +2,11 @@
   "name": "GoEasyDemo-uniapp-pubsub",
   "appid": "__UNI__15D433A",
   "description": "pubsub-helloworld",
-  "versionName": "1.0.4-0",
+  "versionName": "1.0.4-1",
   "versionCode": "100",
   "transformPx": false,
   "h5": {
-    "publicPath": "/show-helloworld/1.0.4-0/uniapp/",
+    "publicPath": "/show-helloworld/1.0.4-1/uniapp/",
     "devServer": {
       "port": 9007,
       "disableHostCheck": true,
@@ -14,7 +14,7 @@
     },
     "router": {
       "mode": "history",
-      "base": "/show-helloworld/1.0.4-0/uniapp/"
+      "base": "/show-helloworld/1.0.4-1/uniapp/"
     }
   },
   "app-plus": {
