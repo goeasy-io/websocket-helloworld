@@ -10,14 +10,14 @@
 .header .title {
   height: 50rpx;
   line-height: 50rpx;
-  font-size: 48rpx;
+  font-size: 44rpx;
+  font-weight: bold;
 }
 
 .header .description {
   height: 50rpx;
   line-height: 50rpx;
-  font-size: 56rpx;
-  font-weight: bold;
+  font-size: 40rpx;
   margin-top: 30rpx;
 }
 

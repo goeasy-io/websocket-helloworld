@@ -1,8 +1,8 @@
 <template>
   <view class="content">
     <view class="header">
-      <text class="uni-title">GoEasy Uniapp NVUE3</text>
-      <text class="uni-description">Hello world</text>
+      <text class="uni-title">GoEasy Websocket示例</text>
+      <text class="uni-description">Uniapp Vue3 Hello world</text>
     </view>
     <view class="sendbox">
       <input class="uni-input" v-model="message" />
@@ -131,19 +131,17 @@ function formatDate(date, format) {
   .uni-title {
     height: 25px;
     line-height: 25px;
-    font-size: 24px;
+    font-size: 22px;
     color: #D02129;
     font-weight: bold;
   }
 
   .uni-description {
     margin-top: 10px;
-    height: 28px;
-    line-height: 28px;
-    font-size: 28px;
-    font-weight: bold;
+    height: 25px;
+    line-height: 25px;
+    font-size: 20px;
     color: #D02129;
-    font-weight: bold;
   }
 
   .sendbox {
