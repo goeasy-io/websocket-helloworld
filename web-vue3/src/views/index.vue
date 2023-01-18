@@ -14,12 +14,14 @@
           <div class="message-text" v-for="(message, key) in messages" :key="key">{{ message }}</div>
         </div>
       </div>
+      <text class="version">{{ version }}</text>
     </div>
   </div>
 </template>
 
 <script setup>
   import {ref, onBeforeMount, inject} from 'vue';
+  import { version } from '../../package.json';
   const goEasy = inject('goEasy');
 
   let messages = ref([]);
@@ -182,6 +184,13 @@
 
   .message-text {
     padding: 4px 11px;
+  }
+
+  .version {
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 30px;
+    font-size: 18px;
   }
 
 </style>

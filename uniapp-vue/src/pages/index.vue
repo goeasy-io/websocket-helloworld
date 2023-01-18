@@ -11,12 +11,15 @@
         <view class="message-content">
             <view class="message-text" v-for="(msg, index) in messages" :key="index">{{ msg }}</view>
         </view>
+        <view class="version">{{ versionName }}</view>
     </view>
 </template>
 
 <script setup>
 import {ref, inject} from 'vue'
 import {onLoad} from "@dcloudio/uni-app";
+import * as config from '../manifest.json';
+const versionName = config.versionName;
 const goEasy = inject('goEasy');
 
 let message = ref('')
@@ -184,5 +187,13 @@ function formatDate(date, format) {
 
 .message-text {
     padding: 4px 11px;
+}
+
+.version {
+    text-align: center;
+    line-height: 30px;
+    font-size: 18px;
+    color: #FFFFFF;
+    user-select: text;
 }
 </style>
