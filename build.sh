@@ -175,17 +175,17 @@ clear_file() {
     echo "----------end execute clear_file----------"
 }
 
-#confirm_version
-#make_build_folder
-#build_web
-#build_uniapp
-#copy_html
-#if [ "$ACTION" != "" ]; then
-#    publish_ftp_server
-#    clear_file
-#    upgrade_versions
-#else
-#    # 启动静态页面服务
-#    cd build
-#    http-server .
-#fi
+confirm_version
+make_build_folder
+build_web
+build_uniapp
+copy_html
+if [ "$ACTION" != "" ]; then
+    publish_ftp_server
+    clear_file
+    upgrade_versions
+else
+    # 启动静态页面服务
+    cd build
+    http-server .
+fi
