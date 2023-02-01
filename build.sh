@@ -12,6 +12,10 @@ git_usernamne=$4
 git_password=$5
 git_hub_usernamne=$6
 git_hub_token=$7
+ftp_host=$8
+ftp_username=$9
+ftp_password=$10
+ftp_compressed=$11
 echo "action: $ACTION"
 echo "config_appkey: $config_appkey"
 echo "git_email: $git_email"
@@ -134,30 +138,27 @@ upgrade_versions() {
     echo "----------end execute upgrade_versions----------"
 }
 
-# 推送至打包后文件夹到page项目
-deploy() {
-    if [ -d "show-helloworld" ]; then
-      rm -rf show-helloworld
+# 提交压缩文件或非压缩文件到ftp服务器
+publish_ftp_server() {
+    npm ci
+    if [ "$ftp_compressed" = true ] ; then
+        echo "ftp upload compressed files"
+        mkdir $versionDir
+        cp -rf ./build/$versionDir/** ./$versionDir/
+        mkdir dist
+        tar -czvf ./dist/$versionDir.tar.gz ./$versionDir
+        node ftp-upload.js $ftp_host $ftp_username $ftp_password
+	      rm -rf dist
+        rm -rf $versionDir
+        rm -rf node_modules
+    else
+        echo 'ftp upload uncompressed files'
+        mkdir dist
+	      cp -rf ./build/$versionDir/ ./dist/
+        node ftp-upload.js $ftp_host $ftp_username $ftp_password
+        rm -rf dist
+        rm -rf node_modules
     fi
-    git clone https://user:$git_hub_token@ghproxy.com/https://github.com/goeasy-io/show-helloworld.git show-helloworld
-    # 清除老数据
-    if [ -d "show-helloworld/$versionDir" ]; then
-        rm -rf show-helloworld/$versionDir
-    fi
-    # 移动版本目录
-    mv build/$versionDir show-helloworld/
-
-    # 切换仓库
-    cd show-helloworld
-
-    # 标记推送
-    git add $versionDir
-    git commit -m "[CD-build.sh]将$versionDir部署到pages"
-
-    git push -u origin main
-    # 退出当前目录
-    cd ../
-    echo "----------end execute deploy----------"
 }
 
 # 清理本地目录
@@ -176,7 +177,7 @@ build_web
 build_uniapp
 copy_html
 if [ "$ACTION" != "" ]; then
-    deploy
+    publish_ftp_server
     clear_file
     upgrade_versions
 else

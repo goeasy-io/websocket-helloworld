@@ -1,5 +1,4 @@
 const FtpDeploy = require("ftp-deploy");
-const packageJson = require('./package.json');
 const ftpDeploy = new FtpDeploy();
 
 let argvs = process.argv.slice(2);
@@ -13,7 +12,7 @@ let config = {
     host: host,
     port: 21,
     localRoot: "./dist",
-    remoteRoot: "/htdocs/docs",
+    remoteRoot: "/htdocs/demo/helloworld",
     include: ["*", "**/*"],
     deleteRemote: false,
     forcePasv: true,
