@@ -16,6 +16,7 @@ ftp_host=$8
 ftp_username=$9
 ftp_password=$10
 ftp_compressed=$11
+echo ${ACTION} ${APPKEY} ${GIT_EMAIL} ${GIT_USER} ${GIT_PASS} ${GIT_HUB_USER} ${GIT_HUB_TOKEN} ${FTP_HOST} ${FTP_USER} ${FTP_PASS} ${FTP_UPLOAD_COMPRESSED}
 echo "action: $ACTION"
 echo "config_appkey: $config_appkey"
 echo "git_email: $git_email"
@@ -105,7 +106,7 @@ copy_html() {
     echo "----------start execute copy_html----------"
     cp index.html build/$versionDir/index.html
     # 替换index.html中的路径
-    basePath="\/show-helloworld\/$versionDir"
+    basePath="\/helloworld\/$versionDir"
     uniappPath=src\=$basePath\\/uniapp\\/
     webPath=src\=$basePath\\/web\\/
     sed -i "s/src\=\"uniapp\/\"/$uniappPath/g" build/$versionDir/index.html
@@ -171,17 +172,17 @@ clear_file() {
     echo "----------end execute clear_file----------"
 }
 
-confirm_version
-make_build_folder
-build_web
-build_uniapp
-copy_html
-if [ "$ACTION" != "" ]; then
-    publish_ftp_server
-    clear_file
-    upgrade_versions
-else
-    # 启动静态页面服务
-    cd build
-    http-server .
-fi
+#confirm_version
+#make_build_folder
+#build_web
+#build_uniapp
+#copy_html
+#if [ "$ACTION" != "" ]; then
+#    publish_ftp_server
+#    clear_file
+#    upgrade_versions
+#else
+#    # 启动静态页面服务
+#    cd build
+#    http-server .
+#fi
