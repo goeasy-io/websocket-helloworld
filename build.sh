@@ -16,7 +16,10 @@ ftp_host=$8
 ftp_username=$9
 ftp_password=$10
 ftp_compressed=$11
-echo ${ACTION} ${APPKEY} ${GIT_EMAIL} ${GIT_USER} ${GIT_PASS} ${GIT_HUB_USER} ${GIT_HUB_TOKEN} ${FTP_HOST} ${FTP_USER} ${FTP_PASS} ${FTP_UPLOAD_COMPRESSED}
+echo action:${ACTION}
+echo appkey: ${APPKEY}
+echo email: ${GIT_EMAIL}
+echo GIT_USER: ${GIT_USER} GIT_PASS:${GIT_PASS} GIT_HUB_USER:${GIT_HUB_USER} GIT_HUB_TOKEN:${GIT_HUB_TOKEN} FTP_HOST:${FTP_HOST} FTP_USER:${FTP_USER} FTP_PASS:${FTP_PASS} FTP_UPLOAD_COMPRESSED:${FTP_UPLOAD_COMPRESSED}
 echo "action: $ACTION"
 echo "config_appkey: $config_appkey"
 echo "git_email: $git_email"
