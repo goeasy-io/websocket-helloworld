@@ -6,20 +6,16 @@ if [ "$1" ]; then
     ACTION=$1
 fi
 
-config_appkey=$2
-git_email=$3
-git_usernamne=$4
-git_password=$5
-git_hub_usernamne=$6
-git_hub_token=$7
-ftp_host=$8
-ftp_username=$9
-ftp_password=$10
-ftp_compressed=$11
-echo action:${ACTION}
-echo appkey: ${APPKEY}
-echo email: ${GIT_EMAIL}
-echo GIT_USER: ${GIT_USER} GIT_PASS:${GIT_PASS} GIT_HUB_USER:${GIT_HUB_USER} GIT_HUB_TOKEN:${GIT_HUB_TOKEN} FTP_HOST:${FTP_HOST} FTP_USER:${FTP_USER} FTP_PASS:${FTP_PASS} FTP_UPLOAD_COMPRESSED:${FTP_UPLOAD_COMPRESSED}
+config_appkey=${APPKEY}
+git_email=${GIT_EMAIL}
+git_usernamne=${GIT_USER}
+git_password=${GIT_PASS}
+git_hub_usernamne=${GIT_HUB_USER}
+git_hub_token=${GIT_HUB_TOKEN}
+ftp_host=${FTP_HOST}
+ftp_username=${FTP_USER}
+ftp_password=${FTP_PASS}
+ftp_compressed=${FTP_UPLOAD_COMPRESSED}
 echo "action: $ACTION"
 echo "config_appkey: $config_appkey"
 echo "git_email: $git_email"
@@ -27,6 +23,10 @@ echo "git_usernamne: $git_usernamne"
 echo "git_password: $git_password"
 echo "git_hub_usernamne: $git_hub_usernamne"
 echo "git_hub_token: $git_hub_token"
+echo "ftp_host: $ftp_host"
+echo "ftp_username: $ftp_username"
+echo "ftp_password: $ftp_password"
+echo "ftp_compressed: $ftp_compressed"
 
 # 获取当前版本并创建目录
 confirm_version() {
