@@ -47,7 +47,7 @@ stages:
           - git config --global user.email "${GIT_EMAIL}"
           - ''
           - '# 执行构建脚本'
-          - bash build.sh ${ACTION} ${APPKEY} ${GIT_EMAIL} ${GIT_USER} ${GIT_PASS} ${GIT_HUB_USER} ${GIT_HUB_TOKEN} ${FTP_HOST} ${FTP_USER} ${FTP_PASS} ${FTP_UPLOAD_COMPRESSED}
+          - bash build.sh
         caches:
           - ~/.npm
           - ~/.yarn
