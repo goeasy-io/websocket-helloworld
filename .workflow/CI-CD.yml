@@ -16,8 +16,6 @@ variables:
     - FTP_UPLOAD_COMPRESSED
     - FTP_USER
     - GIT_EMAIL
-    - GIT_HUB_TOKEN
-    - GIT_HUB_USER
     - GIT_PASS
     - GIT_USER
 stages:
