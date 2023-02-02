@@ -30,19 +30,8 @@ stages:
         displayName: Nodejs 构建
         nodeVersion: 16.14.2
         commands:
-          - '# 设置信息'
-          - git remote rm origin
-          - git remote add origin https://${GIT_USER}:${GIT_PASS}@gitee.com/goeasy-io/helloworld.git
-          - ''
-          - '# 更新分支'
-          - git fetch
-          - ''
           - '# 设置NPM源，提升安装速度'
           - npm config set registry https://registry.npmmirror.com
-          - ''
-          - git config --global user.name "${GIT_USER}"
-          - git config --global user.password "${GIT_PASS}"
-          - git config --global user.email "${GIT_EMAIL}"
           - ''
           - '# 执行构建脚本'
           - bash build.sh
