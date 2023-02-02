@@ -123,7 +123,7 @@ function formatDate(date, format) {
 
 <style>
 .content {
-    padding: 20px 20px 0 20px;
+    padding: 40rpx 40rpx 0 40rpx;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -135,64 +135,65 @@ function formatDate(date, format) {
     flex-direction: column;
     align-items: center;
     color: #D02129;
-    margin-top: 50px;
+    margin-top: 100rpx;
 }
 
 .header .title {
-    height: 25px;
-    line-height: 25px;
-    font-size: 22px;
+    color: #D02129;
     font-weight: bold;
+    font-size: 52rpx;
+    line-height: 66rpx;
 }
 
 .header .description {
-    height: 25px;
-    line-height: 25px;
-    font-size: 20px;
-    margin-top: 10px;
+    color: #D02129;
+    font-size: 40rpx;
+    line-height: 66rpx;
 }
 
 .send-box {
     display: flex;
     flex-direction: row;
-    height: 40px;
-    margin-top: 32px;
-    margin-bottom: 32px;
+    height: 80rpx;
+    margin-top: 64rpx;
+    margin-bottom: 64rpx;
 }
 
 .send-box input {
     flex-grow: 1;
     background: #EFEFEF;
-    border: 1px solid #C8C7CC;
-    border-radius: 6px;
-    padding: 8px;
+    border: 2rpx solid #C8C7CC;
+    border-radius: 12rpx;
+    padding: 16rpx;
+    font-size: 28rpx;
 }
 
 .send-box text {
     color: #D02129;
-    margin-left: 9px;
-    font-size: 15px;
-    height: 40px;
-    line-height: 40px;
-    width: 40px;
+    margin-left: 18rpx;
+    font-size: 30rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    width: 80rpx;
     text-align: right;
 }
 
 .message-content {
-    min-height: 300px;
+    min-height: 500rpx;
     background: #FFFFFF;
-    border: 1px solid #DADADA;
-    margin-top: 26px;
+    border: 2rpx solid #DADADA;
+    margin-top: 52rpx;
 }
 
 .message-text {
-    padding: 4px 11px;
+    padding: 8rpx 22rpx;
+    font-size: 28rpx;
 }
 
 .version {
     text-align: center;
-    line-height: 30px;
-    font-size: 18px;
+    line-height: 60rpx;
+    font-size: 36rpx;
     color: #FFFFFF;
     user-select: text;
 }
