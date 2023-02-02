@@ -4,18 +4,12 @@ set -e
 
 action=${ACTION}
 config_appkey=${APPKEY}
-#git_email=${GIT_EMAIL}
-#git_username=${GIT_USER}
-#git_password=${GIT_PASS}
 ftp_host=${FTP_HOST}
 ftp_username=${FTP_USER}
 ftp_password=${FTP_PASS}
 ftp_compressed=${FTP_UPLOAD_COMPRESSED}
 echo "action: $action"
 echo "config_appkey: $config_appkey"
-#echo "git_email: $git_email"
-#echo "git_username: $git_username"
-#echo "git_password: $git_password"
 echo "ftp_host: $ftp_host"
 echo "ftp_username: $ftp_username"
 echo "ftp_password: $ftp_password"
@@ -123,10 +117,6 @@ upgrade_versions() {
     nextVersion=$(npm version prerelease --no-git-tag-version)
     node correctManifestVersion.js
     git add .
-    # 设置信息
-#    git config user.name "${git_username}"
-#    git config user.password "${git_password}"
-#    git config user.email "${git_email}"
     # 推送
     git commit -m "[CI-build.sh] 将版本号升级为：$nextVersion，为下个版本做准备"
     git push -u origin $originBranch
