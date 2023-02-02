@@ -2,36 +2,23 @@
 # 开启错误退出
 set -e
 
-if [ "$1" ]; then
-    ACTION=$1
-fi
-
-#config_appkey=${APPKEY}
-#git_email=${GIT_EMAIL}
-#git_usernamne=${GIT_USER}
-#git_password=${GIT_PASS}
-#git_hub_usernamne=${GIT_HUB_USER}
-#git_hub_token=${GIT_HUB_TOKEN}
-#ftp_host=${FTP_HOST}
-#ftp_username=${FTP_USER}
-#ftp_password=${FTP_PASS}
-#ftp_compressed=${FTP_UPLOAD_COMPRESSED}
-config_appkey=$2
-git_email=$3
-git_usernamne=$4
-git_password=$5
-git_hub_usernamne=$6
-git_hub_token=$7
-ftp_host=$8
-ftp_username=$9
-ftp_password=$10
-ftp_compressed=$11
-echo "action: $ACTION"
+action=${ACTION}
+config_appkey=${APPKEY}
+git_email=${GIT_EMAIL}
+git_usernamne=${GIT_USER}
+git_password=${GIT_PASS}
+git_hub_usernamne=${GIT_HUB_USER}
+git_hub_token=${GIT_HUB_TOKEN}
+ftp_host=${FTP_HOST}
+ftp_username=${FTP_USER}
+ftp_password=${FTP_PASS}
+ftp_compressed=${FTP_UPLOAD_COMPRESSED}
+echo "action: $action"
 echo "config_appkey: $config_appkey"
 echo "git_email: $git_email"
-echo "git_usernamne: $git_usernamne"
+echo "git_username: $git_username"
 echo "git_password: $git_password"
-echo "git_hub_usernamne: $git_hub_usernamne"
+echo "git_hub_username: $git_hub_username"
 echo "git_hub_token: $git_hub_token"
 echo "ftp_host: $ftp_host"
 echo "ftp_username: $ftp_username"
@@ -43,7 +30,7 @@ confirm_version() {
     echo "----------start execute confirm_version----------"
     originBranch=$(git rev-parse --abbrev-ref HEAD)
 
-    if [ "$ACTION" = "r" ]; then
+    if [ "$action" = "r" ]; then
         # release 版本
         cd web-vue3
         currentVersion=$(npm version patch --no-git-tag-version)
@@ -62,7 +49,7 @@ confirm_version() {
         git push origin $currentVersion
         git checkout $currentVersion
 
-    elif [ "$ACTION" = "b" ]; then
+    elif [ "$action" = "b" ]; then
         # build 版本
         cd web-vue3
         currentVersion=$(npm run env | grep npm_package_version | cut -d '=' -f 2)
@@ -130,7 +117,7 @@ copy_html() {
 # 升级web服务的版本
 upgrade_versions() {
     echo "----------start execute upgrade_versions----------"
-    if [ "$ACTION" = "r" ]; then
+    if [ "$action" = "r" ]; then
         git checkout -f $originBranch
     fi
     cd web-vue3
@@ -141,7 +128,7 @@ upgrade_versions() {
     node correctManifestVersion.js
     git add .
     # 设置信息
-    git config user.name "${git_usernamne}"
+    git config user.name "${git_username}"
     git config user.password "${git_password}"
     git config user.email "${git_email}"
     # 推送
@@ -190,12 +177,12 @@ make_build_folder
 build_web
 build_uniapp
 copy_html
-if [ "$ACTION" != "" ]; then
-    publish_ftp_server
-    clear_file
-    upgrade_versions
-else
+if [ "$action" = "" ]; then
     # 启动静态页面服务
     cd build
     http-server .
+else
+    publish_ftp_server
+    clear_file
+    upgrade_versions
 fi
