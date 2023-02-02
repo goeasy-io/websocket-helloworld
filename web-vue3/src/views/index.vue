@@ -119,14 +119,14 @@
 
   .container {
     width: 850px;
-    height: 650px;
+    height: 450px;
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
   }
 
   .header {
-    margin-top: 70px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -146,7 +146,7 @@
 
   .send-box {
     height: 40px;
-    margin: 32px 0;
+    margin: 16px 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -176,10 +176,9 @@
 
   .message-content {
     width: 700px;
-    margin-top: 20px;
     background-color: #FFFFFF;
     border: 1px solid #DADADA;
-    min-height: 300px;
+    min-height: 260px;
   }
 
   .message-text {
