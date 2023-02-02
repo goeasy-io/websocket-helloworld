@@ -12,7 +12,7 @@ let config = {
     host: host,
     port: 21,
     localRoot: "./dist",
-    remoteRoot: "/htdocs/demo/helloworld",
+    remoteRoot: "/htdocs/demo/show-helloworld",
     include: ["*", "**/*"],
     deleteRemote: false,
     forcePasv: true,

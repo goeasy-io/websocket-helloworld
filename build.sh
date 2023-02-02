@@ -96,7 +96,7 @@ copy_html() {
     echo "----------start execute copy_html----------"
     cp index.html build/$versionDir/index.html
     # 替换index.html中的路径
-    basePath="\/helloworld\/$versionDir"
+    basePath="\/show-helloworld\/$versionDir"
     uniappPath=src\=$basePath\\/uniapp\\/
     webPath=src\=$basePath\\/web\\/
     sed -i "s/src\=\"uniapp\/\"/$uniappPath/g" build/$versionDir/index.html
