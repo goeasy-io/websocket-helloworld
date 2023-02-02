@@ -6,16 +6,26 @@ if [ "$1" ]; then
     ACTION=$1
 fi
 
-config_appkey=${APPKEY}
-git_email=${GIT_EMAIL}
-git_usernamne=${GIT_USER}
-git_password=${GIT_PASS}
-git_hub_usernamne=${GIT_HUB_USER}
-git_hub_token=${GIT_HUB_TOKEN}
-ftp_host=${FTP_HOST}
-ftp_username=${FTP_USER}
-ftp_password=${FTP_PASS}
-ftp_compressed=${FTP_UPLOAD_COMPRESSED}
+#config_appkey=${APPKEY}
+#git_email=${GIT_EMAIL}
+#git_usernamne=${GIT_USER}
+#git_password=${GIT_PASS}
+#git_hub_usernamne=${GIT_HUB_USER}
+#git_hub_token=${GIT_HUB_TOKEN}
+#ftp_host=${FTP_HOST}
+#ftp_username=${FTP_USER}
+#ftp_password=${FTP_PASS}
+#ftp_compressed=${FTP_UPLOAD_COMPRESSED}
+config_appkey=$2
+git_email=$3
+git_usernamne=$4
+git_password=$5
+git_hub_usernamne=$6
+git_hub_token=$7
+ftp_host=$8
+ftp_username=$9
+ftp_password=$10
+ftp_compressed=$11
 echo "action: $ACTION"
 echo "config_appkey: $config_appkey"
 echo "git_email: $git_email"
