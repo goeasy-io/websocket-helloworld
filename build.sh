@@ -5,9 +5,9 @@ set -e
 action=${ACTION}
 config_appkey=${APPKEY}
 git_email=${GIT_EMAIL}
-git_usernamne=${GIT_USER}
+git_username=${GIT_USER}
 git_password=${GIT_PASS}
-git_hub_usernamne=${GIT_HUB_USER}
+git_hub_username=${GIT_HUB_USER}
 git_hub_token=${GIT_HUB_TOKEN}
 ftp_host=${FTP_HOST}
 ftp_username=${FTP_USER}
