@@ -6,7 +6,7 @@
         <span class="description">Vue3 Hello world</span>
       </div>
       <div class="send-box">
-        <input v-model="content"/>
+        <input v-model="content" @keydown="sendMessageByEnter" />
         <span @click="sendMessage">发送</span>
       </div>
       <div class="message-container">
@@ -62,6 +62,13 @@
         unshiftMessage("订阅失败，错误编码：" + error.code + " 错误信息：" + error.content);
       }
     });
+  }
+
+  function sendMessageByEnter(event) {
+    if (event.keyCode === 13) { // enter发送
+      event.preventDefault();
+      sendMessage();
+    }
   }
 
   function sendMessage() {//发送消息
@@ -126,7 +133,7 @@
   }
 
   .header {
-    margin-top: 10px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -134,27 +141,26 @@
   }
 
   .header .title {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
   }
 
   .header .description {
-    margin-top: 10px;
-    font-size: 28px;
+    font-size: 24px;
     line-height: 25px;
   }
 
   .send-box {
     height: 40px;
-    margin: 16px 0;
+    margin: 10px 0;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .send-box input {
-    width: 645px;
-    height: 40px;
+    width: 345px;
+    height: 30px;
     background: #EFEFEF;
     border: 1px solid #C8C7CC;
     outline: none;
@@ -175,11 +181,25 @@
   }
 
   .message-content {
+    margin-top: 15px;
     width: 700px;
     background-color: #FFFFFF;
     border: 1px solid #DADADA;
-    min-height: 260px;
+    height: 240px;
+    font-size: 15px;
+    overflow-y: auto;
+    scrollbar-width: thin;
   }
+
+  .message-content::-webkit-scrollbar {
+     width: 5px;
+     height: 5px;
+   }
+  /*滚动条里面小方块*/
+  .message-content::-webkit-scrollbar-thumb {
+     border-radius: 10px !important;
+     background:#b6b6b6!important;
+   }
 
   .message-text {
     padding: 4px 11px;

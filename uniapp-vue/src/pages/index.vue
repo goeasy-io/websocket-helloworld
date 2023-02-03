@@ -5,7 +5,7 @@
             <view class="description">Uniapp Vue3 Hello world</view>
         </view>
         <view class="send-box">
-            <input v-model="message"/>
+            <input v-model="message" @confirm="sendMessageByEnter"/>
             <text @click="sendMessage">发送</text>
         </view>
         <view class="message-content">
@@ -66,6 +66,11 @@ function subscribe () {
             unshiftMessage("订阅失败，错误编码：" + error.code + " 错误信息：" + error.content);
         }
     });
+}
+
+function sendMessageByEnter(event) {
+    message.value = event.detail.value;
+    sendMessage();
 }
 
 function sendMessage () {
@@ -179,10 +184,22 @@ function formatDate(date, format) {
 }
 
 .message-content {
-    min-height: 500rpx;
+    height: 750rpx;
+    overflow-y: auto;
     background: #FFFFFF;
     border: 2rpx solid #DADADA;
     margin-top: 52rpx;
+    scrollbar-width: thin;
+}
+
+.message-content::-webkit-scrollbar {
+   width: 10rpx;
+   height: 10rpx;
+}
+/*滚动条里面小方块*/
+.message-content::-webkit-scrollbar-thumb {
+   border-radius: 20rpx !important;
+   background:#b6b6b6!important;
 }
 
 .message-text {
