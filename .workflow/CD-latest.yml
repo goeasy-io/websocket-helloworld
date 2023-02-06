@@ -21,7 +21,7 @@ stages:
       - step: build@nodejs
         name: deploy
         displayName: deploy
-        nodeVersion: 14.16.0
+        nodeVersion: 16.14.2
         commands:
           - '# 执行部署脚本'
           - bash deploy_latest.sh
