@@ -2,9 +2,6 @@
 # 开启错误退出
 set -e
 
-ftp_host=${FTP_HOST}
-ftp_username=${FTP_USER}
-ftp_password=${FTP_PASS}
 publish_live_version () {
     dir=dist
     mkdir $dir
@@ -22,6 +19,10 @@ clear_useless_dir() {
     rm -rf node_modules
 }
 
+ftp_host=${FTP_HOST}
+ftp_username=${FTP_USER}
+ftp_password=${FTP_PASS}
+version=${latest_version}
 if [[ ${version} = "" ]]; then
     echo "version is not undefined"
 else
