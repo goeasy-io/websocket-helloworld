@@ -5,7 +5,7 @@
       <view class="description">Taro Vue3 Hello world</view>
     </view>
     <view class="send-box">
-      <input class="send-input" v-model="content" />
+      <input class="send-input" v-model="content"/>
       <view class="send-button" @tap="sendMessage">发送</view>
     </view>
     <view class="message-content">
@@ -17,6 +17,7 @@
 <script setup>
 import {ref, inject} from 'vue';
 import {useLoad} from '@tarojs/taro'
+
 const goEasy = inject('goEasy');
 
 let messages = ref([]);
@@ -108,6 +109,7 @@ function formatDate(date, format) {
   width: 100%;
   height: 100%;
 }
+
 .content {
   padding: 40px 40px 0 40px;
   display: flex;
@@ -176,10 +178,11 @@ function formatDate(date, format) {
   width: 10px;
   height: 10px;
 }
+
 /*滚动条里面小方块*/
 .message-content::-webkit-scrollbar-thumb {
   border-radius: 20px !important;
-  background:#b6b6b6!important;
+  background: #b6b6b6 !important;
 }
 
 .message-text {
