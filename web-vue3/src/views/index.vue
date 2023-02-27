@@ -38,9 +38,9 @@
     goEasy.connect({
       onProgress: function (attempts) {
         console.log("GoEasy is connecting", attempts);
-        unshiftMessage("连接成功")
       },
       onSuccess: function () {
+        unshiftMessage("连接成功")
         console.log("GoEasy connect successfully.")
       },
       onFailed: function (error) {

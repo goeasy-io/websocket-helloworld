@@ -19,9 +19,9 @@ export default class Index extends React.Component {
     window.goEasy.connect({
       onProgress: (attempts) => {
         console.log("GoEasy is connecting", attempts);
-        this.unshiftMessage("连接成功")
       },
       onSuccess: () => {
+        this.unshiftMessage("连接成功")
         console.log("GoEasy connect successfully.")
       },
       onFailed: (error) => {
@@ -52,7 +52,7 @@ export default class Index extends React.Component {
     }
   }
 
-  sendMessage = () => {//发送消息
+  sendMessage = () => {
     if (this.state.content.trim() !== '') {
       //发送消息
       window.goEasy.pubsub.publish({
@@ -74,10 +74,9 @@ export default class Index extends React.Component {
   unshiftMessage = (content) => {
     let formattedTime = this.formatDate(new Date(), "hh:mm");
     let message = formattedTime + " " + content;
-    let newMessages = this.state.messages;
-    newMessages.unshift(message);
+    this.state.messages.unshift(message);
     this.setState({
-      messages: newMessages
+      messages: this.state.messages
     })
   }
 
