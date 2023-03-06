@@ -6,6 +6,8 @@ publish_live_version () {
     dir=dist
     mkdir $dir
     cp -f index.html $dir
+    cp -f phone.png $dir
+    cp -f topbar.png $dir
     sed -i "s/src=\"uniapp\/\"/src=\"\/show-helloworld\/${version}\/uniapp\/\"/" $dir/index.html
     sed -i "s/src=\"web\/\"/src=\"\/show-helloworld\/${version}\/web\/\"/" $dir/index.html
 
