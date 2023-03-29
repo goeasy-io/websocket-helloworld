@@ -11,6 +11,30 @@
 * 历史消息查询
 * webhook支持同步用户在线状态和消息数据至指定服务器
 
+## 体验在线示例和源码
+#### [GoEasy Websocket HelloWord在线体验(免注册)](https://www.goeasy.io/cn/demos/demos.html#helloworld)
+#### Demo源码说明
+
+````
+helloworld------------------包含六个版本的PubSub聊天demo
+    ├── uniapp-vue----------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android）
+    │    └── src-------------源码根目录  
+    │         └── README.MD--运行步骤
+    ├── unicloud------------------支持Unicloud发送，可直接编译为H5，微信小程序和App（iOS/Android）
+    │    └── README.MD-------运行步骤
+    ├── uniapp-nvue---------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android）
+    │    └── README.MD-------运行步骤
+    ├── web-vue3------------------PC版Demo，基于vue3开发   
+    │    └── README.MD-------运行步骤
+    ├── web-react-----------------PC版Demo，基于React开发
+    │    └── README.MD-------运行步骤
+    ├── wx------------------------微信小程序原生开发
+    │    └── README.MD-------运行步骤
+    └── taro----------------------基于Taro，可直接编译为H5，微信小程序
+         └── README.MD-------运行步骤
+````
+
+
 ## GoEasy优势
 * 无需搭建Websocket服务 ，研发成本降低90%以上，无需购买服务器
 * 高并发、低延时，消息必达，支持百万级用户同时在线，每秒千万级消息实时必达
@@ -37,28 +61,5 @@
 
 ## 成功案例
 汉王集团、爱尔眼科、顾家家居、国家开放大学、一加手机、清华大学出版社、格林豪泰酒店集团、四川卫视、北京农林科学院、兰石集团、远洋集团...等等
-
-## 体验在线示例和源码
-#### [GoEasy Websocket HelloWord在线体验(免注册)](https://www.goeasy.io/cn/demos/demos.html#helloworld)
-#### Demo源码说明
-
-````
-helloworld------------------包含六个版本的PubSub聊天demo
-    ├── uniapp-vue----------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android）
-    │    └── src-------------源码根目录  
-    │         └── README.MD--运行步骤
-    ├── unicloud------------------支持Unicloud发送，可直接编译为H5，微信小程序和App（iOS/Android）
-    │    └── README.MD-------运行步骤
-    ├── uniapp-nvue---------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android）
-    │    └── README.MD-------运行步骤
-    ├── web-vue3------------------PC版Demo，基于vue3开发   
-    │    └── README.MD-------运行步骤
-    ├── web-react-----------------PC版Demo，基于React开发
-    │    └── README.MD-------运行步骤
-    ├── wx------------------------微信小程序原生开发
-    │    └── README.MD-------运行步骤
-    └── taro----------------------基于Taro，可直接编译为H5，微信小程序
-         └── README.MD-------运行步骤
-````
 
 
