@@ -26,3 +26,19 @@ npm run dev:TARO_ENV
 
 ### 体验
 建议可以同时运行在多个浏览器窗口，体验多个客户端之间互动。
+
+### 体验服务端发送
+可以用Postman或curl发送消息到GoEasy，体验服务端发送消息到客户端。
+
+````shell
+curl -X POST https://rest-hz.goeasy.io/v2/pubsub/publish \
+-H "Content-Type: application/json" \
+-d "{
+        'appkey':'您的appkey',
+        'channel':'test_channel',
+        'content':'Hello, GoEasy!'
+    }"
+    
+````
+
+
