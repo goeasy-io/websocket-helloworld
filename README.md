@@ -15,18 +15,22 @@
 #### [GoEasy Websocket HelloWord在线体验(免注册)](https://www.goeasy.io/cn/demos/demos.html#helloworld)
 #### Demo源码说明
 
+包含web-vue3、uniapp-vue3、uniapp-nvue、react、reactnative、Taro、微信小程序、unicloud共八个版本的GoEasy Webscoket消息推送示例
+
 ````
-helloworld------------------包含六个版本的PubSub聊天demo
-    ├── uniapp-vue----------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android）
+helloworld------------------包含八个版本的Websocket罅隙推送Demo
+    ├── uniapp-vue----------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android），通知栏推送支持厂商通道
     │    └── src-------------源码根目录  
     │         └── README.MD--运行步骤
-    ├── unicloud------------------支持Unicloud发送，可直接编译为H5，微信小程序和App（iOS/Android）
+    ├── unicloud------------------支持Unicloud发送，可直接编译为H5，微信小程序和App（iOS/Android），通知栏推送支持厂商通道
     │    └── README.MD-------运行步骤
-    ├── uniapp-nvue---------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android）
+    ├── uniapp-nvue---------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android），通知栏推送支持厂商通道
     │    └── README.MD-------运行步骤
     ├── web-vue3------------------PC版Demo，基于vue3开发   
     │    └── README.MD-------运行步骤
     ├── web-react-----------------PC版Demo，基于React开发
+    │    └── README.MD-------运行步骤
+    ├── reactnative-----------------PC版Demo，基于React开发
     │    └── README.MD-------运行步骤
     ├── wx------------------------微信小程序原生开发
     │    └── README.MD-------运行步骤
@@ -55,7 +59,7 @@ helloworld------------------包含六个版本的PubSub聊天demo
 ## 获得帮助和技术支持
 可查阅GoEasy开发文档，或者访问GoEasy官网，在线咨询技术人员，或拨打官方技术支持电话。
 * GoEasy Websocket技术交流QQ群：629573704
-* [GoEasy Websocket开发文档](https://docs.goeasy.io/2.x/pubsub)
+* [GoEasy Websocket开发文档](https://docs.goeasy.io/2.x/pubsub/get-start)
 * [GoEasy 官网](https://www.goeasy.io)
 
 
