@@ -2,11 +2,14 @@
   "id": "goeasy-websocket-unicloud",
   "displayName": "GoEasy Unicloud Websocket消息实时推送",
   "version": "1.0.3",
-  "description": "Unicloud发送Websocket实时消息，通知栏提醒，支持各个厂商通道推送",
+  "description": "Unicloud发送Websocket实时消息，通知栏提醒，支持各个厂商通道消息推送",
   "keywords": [
-    "goeasy-websocket-unicloud"
+    "unicloud",
+    "websocket",
+    "消息推送",
+    "厂商通道"
 ],
-  "repository": "",
+  "repository": "https://github.com/goeasy-io/websocket-helloworld",
   "engines": {
     "HBuilderX": "^3.1.0"
   },
@@ -28,7 +31,7 @@
       "data": "无",
       "permissions": "无"
     },
-    "npmurl": ""
+    "npmurl": "https://www.npmjs.com/package/goeasy"
   },
   "uni_modules": {
     "dependencies": [
