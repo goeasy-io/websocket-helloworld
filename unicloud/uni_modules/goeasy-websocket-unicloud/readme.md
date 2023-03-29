@@ -1,6 +1,6 @@
-## GoEasy Unicloud Websocket实时通讯和通知栏提醒 
+## GoEasy Unicloud Websocket实时消息推送，支持通知栏提醒 
 
-无需搭建websocket服务，几行代码，搞定websocket消息实时推送和通知栏提醒，支持各大厂商通道集成！ 
+无需搭建websocket服务，几行代码，搞定websocket消息实时推送，支持通知栏提醒和各大厂商通道集成！ 
 
 ### 功能特性
 * 客户端SDK支持Uniapp, 各种小程序, Web页面, Cocos Creator以及Vue, React, Taro等各种前端主流框架
