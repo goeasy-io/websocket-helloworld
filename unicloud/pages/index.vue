@@ -105,7 +105,7 @@ export default {
       if (this.message.trim() !== "") {
         let self = this;
         uniCloud.callFunction({
-          name: "goeasy-websocket-message",
+          name: "goeasy-websocket-publish",
           data: {
             channel: "channel_hello",
             content: this.message
