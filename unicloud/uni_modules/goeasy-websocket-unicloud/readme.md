@@ -4,12 +4,14 @@
 
 ## 功能特性
 * 客户端SDK支持Uniapp, 各种小程序, Web页面, Cocos Creator以及Vue, React, Taro等各种前端主流框架
-* 服务端支持PHP、C#、 Java、Go、Python、Node、Ruby等任何语言通过Rest API推送消息
+* 服务端支持PHP、C#、 Java、Go、Python、Node、Ruby等任何语言以及Unicloud或其他云函数通过Rest API推送消息
 * 内置心跳检测和消息Ack确认机制，断网自动重连，消息自动补发
 * Uniapp通知栏提醒支持各大厂商通道集成、微信模板消息推送提醒
 * 实时查询用户在线情况，用户上下线实时提醒
 * 历史消息查询
 * webhook支持同步用户在线状态和消息数据至指定服务器
+
+## [Demo源码下载和在线体验（免注册）](https://www.goeasy.io/cn/demos/demos.html#helloworld)
 
 ## GoEasy优势
 * 无需搭建Websocket服务 ，研发成本降低90%以上，无需购买服务器
@@ -28,28 +30,14 @@
 * 游戏和远程互动：联网游戏、远程医疗、远程授课
 
 
-## 体验在线示例和源码(免注册)
-* [GoEasy Websocket HelloWord在线体验](https://www.goeasy.io/cn/demos/demos.html#helloworld)
-
-
 ## 获得帮助和技术支持
 可查阅GoEasy开发文档，或者访问GoEasy官网，在线咨询技术人员，或拨打官方技术支持电话。
 * GoEasy Websocket技术交流QQ群：629573704
-* [GoEasy Websocket开发文档](https://docs.goeasy.io/2.x/pubsub)
+* [GoEasy Websocket开发文档](https://docs.goeasy.io/2.x/pubsub/get-start)
 * [GoEasy 官网](https://www.goeasy.io)
 
 
 ## 成功案例
-* 汉王集团
-* 爱尔眼科
-* 顾家家居
-* 国家开放大学
-* 一加手机
-* 清华大学出版社
-* 格林豪泰酒店集团
-* 四川卫视
-* 北京农林科学院
-* 兰石集团
-* 远洋集团
+汉王集团、爱尔眼科、顾家家居、国家开放大学、一加手机、清华大学出版社、格林豪泰酒店集团、四川卫视、北京农林科学院、兰石集团、远洋集团...等等
 
-。。。等等
+
