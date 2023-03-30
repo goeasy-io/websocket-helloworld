@@ -17,6 +17,24 @@
 ### 体验
 建议可以同时运行到多个终端（比如h5或app），体验多个客户端之间互动。
 
+### 体验服务端发送
+可以用Postman或curl发送消息到GoEasy，体验服务端发送消息到客户端。
+
+````shell
+curl -X POST https://rest-hz.goeasy.io/v2/pubsub/publish \
+-H "Content-Type: application/json" \
+-d "{
+        'appkey':'您的appkey',
+        'channel':'test_channel',
+        'content':'Hello, GoEasy!',
+        'notification':{    //可选，通知栏提醒
+            'title':'title',
+            'body':'body'
+        }
+    }"
+    
+````
+
 ### 体验通知栏提醒
 * 将Uniapp应用运行到手机上
 * 检查手机"系统设置"的通知推送里，确保该app的状态为“允许”

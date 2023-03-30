@@ -38,9 +38,9 @@
     goEasy.connect({
       onProgress: function (attempts) {
         console.log("GoEasy is connecting", attempts);
-        unshiftMessage("连接成功")
       },
       onSuccess: function () {
+        unshiftMessage("连接成功")
         console.log("GoEasy connect successfully.")
       },
       onFailed: function (error) {
@@ -126,14 +126,12 @@
 
   .container {
     width: 850px;
-    height: 450px;
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
   }
 
   .header {
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
