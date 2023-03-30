@@ -127,8 +127,11 @@ function formatDate(date, format) {
 </script>
 
 <style>
+uni-page-body {
+    height: 100%;;
+}
 .content {
-    padding: 40rpx 40rpx 0 40rpx;
+    padding: 0 40rpx;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -184,7 +187,8 @@ function formatDate(date, format) {
 }
 
 .message-content {
-    height: 750rpx;
+    flex: 1;
+    margin-bottom: 100rpx;
     overflow-y: auto;
     background: #FFFFFF;
     border: 2rpx solid #DADADA;

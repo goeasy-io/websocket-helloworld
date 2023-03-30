@@ -126,7 +126,6 @@
 
   .container {
     width: 850px;
-    height: 450px;
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
