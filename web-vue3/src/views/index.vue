@@ -132,7 +132,6 @@
   }
 
   .header {
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
