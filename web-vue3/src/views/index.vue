@@ -126,14 +126,12 @@
 
   .container {
     width: 850px;
-    height: 450px;
     background: #FFFFFF;
     display: flex;
     flex-direction: column;
   }
 
   .header {
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
