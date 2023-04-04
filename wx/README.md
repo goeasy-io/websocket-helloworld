@@ -24,7 +24,7 @@ curl -X POST https://rest-hz.goeasy.io/v2/pubsub/publish \
 -H "Content-Type: application/json" \
 -d "{
         'appkey':'您的appkey',
-        'channel':'test_channel',
+        'channel':'my_channel',
         'content':'Hello, GoEasy!'
     }"
     
