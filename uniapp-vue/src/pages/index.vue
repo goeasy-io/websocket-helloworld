@@ -173,13 +173,13 @@ uni-page-body {
     border: 2rpx solid #C8C7CC;
     border-radius: 12rpx;
     padding: 16rpx;
-    font-size: 28rpx;
+    font-size: 34rpx;
 }
 
 .send-box text {
     color: #D02129;
     margin-left: 18rpx;
-    font-size: 30rpx;
+    font-size: 34rpx;
     height: 80rpx;
     line-height: 80rpx;
     width: 80rpx;
@@ -208,7 +208,7 @@ uni-page-body {
 
 .message-text {
     padding: 8rpx 22rpx;
-    font-size: 28rpx;
+    font-size: 34rpx;
 }
 
 .version {
