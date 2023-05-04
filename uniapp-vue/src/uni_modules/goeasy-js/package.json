@@ -1,7 +1,7 @@
 {
     "id": "goeasy-js",
     "displayName": "GoEasy Websocket实时通讯和消息推送",
-    "version": "2.6.5",
+    "version": "2.6.6",
     "description": "websocket实时通讯, 通知栏推送，支持APP、各种小程序和H5，快应用",
     "keywords": [
         "websocket",
