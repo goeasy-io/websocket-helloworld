@@ -33,6 +33,7 @@ function connectGoEasy () {
     goEasy.connect({
         onSuccess: () => {
             console.log("GoEasy connect successfully.")
+            unshiftMessage("连接成功")
         },
         onFailed: (error) =>  {
             console.log("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);

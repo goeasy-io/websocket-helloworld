@@ -5027,10 +5027,10 @@
   dependencies:
     "glob" "^7.1.1"
 
-"goeasy@^2.6.4":
-  "integrity" "sha512-JNXLv23RZUEwp5JM0glw4JLCX4tEgBopnMDJpQhq1hSiHqublpmlUNW/m1hMJjIleoBlmQ0FzcZEX66o0PDLhg=="
-  "resolved" "https://registry.npmmirror.com/goeasy/-/goeasy-2.6.4.tgz"
-  "version" "2.6.4"
+"goeasy@^2.6.6":
+  "integrity" "sha512-aMvcc43ANMnaRn9C+JJKSmqVtLriBQx+y3VJUKvCBDEsfuEnwFMGa9chzvw/zYJcTSopzv89074QlLa4czsXSg=="
+  "resolved" "https://registry.npmmirror.com/goeasy/-/goeasy-2.6.6.tgz"
+  "version" "2.6.6"
 
 "gonzales-pe@^4.2.3":
   "integrity" "sha512-otgSPpUmdWJ43VXyiNgEYE4luzHCL2pz4wQ0OnDluC6Eg4Ko3Vexy/SrSynglw/eR+OhkzmqFCZa/OFa/RgAOQ=="
