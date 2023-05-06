@@ -131,25 +131,10 @@ export default {
       var message = formattedTime + " " + content;
       this.messages.unshift(message);
     },
-    formatDate(date, format) {
-      var o = {
-        "M+": date.getMonth() + 1,
-        "d+": date.getDate(),
-        "h+": date.getHours(),
-        "m+": date.getMinutes(),
-        "s+": date.getSeconds(),
-        "q+": Math.floor((date.getMonth() + 3) / 3),
-        "S": date.getMilliseconds()
-      };
-      if (/(y+)/.test(format))
-        format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-      for (var k in o)
-        if (o.hasOwnProperty(k)) {
-          if (new RegExp("(" + k + ")").test(format))
-            format = format.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k])
-              .length)));
-        }
-      return format;
+    formatDate(date) {
+      const hours = ("0" + date.getHours()).slice(-2);
+      const minutes = ("0" + date.getMinutes()).slice(-2);
+      return hours + ":" + minutes;
     }
   }
 }
