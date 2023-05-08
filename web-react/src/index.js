@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import GoEasy from 'goeasy'
 
 const goEasy = GoEasy.getInstance({
-  host: 'hangzhou.goeasy.io',
+  host: 'hangzhou.goeasy.io',//应用所在的区域地址: 【hangzhou.goeasy.io |singapore.goeasy.io】
   appkey: 'BC-xxxx',
   modules: ['pubsub'],
 });
