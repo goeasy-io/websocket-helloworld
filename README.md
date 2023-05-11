@@ -15,7 +15,7 @@
 #### [GoEasy Websocket HelloWord在线体验(免注册)](https://www.goeasy.io/cn/demos/demos.html#helloworld)
 #### 本项目源码说明
 
-包含web-vue3、uniapp-vue3、uniapp-nvue、react、reactnative、Taro、微信小程序、unicloud共八个版本的GoEasy Webscoket消息推送示例
+包含web-vue3、uniapp-vue3、uniapp-nvue、react、reactnative、Taro、微信小程序、unicloud、Electron共九个版本的GoEasy Webscoket消息推送示例
 
 ````
 helloworld------------------包含八个版本的Websocket罅隙推送Demo
@@ -34,7 +34,9 @@ helloworld------------------包含八个版本的Websocket罅隙推送Demo
     │    └── README.MD-------运行步骤
     ├── wx------------------------微信小程序原生开发
     │    └── README.MD-------运行步骤
-    └── taro----------------------基于Taro，可直接编译为H5，微信小程序
+    ├── taro----------------------基于Taro，可直接编译为H5，微信小程序
+    │    └── README.MD-------运行步骤
+    └── electron------------------桌面端应用，基于Electron开发，可构建Mac、Windows和Linux的应用程序
          └── README.MD-------运行步骤
 ````
 
