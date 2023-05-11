@@ -1,6 +1,6 @@
 {
   "name": "web",
-  "version": "1.0.5-7",
+  "version": "1.0.5",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
