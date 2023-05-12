@@ -1,7 +1,4 @@
-// 监听DOM加载完成
-window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('send').addEventListener('click', sendMessage)
-})
+import GoEasy from "./goeasy-2.6.6.esm.min.js";
 
 // 初始化goEasy
 const goEasy = GoEasy.getInstance({
@@ -12,6 +9,11 @@ const goEasy = GoEasy.getInstance({
 
 connectGoEasy();
 subscribe();
+
+// 监听DOM加载完成
+window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('send').addEventListener('click', sendMessage)
+})
 
 // 连接goEasy
 function connectGoEasy() {
