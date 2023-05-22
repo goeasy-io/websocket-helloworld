@@ -1,4 +1,4 @@
-package io.goeasy.demo
+package io.goeasy.helloworld
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import io.goeasy.*
+import io.goeasy.helloworld.GoEasyConfig.appkey
+import io.goeasy.helloworld.GoEasyConfig.host
 import io.goeasy.pubsub.GPubSub
 import io.goeasy.pubsub.PubSubMessage
 import io.goeasy.pubsub.SubscribeEventListener
@@ -52,8 +54,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initGoEasy() {
-        val host = "hangzhou.goeasy.io" //应用所在的区域地址: 【hangzhou.goeasy.io |singapore.goeasy.io】
-        val appkey = "BC-xxxx" // common key
         GoEasy.init(host, appkey, this.applicationContext)
     }
 

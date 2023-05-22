@@ -1,4 +1,4 @@
-package io.goeasy.demo
+package io.goeasy.helloworld
 
 import org.junit.Test
 
