@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var input: EditText? = null
 
 
-    @SuppressLint("RtlHardcoded")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.button -> {
@@ -101,6 +99,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     private fun unshiftMessage(message: String) {
         runOnUiThread {
             val simpleDateFormat = SimpleDateFormat("HH:mm")
