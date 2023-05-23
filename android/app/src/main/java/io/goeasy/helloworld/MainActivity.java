@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 初始化 GoEasy
-        initGoEasy();
+        GoEasy.init(host, appkey, this.getApplicationContext());
         // 连接 GoEasy
         connectGoEasy();
         // 接收消息
@@ -55,18 +55,34 @@ public class MainActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.button:
                 String content = input.getText().toString();
-                sendMessage(content);
+                GPubSub.publish("test_channel", content, new GoEasyEventListener() {
+
+                    @Override
+                    public void onSuccess(GResult gResult) {
+                        Log.i("Android Hello World", gResult.getData().toString());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (input != null) {
+                                    input.setText("");
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailed(GResult error) {
+                        unshiftMessage("消息发送失败，错误编码：" + error.getCode() + " 错误信息：" + error.getData());
+                    }
+                });
                 break;
         }
     }
 
-    private void initGoEasy() {
-        GoEasy.init(host, appkey, this.getApplicationContext());
-    }
+
 
     private void connectGoEasy() {
-        ConnectOptions connectOptions = new ConnectOptions();
-        GoEasy.connect(connectOptions, new ConnectEventListener() {
+        GoEasy.connect(new ConnectEventListener() {
 
             @Override
             public void onSuccess(GResult data) {
@@ -105,20 +121,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String message) {
-        GPubSub.publish("test_channel", message, new GoEasyEventListener() {
-
-            @Override
-            public void onSuccess(GResult gResult) {
-                Log.i("Android Hello World", gResult.getData().toString());
-            }
-
-            @Override
-            public void onFailed(GResult error) {
-                unshiftMessage("消息发送失败，错误编码：" + error.getCode() + " 错误信息：" + error.getData());
-            }
-        });
-    }
 
     @SuppressLint({"SimpleDateFormat", "SetTextI18n"})
     private void unshiftMessage(String message) {
@@ -132,10 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 CharSequence originalContent = messages != null ? messages.getText() : null;
                 if (messages != null) {
                     messages.setText(newMessage + originalContent);
-                }
-
-                if (input != null) {
-                    input.setText("");
                 }
             }
         });
