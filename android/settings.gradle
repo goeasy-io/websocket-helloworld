@@ -1,0 +1,2 @@
+rootProject.name = "GoEasy-helloworld-android"
+include ':app'
