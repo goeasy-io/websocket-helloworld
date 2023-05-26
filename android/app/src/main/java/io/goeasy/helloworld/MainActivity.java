@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import io.goeasy.ConnectEventListener;
-import io.goeasy.ConnectOptions;
 import io.goeasy.GResult;
 import io.goeasy.GoEasy;
 import io.goeasy.GoEasyEventListener;
