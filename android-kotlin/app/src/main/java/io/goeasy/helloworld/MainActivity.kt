@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun connectGoEasy() {
         val connectOptions = ConnectOptions()
         GoEasy.connect(connectOptions, object : ConnectEventListener() {
-            override fun onSuccess(data: GResult<*>?) {
+            override fun onSuccess(data: GResult<*>) {
                 unshiftMessage("连接成功")
             }
 
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 unshiftMessage(message.content)
             }
 
-            override fun onSuccess(data: GResult<*>?) {
+            override fun onSuccess(data: GResult<*>) {
                 unshiftMessage("订阅成功")
             }
 
