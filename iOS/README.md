@@ -1,4 +1,4 @@
-## GoEasy Websocket Electron HelloWorld示例运行步骤
+## GoEasy Websocket iOS HelloWorld示例运行步骤
 
 ### 免费获取appkey
 1. 访问[GoEasy官网](https://www.goeasy.io)进行注册
@@ -14,7 +14,6 @@
 
 ##### 安装依赖
 
-shell进入helloworld/iOS目录，运行
 ```
 pod install
 ```
