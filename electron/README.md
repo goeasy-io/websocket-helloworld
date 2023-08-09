@@ -13,6 +13,7 @@
 将目录切换到helloworld/electron/
 
 ##### 安装依赖
+node版本：14.17.5及以上
 ```
 npm install
 ```

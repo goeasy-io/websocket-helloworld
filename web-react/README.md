@@ -13,6 +13,7 @@
 将目录切换到helloworld/web-react/
 
 ##### 安装依赖
+node版本要求：14及以上
 ```
 npm ci
 ```

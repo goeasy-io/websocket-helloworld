@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App'
 
 
-import GoEasy from '@/uni_modules/goeasy-js/js_sdk/goeasy-2.6.6.esm.min.js'
+import GoEasy from '@/uni_modules/goeasy-js/js_sdk/goeasy-2.7.2.esm.min.js'
 
 const goEasy = GoEasy.getInstance({
 	host:"hangzhou.goeasy.io",//应用所在的区域地址: 【hangzhou.goeasy.io |singapore.goeasy.io】
