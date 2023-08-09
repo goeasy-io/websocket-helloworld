@@ -1,7 +1,7 @@
 {
-	"name": "GoEasy消息推送v1.2.3",
+	"name": "GoEasy消息推送v1.3.1",
 	"id": "GoEasy-Uniapp",
-	"version": "1.2.3",
+	"version": "1.3.1",
 	"description": "GoEasy消息推送，厂商通道集成, 参数顺序乱七八糟，GoEasy也很无奈：），因为Uniapp插件的参数是无序的",
 	"_dp_type": "nativeplugin",
 	"_dp_nativeplugin": {
@@ -53,6 +53,15 @@
 				},
 				"MEIZU App Key": {
 					"key": "io.goeasy.meizu.app_key"
+				},
+				"FCM Project ID": {
+					"key": "io.goeasy.fcm.project_id"
+				},
+				"FCM App ID": {
+					"key": "io.goeasy.fcm.app_id"
+				},
+				"FCM current_key": {
+					"key": "io.goeasy.fcm.current_key"
 				}
 			}
 		},
