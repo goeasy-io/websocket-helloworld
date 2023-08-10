@@ -13,6 +13,7 @@
 将目录切换到helloworld/taro/
 
 ##### 安装依赖
+node版本要求12.22以上
 ```
 npm ci
 ```

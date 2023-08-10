@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' ws:;">
+    <link href="./styles.css" rel="stylesheet">
+    <title>GoEasy Hello World</title>
+</head>
+<body>
+<div class="index">
+    <div class="container">
+        <div class="header">
+            <span class="title">GoEasy Electron示例</span>
+            <span class="description">Electron Hello world</span>
+        </div>
+        <div class="send-box">
+            <input id="message" type="text" />
+            <span id="send">发送</span>
+        </div>
+        <div class="message-container">
+            <div class="message-content" id="message-box"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="module" src="./index.js"></script>
+</html>

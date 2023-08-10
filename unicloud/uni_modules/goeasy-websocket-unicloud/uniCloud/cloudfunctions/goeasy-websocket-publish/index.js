@@ -9,8 +9,10 @@ exports.main = async (event, context) => {
 			appkey: 'BC-xxx', //您的appkey
 			channel: event.channel,
 			content: 'uniCloud: ' + event.content,
-			notification_title: 'GoEasy订单提醒', //可选，通知栏提醒标题
-			notification_body: '您有新的订单提醒' //可选，通知栏提醒内容
+			notification: {
+				title: 'GoEasy订单提醒', //可选，通知栏提醒标题
+				body: '您有新的订单提醒' //可选，通知栏提醒内容
+			}
 		},
 		contentType: 'json', // 指定以application/json发送data内的数据
 		dataType: 'json' // 指定返回值为json格式，自动进行parse

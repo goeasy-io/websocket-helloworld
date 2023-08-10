@@ -18,8 +18,9 @@
 
 
 ##### 安装依赖
+node版本要求14及以上
 ```
-npm ci
+npm install
 ```
 
 ##### 运行服务
@@ -40,3 +41,23 @@ curl -X POST https://rest-hz.goeasy.io/v2/pubsub/publish \
     }"
     
 ````
+
+##### 温馨提示
+
+如果demo与您本地的环境版本不一致，重新安装依赖比较繁琐，或运行失败，您可以尝试以下方法解决：
+
+1.创建一个新的ReactNative新项目
+````shell
+npx react-native init AwesomeProject --version x.xx.x
+````
+
+2.运行AwesomeProject项目，确保该项目能运行成功
+
+3.将page目录、App.js、index.js拷贝替换到您项目中
+
+5.安装GoEasy所需依赖
+````shell
+npm install goeasy @react-native-async-storage/async-storage
+````
+
+6.再次运行项目

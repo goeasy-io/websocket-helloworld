@@ -40,7 +40,7 @@
 		"@tarojs/runtime": "3.5.10",
 		"@tarojs/taro": "3.5.10",
 		"@vue/babel-plugin-jsx": "^1.1.1",
-		"goeasy": "^2.6.6",
+		"goeasy": "^2.7.2",
 		"vue": "^3.0.0",
 		"vuex": "^4.0.0-beta.4"
 	},

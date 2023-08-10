@@ -13,6 +13,7 @@
 将目录切换到helloworld/web-vue3/
 
 ##### 安装依赖
+node版本要求：16及以上
 ```
 npm ci
 ```

@@ -1,0 +1,16 @@
+PODS:
+  - GoEasySwift (0.1.2)
+
+DEPENDENCIES:
+  - GoEasySwift (= 0.1.2)
+
+SPEC REPOS:
+  trunk:
+    - GoEasySwift
+
+SPEC CHECKSUMS:
+  GoEasySwift: 804a0e7035a4c2a9ab2d325e7d9a5bf02fa76e95
+
+PODFILE CHECKSUM: 25468dfe90ef00aaa4256b1742d1c61e6e26cb3d
+
+COCOAPODS: 1.12.1
