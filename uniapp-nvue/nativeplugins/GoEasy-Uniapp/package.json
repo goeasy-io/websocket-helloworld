@@ -1,16 +1,16 @@
 {
-	"name": "GoEasy消息推送v1.3.1",
+	"name": "GoEasy消息推送v1.4.0",
 	"id": "GoEasy-Uniapp",
-	"version": "1.3.1",
+	"version": "1.4.0",
 	"description": "GoEasy消息推送，厂商通道集成, 参数顺序乱七八糟，GoEasy也很无奈：），因为Uniapp插件的参数是无序的",
 	"_dp_type": "nativeplugin",
 	"_dp_nativeplugin": {
 		"android": {
 			"plugins": [{
-				"type": "module",
-				"name": "GoEasy-Uniapp",
-				"class": "io.goeasy.uniapp.UniappPlugin"
-			}],
+					"type": "module",
+					"name": "GoEasy-Uniapp",
+					"class": "io.goeasy.uniapp.UniappPlugin"
+				}],
 			"hooksClass": "io.goeasy.uniapp.UniappPlugin",
 			"integrateType": "aar",
 			"compileOptions": {
