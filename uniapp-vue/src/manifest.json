@@ -69,7 +69,10 @@
                 }
             },
             /* ios打包配置 */
-            "ios" : {},
+            "ios" : {
+                "UIBackgroundModes" : "audio",
+                "dSYMs" : false
+            },
             /* SDK配置 */
             "sdkConfigs" : {
                 "ad" : {},

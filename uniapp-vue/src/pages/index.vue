@@ -86,7 +86,8 @@ function sendMessage () {
             //若不需要通知栏提醒，可以直接删掉notification
             notification: {
                 title: "收到一条新消息",
-                body: notificationBody      // 字段最长50字符
+                body: notificationBody,      // 字段最长50字符
+                sound: "sound"
             },
             onSuccess: () =>  {
                 message.value = ''; //清空发送消息内容
