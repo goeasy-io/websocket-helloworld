@@ -87,7 +87,7 @@ function sendMessage () {
             notification: {
                 title: "收到一条新消息",
                 body: notificationBody,      // 字段最长50字符
-                sound: "sound"
+                sound: "message"
             },
             onSuccess: () =>  {
                 message.value = ''; //清空发送消息内容

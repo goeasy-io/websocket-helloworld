@@ -29,6 +29,9 @@
             "autoclose" : true,
             "delay" : 0
         },
+        "compatible" : {
+            "ignoreVersion" : true
+        },
         /* 模块配置 */
         "modules" : {
             "Push" : {}
