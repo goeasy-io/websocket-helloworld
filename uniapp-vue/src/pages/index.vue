@@ -17,7 +17,7 @@
 
 <script setup>
 import {ref, inject} from 'vue'
-import {onLoad} from "@dcloudio/uni-app";
+import {onLoad, onShow} from "@dcloudio/uni-app";
 import * as config from '../manifest.json';
 const versionName = config.versionName;
 const goEasy = inject('goEasy');
@@ -31,6 +31,20 @@ onLoad(() => {
     //接收消息
     subscribe()
 });
+
+onShow(() => {
+  // #ifdef APP-PLUS
+  goEasy.setBadge({
+    badge: 0,
+    onSuccess: function () {
+      console.log("setBadge successfully.")
+    },
+    onFailed: function (error) {
+      console.log("Failed to setBadge,error:" + error);
+    }
+  });
+  // #endif
+})
 
 function connectGoEasy () {
     goEasy.connect({
@@ -87,7 +101,8 @@ function sendMessage () {
             notification: {
                 title: "收到一条新消息",
                 body: notificationBody,      // 字段最长50字符
-                sound: "message"
+                sound: "message",
+                badge: "+1"
             },
             onSuccess: () =>  {
                 message.value = ''; //清空发送消息内容
