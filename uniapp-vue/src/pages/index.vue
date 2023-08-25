@@ -34,15 +34,17 @@ onLoad(() => {
 
 onShow(() => {
   // #ifdef APP-PLUS
-  goEasy.setBadge({
-    badge: 0,
-    onSuccess: function () {
-      console.log("setBadge successfully.")
-    },
-    onFailed: function (error) {
-      console.log("Failed to setBadge,error:" + error);
-    }
-  });
+  if (goEasy.getConnectionStatus() === 'connected') {
+    goEasy.setBadge({
+      badge: 0,
+      onSuccess: function () {
+        console.log("setBadge successfully.")
+      },
+      onFailed: function (error) {
+        console.log("Failed to setBadge,error:" + error);
+      }
+    });
+  }
   // #endif
 })
 
