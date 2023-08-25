@@ -17,7 +17,7 @@
 
 <script setup>
 import {ref, inject} from 'vue'
-import {onLoad, onShow} from "@dcloudio/uni-app";
+import {onLoad} from "@dcloudio/uni-app";
 import * as config from '../manifest.json';
 const versionName = config.versionName;
 const goEasy = inject('goEasy');
@@ -32,21 +32,6 @@ onLoad(() => {
     subscribe()
 });
 
-onShow(() => {
-  // #ifdef APP-PLUS
-  if (goEasy.getConnectionStatus() === 'connected') {
-    goEasy.setBadge({
-      badge: 0,
-      onSuccess: function () {
-        console.log("setBadge successfully.")
-      },
-      onFailed: function (error) {
-        console.log("Failed to setBadge,error:" + error);
-      }
-    });
-  }
-  // #endif
-})
 
 function connectGoEasy () {
     goEasy.connect({
