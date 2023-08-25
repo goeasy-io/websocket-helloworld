@@ -2,12 +2,15 @@
     "id": "goeasy-js",
     "displayName": "GoEasy Websocket实时通讯和消息推送",
     "version": "2.8.3",
-    "description": "websocket实时通讯, 通知栏推送，支持APP、各种小程序和H5，快应用",
+    "description": "websocket实时通讯, 支持APP、各种小程序和H5，通知栏推送支持厂商通道、角标和自定义铃声",
     "keywords": [
         "websocket",
         "消息推送",
         "",
-        "厂商通道"
+        "厂商通道",
+        "自定义铃声",
+        "",
+        "角标"
     ],
   "repository": "https://gitee.com/goeasy-io/helloworld",
   "engines": {
