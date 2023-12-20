@@ -22,6 +22,7 @@ import io.goeasy.GoEasy;
 import io.goeasy.GoEasyEventListener;
 import io.goeasy.pubsub.GPubSub;
 import io.goeasy.pubsub.PubSubMessage;
+import io.goeasy.pubsub.PublishOptions;
 import io.goeasy.pubsub.SubscribeEventListener;
 
 public class MainActivity extends AppCompatActivity {
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.button:
                 String content = input.getText().toString();
-                GPubSub.publish("test_channel", content, new GoEasyEventListener() {
+                PublishOptions publishOptions = new PublishOptions("test_channel", content);
+                GPubSub.publish(publishOptions, new GoEasyEventListener() {
 
                     @Override
                     public void onSuccess(GResult gResult) {

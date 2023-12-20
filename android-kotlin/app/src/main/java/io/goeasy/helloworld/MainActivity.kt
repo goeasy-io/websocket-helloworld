@@ -13,6 +13,7 @@ import io.goeasy.helloworld.GoEasyConfig.appkey
 import io.goeasy.helloworld.GoEasyConfig.host
 import io.goeasy.pubsub.GPubSub
 import io.goeasy.pubsub.PubSubMessage
+import io.goeasy.pubsub.PublishOptions
 import io.goeasy.pubsub.SubscribeEventListener
 import java.text.SimpleDateFormat
 import java.util.*
@@ -89,7 +90,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun sendMessage(message: String) {
-        GPubSub.publish("test_channel", message, object : GoEasyEventListener() {
+        val publishOptions = PublishOptions("test_channel", message);
+        GPubSub.publish(publishOptions, object : GoEasyEventListener() {
             override fun onSuccess(data: GResult<*>) {
                 Log.i("Kotlin Hello World", data.data as String)
             }
