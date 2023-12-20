@@ -105,7 +105,8 @@ struct ContentView: View {
         publishEventListener.onFailed = { result in
             unshiftMessage("发送失败")
         }
-        GPubSub.publish(channel: "test_channel", message: message, publishEventListener: publishEventListener)
+        let options = PublishOptions(channel: "test_channel", message: message, qos: 1)
+        GPubSub.publish(options: options, publishEventListener: publishEventListener)
     }
 
     func unshiftMessage(_ message: String) {
