@@ -12,7 +12,12 @@
 
 
 ### 小程序注意事项
-如果编译为微信小程序，需要登录到微信官方后台，将mp-hangzhou.goeasy.io加入到socket合法域名列表
+如果编译为微信小程序，需要登录微信公众平台->微信小程序开发设置->服务器域名, 添加以下所有5个socket合法域名：
+wss://1hangzhou.goeasy.io
+wss://2hangzhou.goeasy.io
+wss://3hangzhou.goeasy.io
+wss://4hangzhou.goeasy.io
+wss://5hangzhou.goeasy.io
 
 ### 体验
 建议可以同时运行到多个终端（比如h5或app），体验多个客户端之间互动。
