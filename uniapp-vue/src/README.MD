@@ -12,11 +12,11 @@
 
 
 ### 小程序注意事项
-如果编译为微信小程序，需要登录微信公众平台->微信小程序开发设置->服务器域名, 添加以下所有5个socket合法域名：
-wss://1hangzhou.goeasy.io
-wss://2hangzhou.goeasy.io
-wss://3hangzhou.goeasy.io
-wss://4hangzhou.goeasy.io
+如果编译为微信小程序，需要登录微信公众平台->微信小程序开发设置->服务器域名, 添加以下所有5个socket合法域名：  
+wss://1hangzhou.goeasy.io  
+wss://2hangzhou.goeasy.io  
+wss://3hangzhou.goeasy.io  
+wss://4hangzhou.goeasy.io  
 wss://5hangzhou.goeasy.io
 
 ### 体验
