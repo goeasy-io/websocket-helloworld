@@ -3,6 +3,7 @@
     "libVersion": "2.27.2",
     "projectname": "wx",
     "setting": {
-        "compileHotReLoad": true
+        "compileHotReLoad": true,
+        "urlCheck": false
     }
 }

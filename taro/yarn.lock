@@ -5032,10 +5032,10 @@
   dependencies:
     "glob" "^7.1.1"
 
-"goeasy@^2.10.14":
-  "integrity" "sha512-Dju9VVhdA9wei4unha5F0gKNtEkICocqQACDO/cfgLz4Jcw95jRnUkDUZOMStLtdCfDTdw1FgQu5T3FORwvmBw=="
-  "resolved" "https://registry.npmjs.org/goeasy/-/goeasy-2.10.14.tgz"
-  "version" "2.10.14"
+"goeasy@^2.11.1":
+  "integrity" "sha512-hj803t76TvSIG6CnkfNMIIa2deRTF7gn7VqcPYCPu/kGRrd/5/IOVQeYEGHzC2w6gWHlQEa1mXrcjpwo7K4eWQ=="
+  "resolved" "https://registry.npmjs.org/goeasy/-/goeasy-2.11.1.tgz"
+  "version" "2.11.1"
 
 "gonzales-pe@^4.2.3":
   "integrity" "sha512-otgSPpUmdWJ43VXyiNgEYE4luzHCL2pz4wQ0OnDluC6Eg4Ko3Vexy/SrSynglw/eR+OhkzmqFCZa/OFa/RgAOQ=="

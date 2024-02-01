@@ -14,6 +14,7 @@ Page({
     connectGoEasy() {
         goEasy.connect({
             onSuccess: () => {
+                this.unshiftMessage("连接成功.");
                 console.log("GoEasy connect successfully.")
             },
             onFailed: (error) => {
