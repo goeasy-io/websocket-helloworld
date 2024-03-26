@@ -1,4 +1,4 @@
-import GoEasy from "./goeasy-2.11.1.esm.min.js";
+import GoEasy from "./goeasy-2.12.4.esm.min.js";
 
 // 初始化goEasy
 const goEasy = GoEasy.getInstance({
