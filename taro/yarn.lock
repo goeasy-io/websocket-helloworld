@@ -5032,10 +5032,10 @@ globs@^0.1.4:
   dependencies:
     glob "^7.1.1"
 
-goeasy@^2.12.4:
-  version "2.12.4"
-  resolved "https://registry.npmjs.org/goeasy/-/goeasy-2.12.4.tgz"
-  integrity sha512-QhANNHzO9NIeBC7SPNk2JEqoZy4lUIHpzoTiijBXWWL07rdSmREnZsReqfgItNDV2yH5h2U+w7QLLVtjqFqPig==
+goeasy@^2.13.2:
+  version "2.13.2"
+  resolved "https://registry.npmjs.org/goeasy/-/goeasy-2.13.2.tgz"
+  integrity sha512-T8am5RiVtGC5OHGOcW3UQxjUy/uVo3KFpnIBh5YtuXcuwbYGJXN1xVl4yHux0vUm8hnhASxq5TvOObSQ/puehg==
 
 gonzales-pe@^4.2.3:
   version "4.3.0"
