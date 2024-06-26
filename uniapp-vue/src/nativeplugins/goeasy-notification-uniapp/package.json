@@ -1,7 +1,7 @@
 {
-	"name": "GoEasy消息推送v1.5.2",
+	"name": "GoEasy消息推送v1.5.4",
 	"id": "goeasy-notification-uniapp",
-	"version": "1.5.2",
+	"version": "1.5.4",
 	"description": "GoEasy消息推送，厂商通道集成, 参数顺序乱七八糟，GoEasy也很无奈：），因为Uniapp插件的参数是无序的",
 	"_dp_type": "nativeplugin",
 	"_dp_nativeplugin": {
@@ -62,6 +62,9 @@
 				},
 				"FCM current_key": {
 					"key": "io.goeasy.fcm.current_key"
+				},
+				"HONOR APP ID": {
+					"key": "com.hihonor.push.app_id"
 				}
 			}
 		},
