@@ -74,6 +74,7 @@
 				"name": "GoEasy-Uniapp",
 				"class": "UniappModule"
 			}],
+            "resources":["message.caf"],
 			"hooksClass": "UniappProxy",
 			"integrateType": "framework",
 			"deploymentTarget": "11.0"
