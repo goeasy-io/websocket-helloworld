@@ -8,7 +8,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "io.goeasy.helloworld"
+        applicationId "com.uwantsoft.uwantone"
         minSdk 26
         targetSdk 34
         versionCode 1
@@ -17,6 +17,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
+        }
+    }
+
+    signingConfigs {
+        release {
+            keyAlias 'testalias'
+            keyPassword '123456'
+            storeFile file('test.keystore')
+            storePassword '123456'
         }
     }
 
@@ -48,7 +57,9 @@ android {
 
 dependencies {
     implementation files('libs/goeasy-client-android-release.aar')
+    implementation files('libs/gn-uniapp-android-release.aar')
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.alibaba:fastjson:1.1.46.android'
 
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
     implementation 'androidx.core:core-ktx:1.13.1'

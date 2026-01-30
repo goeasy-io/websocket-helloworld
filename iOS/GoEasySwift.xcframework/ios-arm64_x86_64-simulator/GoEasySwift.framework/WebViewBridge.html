@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+<body>
+    <script type="module">
+        import GoEasy from './goeasy.esm.min.js';
+        window.GoEasy = GoEasy;
+
+        let initModules = [];
+        window.messageCache = new Map();
+        window.cacheMessage = msg => window.messageCache.set(msg.messageId, msg);
+        window.popCachedMessage = id => {
+            const msg = window.messageCache.get(id);
+            window.messageCache.delete(id);
+            return msg;
+        };
+
+        window.goEasyEventHandlers = new Map();
+        window.registerGoEasyEvent = (eventName, handler) => {
+            window.goEasyEventHandlers.set(eventName, handler);
+            window.GoEasy.im.on(eventName, handler);
+        };
+        window.initGoEasyListener = () => {
+            if (!initModules || !initModules.includes("im")) {
+                return;
+            }
+            Object.values(GoEasy.IM_EVENT).forEach(ev => {
+                window.registerGoEasyEvent(ev, (data) => {
+                    const result = {
+                        type: "event",
+                        method: ev,
+                        callbackId: null,
+                        data: data ? JSON.stringify(data) : null
+                    };
+                    window.postToNative(result);
+                });
+            });
+        };
+
+        //window.jsOnForeground = () => {};
+        //window.jsOnBackground = () => {};
+
+        window._onForeground = () => {
+            console.log('webview _onForeground...');
+            if (typeof window.jsOnForeground === 'function'){
+                window.jsOnForeground()
+            }
+            //fetch("http://127.0.0.1", { method: "HEAD" }).catch(()=>{});
+        };
+        window._onBackground = () => {
+            console.log('webview _onBackground...');
+            if (typeof window.jsOnBackground === 'function'){
+                window.jsOnBackground()
+            }
+        };
+
+
+        // ---- Native callback management  ----
+        window.jsCallbacks = new Map();
+        window.generateCallbackId = () => `g_${Date.now()}_${Math.random().toString(36).substring(2, 10)}`;
+
+        // 统一的Native通信接口
+        window.postToNative = (message) => {
+            console.log("postToNative:"+JSON.stringify(message))
+            // iOS WebView
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.iOSBridge) {
+                window.webkit.messageHandlers.iOSBridge.postMessage(message);
+            }
+            // Android WebView (通过 @JavascriptInterface 注入的 AndroidBridge 对象)
+            else if (window.AndroidBridge && typeof window.AndroidBridge.postMessage === 'function') {
+                window.AndroidBridge.postMessage(JSON.stringify(message));
+            }
+            else {
+                console.warn('未检测到Native桥接对象，可能是非移动端环境');
+            }
+        };
+
+        window.callNative = (method, data, callback) => {
+            const hasCallback = typeof callback === 'function';
+            const callbackId = hasCallback ? window.generateCallbackId() : null;
+            console.log(`[callNative] - ${method} - ${data} - ${callbackId}`);
+            if (hasCallback) {
+                window.jsCallbacks.set(callbackId, callback);
+            }
+            const message = {
+                type: "call",
+                method: method,
+                callbackId: callbackId,
+                data: data
+            };
+            window.postToNative(message);
+        };
+
+        // Native -> JS callback dispatcher
+        window.handleJsCallback = (callbackId, callbackName, data) => {
+            const cb = window.jsCallbacks.get(callbackId);
+            if (!cb) return;
+            try {
+                cb(callbackName, data);
+            } finally {
+                window.jsCallbacks.delete(callbackId);
+            }
+        };
+
+        window.onNativeResponse = (messageJson) => {
+            console.log(`[onNativeResponse] - ${JSON.stringify(messageJson)}`);
+            const message = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageJson;
+            const methodName = message.method;
+            const callbackId = message.callbackId;
+            const callbackName = message.callbackName;
+            const data = message.data || {};
+
+            if (methodName === "handleJsCallback") {
+                window.handleJsCallback(callbackId,callbackName,data)
+            }
+
+        };
+
+        // 业务
+        window.invokeGoEasyMethod = (messageJson) => {
+            console.log(`[invokeGoEasyMethod] - ${JSON.stringify(messageJson)}`);
+            const message = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageJson;
+            const methodName = message.method;
+            const methodParams = message.data || {};
+
+            const { callbackId, ...params } = methodParams;
+
+            const post = (callbackName, data, remove = true) => {
+                if (typeof methodName === 'undefined' || typeof callbackId === 'undefined') {
+                    console.log('post function called before initialization');
+                }
+                const result = {
+                    type: "callback",
+                    method: methodName,
+                    callbackId: callbackId,
+                    callbackName: callbackName, // "onSuccess"/"onFailed"/"onProgress"/"onMessage"/"onPresence"
+                    data: data || "",
+                    remove: remove  // 是否移除callback
+                };
+                if(callbackName === "onFailed"){ // js sdk及服务端中返回的错误不规范，有时候是data有时候是content
+                    console.log("onFailed++ data:", JSON.stringify(data));
+                    result.data = {
+                        code: data?.code || 400,
+                        data: data?.content || data?.data || data || {}
+                    };
+                }
+                
+                console.log('postToNative callbackName：'+callbackName);
+                window.postToNative(result);
+            };
+
+            try {
+                let module = GoEasy;
+                let func = methodName;
+                if (methodName.includes(".")) {
+                    const [moduleName, funcName] = methodName.split(".");
+                    module = GoEasy[moduleName];
+                    func = funcName;
+                }
+
+                // 需要单独解析的
+                switch (func) {
+                    case "init":
+                        module.init({
+                            host: params.host,
+                            appkey: params.appkey,
+                            modules: params.modules,
+                            allowNotification: params.allowNotification
+                        });
+                        initModules = params.modules;
+                        return;
+
+                    case "connect":
+                        module.connect({
+                            ...params,
+                            onSuccess: () => post("onSuccess", null, false),
+                            onFailed: e => post("onFailed", e, false),
+                            onProgress: attempts => post("onProgress", attempts.toString(), false)
+                        });
+
+                        initGoEasyListener();
+                        return;
+
+                    case "disconnect":
+                        module.disconnect({
+                            onSuccess: () => post("onSuccess", null),
+                            onFailed: e => post("onFailed", e)
+                        });
+                        return;
+
+                    case "getConnectionStatus":
+                        post("success", module.getConnectionStatus());
+                        return;
+
+                    // ------ pubsub ------
+                    case "subscribe":
+                        module[func]({
+                            ...params,
+                            onSuccess: () => post("onSuccess", null, false),
+                            onFailed: e => post("onFailed", e, false),
+                            onMessage: message => post("onMessage", message, false)
+                        });
+                        return;
+
+                    case "publish":
+                        module[func]({
+                            ...params,
+                            onSuccess: () => post("onSuccess", null),
+                            onFailed: e => post("onFailed", e),
+                        });
+                        return;
+
+                    case "subscribePresence":
+                        module[func]({
+                            ...params,
+                            onSuccess: () => post("onSuccess", null, false),
+                            onFailed: e => post("onFailed", e, false),
+                            onPresence: event => post("onPresence", event, false)
+                        });
+                        return;
+
+                    // ------ im ------
+                    case "createTextMessage":
+                    case "createCustomMessage":
+                        module[func]({
+                            ...params,
+                            onSuccess: msg => {
+                                cacheMessage(msg);
+                                post("onSuccess", msg);
+                            },
+                            onFailed: e => post("onFailed", e)
+                        });
+                        return;
+
+                    case "sendMessage":
+                        const message = popCachedMessage(params.message.messageId);
+                        module.sendMessage({
+                            message,
+                            onSuccess: () => post("onSuccess", message),
+                            onFailed: e => post("onFailed", e)
+                        });
+                        return;
+                }
+
+                // 模块调用（ im.xxx / pubsub.xxx / rtc.xxx
+                if (!module || typeof module[func] !== "function") {
+                    post("onFailed", {code:400,data:`Unsupported method: ${methodName}`});
+                    return;
+                }
+                module[func]({
+                    ...params,
+                    onSuccess: res => post("onSuccess", res),
+                    onFailed: err => post("onFailed", err)
+                });
+
+            } catch (e) {
+                post("onFailed", { code: 400, data: e?.message || e || "Unknown error" });
+            }
+        };
+        // 通知原生js加载完成
+        window.postToNative({ type: 'jsReady' });
+    </script>
+</body>
+</html>

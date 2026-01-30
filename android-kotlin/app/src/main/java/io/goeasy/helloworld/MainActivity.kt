@@ -1,6 +1,9 @@
 package io.goeasy.helloworld
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
@@ -8,13 +11,17 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import io.goeasy.*
+import androidx.core.app.ActivityCompat
 import io.goeasy.helloworld.GoEasyConfig.appkey
 import io.goeasy.helloworld.GoEasyConfig.host
-import io.goeasy.pubsub.GPubSub
-import io.goeasy.pubsub.PubSubMessage
-import io.goeasy.pubsub.PublishOptions
-import io.goeasy.pubsub.SubscribeEventListener
+import io.goeasy.sdk.GoEasy
+import io.goeasy.sdk.types.common.ConnectOptions
+import io.goeasy.sdk.types.common.InitOptions
+import io.goeasy.sdk.types.pubsub.SubscribeOptions
+import io.goeasy.sdk.types.pubsub.PublishOptions
+import io.goeasy.sdk.types.common.NotificationOptions
+import io.goeasy.sdk.types.common.GResult
+import io.goeasy.sdk.types.pubsub.PubSubMessage
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,6 +29,7 @@ import java.util.*
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var messages: TextView? = null
     private var input: EditText? = null
+    private var TAG: String = "demo"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +41,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         input = findViewById(R.id.message)
         messages = findViewById(R.id.message_list)
         messages?.movementMethod = ScrollingMovementMethod()
+
+
+        //请求推送权限
+        requestNotificationPermission()
 
         //初始化GoEasy
         initGoEasy()
@@ -48,57 +60,79 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.button -> {
                 val content = input?.text.toString()
                 sendMessage(content)
+                input?.text = null
+            }
+        }
+    }
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // 检查是否已有权限
+            val granted = ActivityCompat.checkSelfPermission(this,Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+            if (!granted) {
+                ActivityCompat.requestPermissions( this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1001)
             }
         }
     }
 
     private fun initGoEasy() {
-        GoEasy.init(host, appkey, this.applicationContext)
+        val options = InitOptions(host, appkey, modules= listOf("pubsub"), allowNotification = true)
+        GoEasy.init(this, options)
     }
 
     private fun connectGoEasy() {
-        val connectOptions = ConnectOptions()
-        GoEasy.connect(connectOptions, object : ConnectEventListener() {
-            override fun onSuccess(data: GResult<*>) {
+        val connectOptions = ConnectOptions(
+            id = "001",
+            data = mapOf("nickname" to "001", "avatarId" to "001"),
+            onSuccess = {
+                Log.i(TAG,"连接成功")
                 unshiftMessage("连接成功")
-            }
-
-            override fun onFailed(error: GResult<*>) {
+            },
+            onProgress = { attempts: Int ->
+                Log.i(TAG, "onProgress attempts: $attempts")
+            },
+            onFailed =  { error: GResult<*> ->
+                Log.i(TAG,"连接失败, code:" + error.code + ",error:" + error.data);
                 unshiftMessage("Failed to connect GoEasy, code:" + error.code + ",error:" + error.data);
             }
-
-            override fun onProgress(attempts: Int) {
-                Log.i("Kotlin Hello World", "GoEasy connect progress attempts: $attempts")
-            }
-        })
+        )
+        GoEasy.connect(connectOptions)
     }
 
     private fun subscribe() {
-        GPubSub.subscribe("test_channel", object : SubscribeEventListener() {
-            override fun onMessage(message: PubSubMessage) {
+        GoEasy.pubsub.subscribe(SubscribeOptions(
+            channel = "test_channel",
+            onMessage = { message: PubSubMessage ->
+                Log.i(TAG,"Message content: ${message.content}")
                 unshiftMessage(message.content)
-            }
-
-            override fun onSuccess(data: GResult<*>) {
+            },
+            onSuccess = {
+                Log.i(TAG,"订阅成功")
                 unshiftMessage("订阅成功")
-            }
-
-            override fun onFailed(error: GResult<*>) {
+            },
+            onFailed = { error ->
+                Log.i(TAG,"订阅失败， code: ${error.code} data: ${error.data}")
                 unshiftMessage("订阅失败，错误编码：" + error.code + " 错误信息：" + error.data);
             }
-        })
+        ))
     }
 
     private fun sendMessage(message: String) {
-        val publishOptions = PublishOptions("test_channel", message);
-        GPubSub.publish(publishOptions, object : GoEasyEventListener() {
-            override fun onSuccess(data: GResult<*>) {
-                Log.i("Kotlin Hello World", data.data as String)
-            }
-            override fun onFailed(error: GResult<*>) {
+        GoEasy.pubsub.publish(PublishOptions(
+            channel = "test_channel",
+            message = message,
+            qos = 1,
+            notification = NotificationOptions(
+                title = "您有一条消息",
+                body = message
+            ),
+            onSuccess = {
+                Log.i(TAG, "消息发送成功")
+            },
+            onFailed = {error: GResult<*> ->
+                Log.i(TAG,"发送失败，code：" + error.code + " data：" + error.data);
                 unshiftMessage("消息发送失败，错误编码：" + error.code + " 错误信息：" + error.data);
             }
-        })
+        ))
     }
 
     @SuppressLint("SimpleDateFormat", "SetTextI18n")

@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="io.goeasy.helloworld">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.DUMP" tools:ignore="ProtectedPermissions" />
+
+    <!--用于android10 后台点击通知栏拉起app-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!--用于设置角标-->
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
+    <!--华为手机更新应用桌面角标需要的权限-->
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+
 
     <application
         android:allowBackup="true"
@@ -11,13 +24,72 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Helloworld">
-        <activity android:name="io.goeasy.helloworld.MainActivity" android:windowSoftInputMode="adjustPan" android:exported="true">
+        <activity
+            android:name="io.goeasy.helloworld.MainActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 推送相关 -->
+        <meta-data
+            android:name="io.goeasy.meizu.app_id"
+            android:value="_151000" />   <!-- todo:替换为您的魅族厂商配置 -->
+        <meta-data
+            android:name="io.goeasy.meizu.app_key"
+            android:value="cc0c00d453b0456ba3fc4b5137e5exxx" />
+        <meta-data
+            android:name="io.goeasy.xiaomi.app_id"
+            android:value="_288230376152022xxxx" />   <!-- todo:替换为您的小米厂商配置 -->
+        <meta-data
+            android:name="io.goeasy.xiaomi.app_key"
+            android:value="_5242022192xxx" />
+        <meta-data
+            android:name="com.vivo.push.api_key"
+            android:value="1c53bedb63e2130e9e10807e04edf00a" />   <!-- todo:替换为您的vivo厂商配置 -->
+        <meta-data
+            android:name="com.vivo.push.app_id"
+            android:value="105625849" />
+        <meta-data
+            android:name="io.goeasy.oppo.app_id"
+            android:value="_309621xx" />   <!-- todo:替换为您的oppo厂商配置 -->
+        <meta-data
+            android:name="io.goeasy.oppo.app_key"
+            android:value="49ff52d6b0684041a1594f40c5461xxx" />
+        <meta-data
+            android:name="io.goeasy.oppo.app_secret"
+            android:value="f479bce1767a4a5d935ee784388818xx" />
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="107680543" />   <!-- todo:替换为您的华为厂商配置 -->
+        <!-- FCM -->
+        <meta-data
+            android:name="io.goeasy.fcm.project_id"
+            android:value="xxx" />   <!-- todo:替换为您的FCM厂商配置 -->
+        <meta-data
+            android:name="io.goeasy.fcm.app_id"
+            android:value="1:71849936xxx:android:c35dea380c522fb1b5xxxx" />
+        <meta-data
+            android:name="io.goeasy.fcm.current_key"
+            android:value="AIzaSyBov4y6vuc-SvCBK5B9D4N7URFaCLUaxxx" />
+        <!-- Honor -->
+        <meta-data
+            android:name="com.hihonor.push.app_id"
+            android:value="900742xxx" />   <!-- todo:替换为您的荣耀厂商配置 -->
+
+        <receiver android:name="io.goeasy.NotificationClickReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="io.goeasy.notification.CLICK" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

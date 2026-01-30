@@ -1,0 +1,797 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2.3 effective-5.10 (swiftlang-6.2.3.3.21 clang-1700.6.3.2)
+// swift-module-flags: -target x86_64-apple-ios15.6-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name GoEasySwift
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
+import Foundation
+import Swift
+import UIKit
+import UserNotifications
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc @_inheritsConvenienceInitializers public class GNotification : ObjectiveC.NSObject {
+  public static func setup()
+  public static func registerPush(_ deviceToken: Foundation.Data)
+  public static func setNotificationClickCallback(_ callback: @escaping ([Swift.String : Any]) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum CallbackResult {
+  case success(GoEasySwift.AnyCodable)
+  case failure(Swift.String)
+}
+public struct AnyCodable {
+  public let value: Any
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init<T>(_ value: T?)
+  #endif
+}
+extension GoEasySwift.AnyCodable : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+extension GoEasySwift.AnyCodable : Swift.Equatable {
+  public static func == (lhs: GoEasySwift.AnyCodable, rhs: GoEasySwift.AnyCodable) -> Swift.Bool
+}
+extension GoEasySwift.AnyCodable : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension GoEasySwift.AnyCodable : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension GoEasySwift.AnyCodable : Swift.ExpressibleByNilLiteral, Swift.ExpressibleByBooleanLiteral, Swift.ExpressibleByIntegerLiteral, Swift.ExpressibleByFloatLiteral, Swift.ExpressibleByStringLiteral, Swift.ExpressibleByArrayLiteral, Swift.ExpressibleByDictionaryLiteral {
+  public init(nilLiteral: ())
+  public init(booleanLiteral value: Swift.Bool)
+  public init(integerLiteral value: Swift.Int)
+  public init(floatLiteral value: Swift.Double)
+  public init(extendedGraphemeClusterLiteral value: Swift.String)
+  public init(stringLiteral value: Swift.String)
+  public init(arrayLiteral elements: Any...)
+  public init(dictionaryLiteral elements: (Swift.AnyHashable, Any)...)
+  public typealias ArrayLiteralElement = Any
+  public typealias BooleanLiteralType = Swift.Bool
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias FloatLiteralType = Swift.Double
+  public typealias IntegerLiteralType = Swift.Int
+  public typealias Key = Swift.AnyHashable
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+  public typealias Value = Any
+}
+public protocol Convertible : Swift.Encodable {
+  func toDictionary() -> [Swift.String : Any]
+}
+extension GoEasySwift.Convertible {
+  public func toDictionary() -> [Swift.String : Any]
+}
+public class GoEasyEventListener {
+  public init()
+  public var onSuccess: ((GoEasySwift.GResult) -> Swift.Void)?
+  public var onFailed: ((GoEasySwift.GResult) -> Swift.Void)?
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class ConnectEventListener : GoEasySwift.GoEasyEventListener {
+  public var onProgress: ((Swift.Int32) -> Swift.Void)?
+  override public init()
+  @objc deinit
+}
+public class ConnectOptions {
+  public var id: Swift.String?
+  public var data: [Swift.String : Swift.String]?
+  public var otp: Swift.String?
+  public init()
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(id: Swift.String, data: [Swift.String : Swift.String]?)
+  #endif
+  @objc deinit
+}
+public class GResult {
+  public var code: Swift.Int
+  public var data: Any
+  public init(code: Swift.Int, data: Any)
+  @objc deinit
+}
+public class HereNowOptions {
+  public var channel: Swift.String
+  public var limit: Swift.Int?
+  public var onSuccess: (GoEasySwift.HereNowResponse) -> Swift.Void
+  public var onFailed: (GoEasySwift.GResult) -> Swift.Void
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(channel: Swift.String, limit: Swift.Int? = nil, onSuccess: @escaping (GoEasySwift.HereNowResponse) -> Swift.Void, onFailed: @escaping (GoEasySwift.GResult) -> Swift.Void)
+  #endif
+  @objc deinit
+}
+public class HereNowResponse {
+  public var code: Swift.Int32
+  public var content: GoEasySwift.PresenceContent
+  public init(code: Swift.Int32, content: GoEasySwift.PresenceContent)
+  @objc deinit
+}
+public class PresenceContent {
+  public var members: [GoEasySwift.Member]
+  public var amount: Swift.Int32
+  public var channel: Swift.String
+  public init(members: [GoEasySwift.Member], amount: Swift.Int32, channel: Swift.String)
+  @objc deinit
+}
+public class HistoryOptions {
+  public var channel: Swift.String
+  public var start: Swift.Int64?
+  public var end: Swift.Int64?
+  public var limit: Swift.Int?
+  public var onSuccess: (GoEasySwift.HistoryResponse) -> Swift.Void
+  public var onFailed: (GoEasySwift.GResult) -> Swift.Void
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(channel: Swift.String, start: Swift.Int64? = nil, end: Swift.Int64? = nil, limit: Swift.Int? = 10, onSuccess: @escaping (GoEasySwift.HistoryResponse) -> Swift.Void, onFailed: @escaping (GoEasySwift.GResult) -> Swift.Void)
+  #endif
+  @objc deinit
+}
+public class HistoryMessage {
+  public var time: Swift.Int64
+  public var content: Swift.String
+  public init(time: Swift.Int64, content: Swift.String)
+  @objc deinit
+}
+public class HistoryContent {
+  public var messages: [GoEasySwift.HistoryMessage]
+  public init(messages: [GoEasySwift.HistoryMessage])
+  @objc deinit
+}
+public class HistoryResponse {
+  public var code: Swift.Int32
+  public var content: GoEasySwift.HistoryContent
+  public init(code: Swift.Int32, content: GoEasySwift.HistoryContent)
+  @objc deinit
+}
+public class PublishOptions {
+  public var channel: Swift.String
+  public var message: Swift.String
+  public var qos: Swift.Int32?
+  public init(channel: Swift.String, message: Swift.String, qos: Swift.Int32)
+  public init(channel: Swift.String, message: Swift.String)
+  @objc deinit
+}
+public class PubSubMessage {
+  public var time: Swift.Int64
+  public var channel: Swift.String
+  public var content: Swift.String
+  public init(time: Swift.Int64, channel: Swift.String, content: Swift.String)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class SubscribeEventListener : GoEasySwift.GoEasyEventListener {
+  public var onMessage: ((GoEasySwift.PubSubMessage) -> Swift.Void)?
+  override public init()
+  @objc deinit
+}
+public class SubscribeOptions {
+  public var channel: Swift.String
+  public var channels: [Swift.String]?
+  public var presence: [Swift.String : Swift.Bool]?
+  public var onMessage: (GoEasySwift.PubSubMessage) -> Swift.Void
+  public var onSuccess: () -> Swift.Void
+  public var onFailed: (GoEasySwift.GResult) -> Swift.Void
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(channel: Swift.String, channels: [Swift.String]? = nil, presence: [Swift.String : Swift.Bool]? = nil, onMessage: @escaping (GoEasySwift.PubSubMessage) -> Swift.Void, onSuccess: @escaping () -> Swift.Void, onFailed: @escaping (GoEasySwift.GResult) -> Swift.Void)
+  #endif
+  @objc deinit
+}
+public class SubscribePresenceOptions {
+  public var channel: Swift.String
+  public var membersLimit: Swift.Int?
+  public var onPresence: (GoEasySwift.PresenceEvent) -> Swift.Void
+  public var onSuccess: () -> Swift.Void
+  public var onFailed: (GoEasySwift.GResult) -> Swift.Void
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(channel: Swift.String, membersLimit: Swift.Int? = nil, onPresence: @escaping (GoEasySwift.PresenceEvent) -> Swift.Void, onSuccess: @escaping () -> Swift.Void, onFailed: @escaping (GoEasySwift.GResult) -> Swift.Void)
+  #endif
+  @objc deinit
+}
+public class Member {
+  public var id: Swift.String
+  public var data: [Swift.String : Any]
+  public init(id: Swift.String, data: [Swift.String : Any])
+  @objc deinit
+}
+public class PresenceEvent {
+  public var action: Swift.String
+  public var member: GoEasySwift.Member
+  public var amount: Swift.Int32
+  public var members: [GoEasySwift.Member]
+  public init(action: Swift.String, member: GoEasySwift.Member, amount: Swift.Int32, members: [GoEasySwift.Member])
+  @objc deinit
+}
+public class UnSubscribeOptions {
+  public var channel: Swift.String
+  public var onSuccess: () -> Swift.Void
+  public var onFailed: (GoEasySwift.GResult) -> Swift.Void
+  public init(channel: Swift.String, onSuccess: @escaping () -> Swift.Void, onFailed: @escaping (GoEasySwift.GResult) -> Swift.Void)
+  @objc deinit
+}
+public protocol CallBackOptions {
+  var onSuccess: () -> Swift.Void { get }
+  var onFailed: (GoEasySwift.GResult) -> Swift.Void { get }
+}
+public class UnSubscribePresenceOptions : GoEasySwift.CallBackOptions {
+  public var channel: Swift.String
+  public var onSuccess: () -> Swift.Void
+  public var onFailed: (GoEasySwift.GResult) -> Swift.Void
+  public init(channel: Swift.String, onSuccess: @escaping () -> Swift.Void, onFailed: @escaping (GoEasySwift.GResult) -> Swift.Void)
+  @objc deinit
+}
+public typealias InitOptions = GoEasySwift.V2Api.Common.InitOptions
+public typealias ConnectOptionsV2 = GoEasySwift.V2Api.Common.ConnectOptions
+public typealias DisConnectOptionsV2 = GoEasySwift.V2Api.Common.DisConnectOptions
+public typealias SetBadgeOptionsV2 = GoEasySwift.V2Api.Common.SetBadgeOptions
+public typealias GResultV2 = GoEasySwift.V2Api.Common.GResult
+public typealias PublishOptionsV2 = GoEasySwift.V2Api.Pubsub.PublishOptions
+public typealias SubscribeOptionsV2 = GoEasySwift.V2Api.Pubsub.SubscribeOptions
+public typealias UnSubscribeOptionsV2 = GoEasySwift.V2Api.Pubsub.UnSubscribeOptions
+public typealias SubscribePresenceOptionsV2 = GoEasySwift.V2Api.Pubsub.SubscribePresenceOptions
+public typealias UnSubscribePresenceOptionsV2 = GoEasySwift.V2Api.Pubsub.UnSubscribePresenceOptions
+public typealias HistoryOptionsV2 = GoEasySwift.V2Api.Pubsub.HistoryOptions
+public typealias HereNowOptionsV2 = GoEasySwift.V2Api.Pubsub.HereNowOptions
+public typealias MessageCreateOptions = GoEasySwift.V2Api.IM.MessageCreateOptions
+public typealias TextMessageCreateOptions = GoEasySwift.V2Api.IM.TextMessageCreateOptions
+public typealias FileMessageCreateOptions = GoEasySwift.V2Api.IM.FileMessageCreateOptions
+public typealias CustomMessageCreateOptions = GoEasySwift.V2Api.IM.CustomMessageCreateOptions
+public class V2Api {
+  public init()
+  public class Common {
+    public init()
+    public struct GResult : Swift.Codable {
+      public var code: Swift.Int
+      public var data: Swift.String
+      public init(code: Swift.Int, data: Any)
+      public init(code: Swift.Int, data: Swift.String)
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public class InitOptions : GoEasySwift.Convertible {
+      public var host: Swift.String
+      public var appkey: Swift.String
+      public var modules: [Swift.String]
+      public var forceTLS: Swift.Bool?
+      public var supportOldBrowser: Swift.Bool?
+      public var allowNotification: Swift.Bool?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(host: Swift.String, appkey: Swift.String, modules: [Swift.String], forceTLS: Swift.Bool? = nil, supportOldBrowser: Swift.Bool? = nil, allowNotification: Swift.Bool? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class CallBackOptions<T> {
+      public var onSuccess: ((T) -> Swift.Void)?
+      public var onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)?
+      public var onProgress: ((Swift.Int) -> Swift.Void)?
+      public var onMessage: ((GoEasySwift.V2Api.Pubsub.PubSubMessage) -> Swift.Void)?
+      public var onPresence: ((GoEasySwift.V2Api.Pubsub.PresenceEvent) -> Swift.Void)?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(onSuccess: ((T) -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil, onProgress: ((Swift.Int) -> Swift.Void)? = nil, onMessage: ((GoEasySwift.V2Api.Pubsub.PubSubMessage) -> Swift.Void)? = nil, onPresence: ((GoEasySwift.V2Api.Pubsub.PresenceEvent) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+    }
+    public class ConnectOptions : GoEasySwift.V2Api.Common.CallBackOptions<Swift.Void>, GoEasySwift.Convertible {
+      public var id: Swift.String?
+      public var data: [Swift.String : Swift.String]?
+      public var otp: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(id: Swift.String? = nil, data: [Swift.String : Swift.String]? = nil, otp: Swift.String? = nil, onSuccess: (() -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil, onProgress: ((Swift.Int) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public enum ConnectionStatus : Swift.String {
+      case disconnected
+      case disconnecting
+      case connecting
+      case connected
+      case reconnecting
+      case reconnected
+      case connectFailed
+      #if compiler(>=5.3) && $NonescapableTypes
+      public static func fromString(_ value: Swift.String) -> GoEasySwift.V2Api.Common.ConnectionStatus?
+      #endif
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init?(rawValue: Swift.String)
+      #endif
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public class GUser : Swift.Codable {
+      public var id: Swift.String
+      public var data: [Swift.String : Swift.String]
+      public init(id: Swift.String, data: [Swift.String : Swift.String])
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    public class DisConnectOptions : GoEasySwift.V2Api.Common.CallBackOptions<Swift.Void>, GoEasySwift.Convertible {
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(onSuccess: (() -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class SetBadgeOptions : GoEasySwift.V2Api.Common.CallBackOptions<Swift.Void>, GoEasySwift.Convertible {
+      public var badge: Swift.Int
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(badge: Swift.Int, onSuccess: (() -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public struct NotificationOptions : Swift.Codable {
+      public var title: Swift.String
+      public var body: Swift.String
+      public var sound: Swift.String?
+      public var badge: Swift.String?
+      public var vendorOptions: GoEasySwift.V2Api.Common.VendorOptions?
+      public init(title: Swift.String, body: Swift.String)
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(title: Swift.String, body: Swift.String, sound: Swift.String? = nil, badge: Swift.String? = nil, vendorOptions: GoEasySwift.V2Api.Common.VendorOptions? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct VendorOptions : Swift.Codable {
+      public var huawei: GoEasySwift.V2Api.Common.HuaweiOptions?
+      public var xiaomi: GoEasySwift.V2Api.Common.XiaomiOptions?
+      public var oppo: GoEasySwift.V2Api.Common.OppoOptions?
+      public var vivo: GoEasySwift.V2Api.Common.VivoOptions?
+      public var harmony: GoEasySwift.V2Api.Common.HarmonyOptions?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(huawei: GoEasySwift.V2Api.Common.HuaweiOptions? = nil, xiaomi: GoEasySwift.V2Api.Common.XiaomiOptions? = nil, oppo: GoEasySwift.V2Api.Common.OppoOptions? = nil, vivo: GoEasySwift.V2Api.Common.VivoOptions? = nil, harmony: GoEasySwift.V2Api.Common.HarmonyOptions? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct HuaweiOptions : Swift.Codable {
+      public var category: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(category: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct XiaomiOptions : Swift.Codable {
+      public var channel_id: GoEasySwift.V2Api.Common.ChannelId
+      public init(channel_id: GoEasySwift.V2Api.Common.ChannelId)
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public enum ChannelId : Swift.Codable {
+      case intValue(Swift.Int)
+      case stringValue(Swift.String)
+      public init(from decoder: any Swift.Decoder) throws
+      public func encode(to encoder: any Swift.Encoder) throws
+      public var value: Swift.String {
+        get
+      }
+    }
+    public struct OppoOptions : Swift.Codable {
+      public var channel_id: Swift.String?
+      public var category: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(channel_id: Swift.String? = nil, category: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct HarmonyOptions : Swift.Codable {
+      public var category: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(category: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct VivoOptions : Swift.Codable {
+      public var classification: Swift.Int?
+      public var category: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(classification: Swift.Int? = nil, category: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct WxmpTemplateMsg : Swift.Codable {
+      public var template_id: Swift.String
+      public var url: Swift.String?
+      public var miniprogram: GoEasySwift.V2Api.Common.Miniprogram?
+      public var data: GoEasySwift.AnyCodable
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(template_id: Swift.String, url: Swift.String? = nil, miniprogram: GoEasySwift.V2Api.Common.Miniprogram?, data: GoEasySwift.AnyCodable)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct Miniprogram : Swift.Codable {
+      public var appid: Swift.String
+      public var pagepath: Swift.String
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    @objc deinit
+  }
+  public class IM {
+    public init()
+    public class AbstractMessage : Swift.Identifiable, Swift.Equatable, Swift.Codable {
+      public var type: GoEasySwift.V2Api.IM.MessageType
+      public var messageId: Swift.String
+      public var timestamp: Swift.Int64
+      public var payload: GoEasySwift.V2Api.IM.AbstractPayload
+      public var status: GoEasySwift.V2Api.IM.MessageStatus
+      public var receiverId: Swift.String?
+      public var teamId: Swift.String?
+      public var groupId: Swift.String?
+      public var senderId: Swift.String
+      public var senderData: [Swift.String : Swift.String]?
+      public var read: Swift.Bool?
+      public var recalled: Swift.Bool
+      public var recaller: GoEasySwift.V2Api.Common.GUser?
+      public static func == (lhs: GoEasySwift.V2Api.IM.AbstractMessage, rhs: GoEasySwift.V2Api.IM.AbstractMessage) -> Swift.Bool
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(type: GoEasySwift.V2Api.IM.MessageType, messageId: Swift.String, timestamp: Swift.Int64, payload: GoEasySwift.V2Api.IM.AbstractPayload, status: GoEasySwift.V2Api.IM.MessageStatus, receiverId: Swift.String? = nil, teamId: Swift.String? = nil, groupId: Swift.String? = nil, senderId: Swift.String, senderData: [Swift.String : Swift.String]? = nil, read: Swift.Bool? = false, recalled: Swift.Bool = false, recaller: GoEasySwift.V2Api.Common.GUser? = nil)
+      #endif
+      public typealias ID = Swift.ObjectIdentifier
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    public enum MessageStatus : Swift.String, Swift.Codable {
+      case new
+      case sending
+      case success
+      case fail
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init?(rawValue: Swift.String)
+      #endif
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public enum MessageType : Swift.Codable {
+      case text
+      case image
+      case video
+      case audio
+      case file
+      case custom(Swift.String)
+      public var value: Swift.String {
+        get
+      }
+      public static func from(_ value: Swift.String) -> GoEasySwift.V2Api.IM.MessageType
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    open class AbstractPayload : Swift.Codable {
+      public init()
+      @objc deinit
+      open func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct TextPayload : Swift.Codable {
+      public var text: Swift.String
+      public init(text: Swift.String)
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct CustomPayload : Swift.Codable {
+      public var data: [Swift.String : Swift.String]
+      public init(data: [Swift.String : Swift.String])
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct ImagePayload : Swift.Codable {
+      public var width: Swift.Int
+      public var height: Swift.Int
+      public var url: Swift.String
+      public var thumbnail: Swift.String
+      public init(width: Swift.Int, height: Swift.Int, url: Swift.String, thumbnail: Swift.String)
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct GVideo : Swift.Codable {
+      public var url: Swift.String
+      public var width: Swift.Int
+      public var height: Swift.Int
+      public var size: Swift.Int?
+      public var name: Swift.String?
+      public var duration: Swift.Int
+      public var contentType: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(url: Swift.String, width: Swift.Int, height: Swift.Int, size: Swift.Int? = nil, name: Swift.String? = nil, duration: Swift.Int, contentType: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct GThumbnail : Swift.Codable {
+      public var url: Swift.String
+      public var width: Swift.Int
+      public var height: Swift.Int
+      public var name: Swift.String?
+      public var contentType: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(url: Swift.String, width: Swift.Int, height: Swift.Int, name: Swift.String? = nil, contentType: Swift.String? = nil)
+      #endif
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct VideoPayload : Swift.Codable {
+      public var video: GoEasySwift.V2Api.IM.GVideo
+      public var thumbnail: GoEasySwift.V2Api.IM.GThumbnail
+      public init(video: GoEasySwift.V2Api.IM.GVideo, thumbnail: GoEasySwift.V2Api.IM.GThumbnail)
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct AudioPayload : Swift.Codable {
+      public var url: Swift.String
+      public var duration: Swift.Int
+      public init(url: Swift.String, duration: Swift.Int)
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct FilePayload : Swift.Codable {
+      public var url: Swift.String
+      public var name: Swift.String
+      public var size: Swift.Int64
+      public init(url: Swift.String, name: Swift.String, size: Swift.Int64)
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct To : Swift.Codable {
+      public var type: GoEasySwift.V2Api.IM.IMScene
+      public var id: Swift.String
+      public var data: [Swift.String : Swift.String]
+      public init(type: GoEasySwift.V2Api.IM.IMScene, id: Swift.String, data: [Swift.String : Swift.String])
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public enum IMScene : Swift.String, Swift.Codable {
+      case `private`
+      case group
+      case cs
+      #if compiler(>=5.3) && $NonescapableTypes
+      public static func from(_ value: Swift.String) -> GoEasySwift.V2Api.IM.IMScene?
+      #endif
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init?(rawValue: Swift.String)
+      #endif
+      public typealias RawValue = Swift.String
+      public var rawValue: Swift.String {
+        get
+      }
+    }
+    public class MessageCreateOptions : GoEasySwift.V2Api.Common.CallBackOptions<GoEasySwift.V2Api.IM.AbstractMessage>, GoEasySwift.Convertible {
+      public var to: GoEasySwift.V2Api.IM.To
+      public var notification: GoEasySwift.V2Api.Common.NotificationOptions?
+      public var wxmpTemplateMsg: GoEasySwift.V2Api.Common.WxmpTemplateMsg?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(to: GoEasySwift.V2Api.IM.To, notification: GoEasySwift.V2Api.Common.NotificationOptions? = nil, wxmpTemplateMsg: GoEasySwift.V2Api.Common.WxmpTemplateMsg? = nil, onSuccess: ((GoEasySwift.V2Api.IM.AbstractMessage) -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class TextMessageCreateOptions : GoEasySwift.V2Api.IM.MessageCreateOptions {
+      public var text: Swift.String
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(text: Swift.String, to: GoEasySwift.V2Api.IM.To, notification: GoEasySwift.V2Api.Common.NotificationOptions? = nil, wxmpTemplateMsg: GoEasySwift.V2Api.Common.WxmpTemplateMsg? = nil, onSuccess: ((GoEasySwift.V2Api.IM.AbstractMessage) -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+    }
+    public class FileMessageCreateOptions : GoEasySwift.V2Api.IM.MessageCreateOptions {
+      public var file: Swift.String
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(file: Swift.String, to: GoEasySwift.V2Api.IM.To, notification: GoEasySwift.V2Api.Common.NotificationOptions? = nil, wxmpTemplateMsg: GoEasySwift.V2Api.Common.WxmpTemplateMsg? = nil, onSuccess: ((GoEasySwift.V2Api.IM.AbstractMessage) -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+    }
+    public class CustomMessageCreateOptions : GoEasySwift.V2Api.IM.MessageCreateOptions {
+      public var data: [Swift.String : GoEasySwift.AnyCodable]
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(data: [Swift.String : GoEasySwift.AnyCodable], to: GoEasySwift.V2Api.IM.To, notification: GoEasySwift.V2Api.Common.NotificationOptions? = nil, wxmpTemplateMsg: GoEasySwift.V2Api.Common.WxmpTemplateMsg? = nil, onSuccess: ((GoEasySwift.V2Api.IM.AbstractMessage) -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+    }
+    @objc deinit
+  }
+  public class Pubsub {
+    public init()
+    public class SubscribeOptions : GoEasySwift.V2Api.Common.CallBackOptions<Swift.Void>, GoEasySwift.Convertible {
+      public var channel: Swift.String
+      public var channels: [Swift.String]?
+      public var presence: [Swift.String : Swift.Bool]?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(channel: Swift.String, channels: [Swift.String]? = nil, presence: [Swift.String : Swift.Bool]? = nil, onSuccess: (() -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil, onMessage: ((GoEasySwift.V2Api.Pubsub.PubSubMessage) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class PubSubMessage : Swift.Codable {
+      public var time: Swift.Int64?
+      public var channel: Swift.String
+      public var content: Swift.String
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(time: Swift.Int64? = nil, channel: Swift.String, content: Swift.String)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    public class PublishOptions : GoEasySwift.V2Api.Common.CallBackOptions<Swift.Void>, GoEasySwift.Convertible {
+      public var channel: Swift.String
+      public var message: Swift.String
+      public var notification: GoEasySwift.V2Api.Common.NotificationOptions?
+      public var wxmpTemplateMsg: GoEasySwift.V2Api.Common.WxmpTemplateMsg?
+      public var qos: Swift.Int32?
+      public var accessToken: Swift.String?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(channel: Swift.String, message: Swift.String, notification: GoEasySwift.V2Api.Common.NotificationOptions? = nil, wxmpTemplateMsg: GoEasySwift.V2Api.Common.WxmpTemplateMsg? = nil, qos: Swift.Int32? = nil, accessToken: Swift.String? = nil, onSuccess: (() -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class UnSubscribeOptions : GoEasySwift.V2Api.Common.CallBackOptions<Swift.Void>, GoEasySwift.Convertible {
+      public var channel: Swift.String
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(channel: Swift.String, onSuccess: (() -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class SubscribePresenceOptions : GoEasySwift.V2Api.Common.CallBackOptions<Swift.Void>, GoEasySwift.Convertible {
+      public var channel: Swift.String
+      public var membersLimit: Swift.Int?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(channel: Swift.String, membersLimit: Swift.Int? = nil, onPresence: ((GoEasySwift.V2Api.Pubsub.PresenceEvent) -> Swift.Void)? = nil, onSuccess: (() -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class PresenceEvent : Swift.Codable {
+      public var action: Swift.String
+      public var member: GoEasySwift.V2Api.Common.GUser
+      public var amount: Swift.Int32
+      public var members: [GoEasySwift.V2Api.Common.GUser]
+      public init(action: Swift.String, member: GoEasySwift.V2Api.Common.GUser, amount: Swift.Int32, members: [GoEasySwift.V2Api.Common.GUser])
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    public class UnSubscribePresenceOptions : GoEasySwift.V2Api.Common.CallBackOptions<Swift.Void>, GoEasySwift.Convertible {
+      public var channel: Swift.String
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(channel: Swift.String, onSuccess: (() -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class HistoryOptions : GoEasySwift.V2Api.Common.CallBackOptions<GoEasySwift.V2Api.Pubsub.HistoryResponse>, GoEasySwift.Convertible {
+      public var channel: Swift.String
+      public var start: Swift.Int64?
+      public var end: Swift.Int64?
+      public var limit: Swift.Int?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(channel: Swift.String, start: Swift.Int64? = nil, end: Swift.Int64? = nil, limit: Swift.Int? = 10, onSuccess: ((GoEasySwift.V2Api.Pubsub.HistoryResponse) -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class HistoryMessage : Swift.Codable {
+      public var time: Swift.Int64
+      public var content: Swift.String
+      public init(time: Swift.Int64, content: Swift.String)
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    public class HistoryContent : Swift.Codable {
+      public var messages: [GoEasySwift.V2Api.Pubsub.HistoryMessage]
+      public init(messages: [GoEasySwift.V2Api.Pubsub.HistoryMessage])
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    public class HistoryResponse : Swift.Codable {
+      public var code: Swift.Int32
+      public var content: GoEasySwift.V2Api.Pubsub.HistoryContent
+      public init(code: Swift.Int32, content: GoEasySwift.V2Api.Pubsub.HistoryContent)
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    public class HereNowOptions : GoEasySwift.V2Api.Common.CallBackOptions<GoEasySwift.V2Api.Pubsub.HereNowResponse>, GoEasySwift.Convertible {
+      public var channel: Swift.String
+      public var limit: Swift.Int?
+      #if compiler(>=5.3) && $NonescapableTypes
+      public init(channel: Swift.String, limit: Swift.Int? = 10, onSuccess: ((GoEasySwift.V2Api.Pubsub.HereNowResponse) -> Swift.Void)? = nil, onFailed: ((GoEasySwift.V2Api.Common.GResult) -> Swift.Void)? = nil)
+      #endif
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    public class HereNowResponse : Swift.Codable {
+      public var code: Swift.Int32
+      public var content: GoEasySwift.V2Api.Pubsub.PresenceContent
+      public init(code: Swift.Int32, content: GoEasySwift.V2Api.Pubsub.PresenceContent)
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+      required public init(from decoder: any Swift.Decoder) throws
+    }
+    public class PresenceContent : Swift.Codable {
+      public var amount: Swift.Int32
+      public var channel: Swift.String
+      public var members: [GoEasySwift.V2Api.Common.GUser]
+      required public init(from decoder: any Swift.Decoder) throws
+      @objc deinit
+      public func encode(to encoder: any Swift.Encoder) throws
+    }
+    @objc deinit
+  }
+  public struct GNotification {
+  }
+  @objc deinit
+}
+public struct GIM {
+  public init()
+  public func createTextMessage(options: GoEasySwift.V2Api.IM.TextMessageCreateOptions)
+  public func createCustomMessage(options: GoEasySwift.V2Api.IM.CustomMessageCreateOptions)
+  public func createImageMessage(options: GoEasySwift.V2Api.IM.FileMessageCreateOptions)
+  public func createAudioMessage(options: GoEasySwift.V2Api.IM.FileMessageCreateOptions)
+  public func createVideoMessage(options: GoEasySwift.V2Api.IM.FileMessageCreateOptions)
+  public func createFileMessage(options: GoEasySwift.V2Api.IM.FileMessageCreateOptions)
+}
+@_hasMissingDesignatedInitializers public class GoEasy {
+  public static var pubsub: GoEasySwift.GWS
+  public static var im: GoEasySwift.GIM
+  public static func initGoEasy(options: GoEasySwift.V2Api.Common.InitOptions)
+  public static func connect(options: GoEasySwift.V2Api.Common.ConnectOptions)
+  public static func disconnect(options: GoEasySwift.V2Api.Common.DisConnectOptions)
+  public static func setBadge(options: GoEasySwift.V2Api.Common.SetBadgeOptions)
+  public static func getConnectionStatus(callback: @escaping (GoEasySwift.V2Api.Common.ConnectionStatus) -> Swift.Void)
+  @objc deinit
+}
+extension GoEasySwift.GoEasy {
+  public static func initGoEasy(host: Swift.String, appkey: Swift.String)
+  public static func connect(connectEventListener: GoEasySwift.ConnectEventListener)
+  public static func connect(options: GoEasySwift.ConnectOptions, connectEventListener: GoEasySwift.ConnectEventListener)
+  public static func disconnect(disconnectEventListener: GoEasySwift.GoEasyEventListener)
+}
+@_hasMissingDesignatedInitializers public class GPubSub {
+  public static func publish(options: GoEasySwift.PublishOptions, publishEventListener: GoEasySwift.GoEasyEventListener)
+  public static func subscribe(channel: Swift.String, subscribeEventListener: GoEasySwift.SubscribeEventListener)
+  public static func unsubscribe(channel: Swift.String, unsubscribeEventListener: GoEasySwift.GoEasyEventListener)
+  public static func subscribe(options: GoEasySwift.SubscribeOptions)
+  public static func unsubscribe(options: GoEasySwift.UnSubscribeOptions)
+  public static func subscribePresence(options: GoEasySwift.SubscribePresenceOptions)
+  public static func unsubscribePresence(options: GoEasySwift.UnSubscribePresenceOptions)
+  public static func hereNow(options: GoEasySwift.HereNowOptions)
+  public static func history(options: GoEasySwift.HistoryOptions)
+  @objc deinit
+}
+public struct GWS {
+  public init()
+  public func publish(options: GoEasySwift.V2Api.Pubsub.PublishOptions)
+  public func subscribe(options: GoEasySwift.V2Api.Pubsub.SubscribeOptions)
+  public func unsubscribe(options: GoEasySwift.V2Api.Pubsub.UnSubscribeOptions)
+  public func history(options: GoEasySwift.V2Api.Pubsub.HistoryOptions)
+  public func subscribePresence(options: GoEasySwift.V2Api.Pubsub.SubscribePresenceOptions)
+  public func unsubscribePresence(options: GoEasySwift.V2Api.Pubsub.UnSubscribePresenceOptions)
+  public func hereNow(options: GoEasySwift.V2Api.Pubsub.HereNowOptions)
+}
+extension GoEasySwift.V2Api.Common.ConnectionStatus : Swift.Equatable {}
+extension GoEasySwift.V2Api.Common.ConnectionStatus : Swift.Hashable {}
+extension GoEasySwift.V2Api.Common.ConnectionStatus : Swift.RawRepresentable {}
+extension GoEasySwift.V2Api.IM.MessageStatus : Swift.Equatable {}
+extension GoEasySwift.V2Api.IM.MessageStatus : Swift.Hashable {}
+extension GoEasySwift.V2Api.IM.MessageStatus : Swift.RawRepresentable {}
+extension GoEasySwift.V2Api.IM.IMScene : Swift.Equatable {}
+extension GoEasySwift.V2Api.IM.IMScene : Swift.Hashable {}
+extension GoEasySwift.V2Api.IM.IMScene : Swift.RawRepresentable {}

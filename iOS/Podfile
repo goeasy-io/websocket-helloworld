@@ -6,5 +6,5 @@ target 'helloworld' do
   use_frameworks!
 
   # Pods for helloworld
-  pod "GoEasySwift", "0.1.12"
+  #pod "GoEasySwift", "0.1.12"
 end

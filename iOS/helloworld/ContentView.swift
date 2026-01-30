@@ -3,8 +3,8 @@ import GoEasySwift
 
 struct ContentView: View {
 
-    @State var message = ""
-    @State var messages: [String] = []
+    @State private var message = ""
+    @State private var messages: [String] = []
     
     var body: some View {
 
@@ -23,6 +23,8 @@ struct ContentView: View {
                 TextField("", text: $message)
                     .padding()
                     .frame(width: 270.0, height: 30.0)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.gray, lineWidth: 1)
@@ -37,22 +39,22 @@ struct ContentView: View {
             }
 
             ScrollView {
-                if (!messages.isEmpty) {
+                LazyVStack(alignment: .leading) {
                     ForEach(messages.reversed(), id: \.self) { content in
-                        Text("\(content)")
+                        Text(content)
                             .lineLimit(nil)
-                            .lineSpacing(10)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                            .padding([.top,.leading], 5)
+                            .lineSpacing(8)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 4)
                     }
                 }
-
             }
-            .frame(width: 320.0, height: 400.0)
+            .frame(width: 320, height: 400)
             .overlay(
                 RoundedRectangle(cornerRadius: 2)
                     .stroke(Color.gray, lineWidth: 1)
             )
+
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .edgesIgnoringSafeArea(.all)
@@ -64,49 +66,72 @@ struct ContentView: View {
     }
 
     func initGoEasy() {
-        GoEasy.initGoEasy(host: GoEasyConfig.host, appkey: GoEasyConfig.appkey)
+        let options = GoEasySwift.V2Api.Common.InitOptions(
+            host: GoEasyConfig.host,
+            appkey: GoEasyConfig.appkey,
+            modules: ["pubsub"],
+            allowNotification: true
+        )
+        GoEasy.initGoEasy(options: options)
     }
 
     func connect() {
-        let connectEventListener = ConnectEventListener()
-        connectEventListener.onSuccess = { result in
-            unshiftMessage("连接成功")
-            print("连接成功result：\(result)")
-        }
-        connectEventListener.onFailed = { result in
-            print("连接失败result：\(result)")
-        }
-        connectEventListener.onProgress = { attempts in
-            print("尝试重连次数:\(attempts)")
-        }
-        GoEasy.connect(connectEventListener: connectEventListener)
+        let options = GoEasySwift.V2Api.Common.ConnectOptions(
+            onSuccess: {
+                unshiftMessage("连接成功")
+                print("连接成功")
+            },
+            onFailed: { result in
+                print("连接失败result：\(result)")
+            },
+            onProgress: { attempts in
+                print("尝试重连次数:\(attempts)")
+            }
+        )
+        GoEasy.connect(options: options)
     }
 
     func subscribe() {
-        let subscribeEventListener = SubscribeEventListener()
-        subscribeEventListener.onSuccess = { result in
-            unshiftMessage("订阅成功")
-        }
-        subscribeEventListener.onFailed = { result in
-            unshiftMessage("订阅失败")
-        }
-        subscribeEventListener.onMessage = { message in
-            unshiftMessage(message.content)
-        }
-        GPubSub.subscribe(channel: "test_channel", subscribeEventListener: subscribeEventListener)
+        let subscribeOptions = GoEasySwift.V2Api.Pubsub.SubscribeOptions(
+            channel: "testChannel",
+            onSuccess: {
+                unshiftMessage("订阅成功")
+                print("订阅成功")
+            },
+            onFailed: { result in
+                unshiftMessage("订阅失败")
+                print("订阅失败, code: \(result.code) data: \(result.data)")
+            },
+            onMessage: { message in
+                print("收到消息: \(message)")
+                unshiftMessage(message.content)
+            },
+        )
+
+        GoEasy.pubsub.subscribe(options: subscribeOptions)
     }
 
     func publish() {
-        let publishEventListener = GoEasyEventListener()
-        publishEventListener.onSuccess = { result in
-            print("发送成功 code:\(result.code) data:\(result.data)")
-            message = ""
-        }
-        publishEventListener.onFailed = { result in
-            unshiftMessage("发送失败")
-        }
-        let options = PublishOptions(channel: "test_channel", message: message, qos: 1)
-        GPubSub.publish(options: options, publishEventListener: publishEventListener)
+        let options = GoEasySwift.V2Api.Pubsub.PublishOptions(
+            channel: "testChannel",
+            message: message,
+            notification: GoEasySwift.V2Api.Common.NotificationOptions(
+                title: "您有一条新消息请查收",
+                body: message,
+                badge: "+1"
+            ),
+            qos: 1,
+            onSuccess: {
+                print("发送成功")
+                message = ""
+            },
+            onFailed: { result in
+                print("发送成功失败, code: \(result.code) data: \(result.data)")
+                unshiftMessage("发送失败")
+            }
+        )
+        GoEasy.pubsub.publish(options: options)
+        
     }
 
     func unshiftMessage(_ message: String) {
