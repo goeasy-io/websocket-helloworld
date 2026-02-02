@@ -1,0 +1,24 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "GoEasy helloworld"
+    },
+    {
+      "name": "permission_internet_reason",
+      "value": "需要访问网络以加载网页内容"
+    },
+    {
+      "name": "keep_background_tips",
+      "value": "后台接收通知消息"
+    }
+  ]
+}
