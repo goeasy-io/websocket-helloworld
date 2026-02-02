@@ -22,12 +22,9 @@ import {onLoad} from "@dcloudio/uni-app";
 const GoEasy = uni.$GoEasy
 let pubsub = GoEasy.pubsub
 
-// #ifdef APP
+// #ifdef APP-PLUS
 import { PubSub } from "@/uni_modules/goeasy-websocket"
-
-if (uni.getSystemInfoSync().platform === 'ios') {
-    pubsub = new PubSub()
-}
+pubsub = new PubSub()
 // #endif
 
 
@@ -35,11 +32,42 @@ let message = ref('')
 let messages = ref([])
 
 onLoad(() => {
+    // #ifdef APP-PLUS
+    // Android 13+ 需要运行时申请通知权限
+    requestNotificationPermissionAndroid13Plus()
+    // #endif
+
     //连接GoEasy
     connectGoEasy()
     //接收消息
     subscribe()
 });
+
+// #ifdef APP-PLUS
+function requestNotificationPermissionAndroid13Plus() {
+    if (typeof plus === 'undefined' || plus.os.name !== 'Android') return
+    const run = () => {
+        try {
+            const Build_VERSION = plus.android.importClass('android.os.Build$VERSION')
+            const sdkInt = Build_VERSION.SDK_INT
+            if (sdkInt < 33) return
+            plus.android.requestPermissions(
+                ['android.permission.POST_NOTIFICATIONS'],
+                (result) => {
+                    console.log('POST_NOTIFICATIONS request result:', result)
+                },
+                (err) => {
+                    console.error('POST_NOTIFICATIONS request failed:', err)
+                }
+            )
+        } catch (e) {
+            console.error('requestNotificationPermissionAndroid13Plus failed:', e)
+        }
+    }
+    if (plus && plus.android && plus.android.requestPermissions) run()
+    else document.addEventListener('plusready', run, false)
+}
+// #endif
 
 
 function connectGoEasy () {

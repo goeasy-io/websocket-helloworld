@@ -22,6 +22,8 @@ helloworld------------------包含十二个版本的Websocket消息推送Demo
     ├── uniapp-vue----------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android），通知栏推送支持厂商通道
     │    └── src-------------源码根目录  
     │         └── README.MD--运行步骤
+    ├── uniappx-------------------基于uni-app x（UTS）的Demo，可运行到H5/App（iOS/Android）/HarmonyOS
+    │    └── README.md-------运行与打包说明
     ├── unicloud------------------支持Unicloud发送，可直接编译为H5，微信小程序和App（iOS/Android），通知栏推送支持厂商通道
     │    └── README.MD-------运行步骤
     ├── uniapp-nvue---------------基于Uniapp，可直接编译为H5，微信小程序和App（iOS/Android），通知栏推送支持厂商通道

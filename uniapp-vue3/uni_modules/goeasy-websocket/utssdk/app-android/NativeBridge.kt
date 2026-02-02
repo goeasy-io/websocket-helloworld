@@ -1,6 +1,8 @@
 package uts.sdk.modules.goeasyWebsocket
 
 import android.app.Activity
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import io.goeasy.sdk.GoEasy
 import io.goeasy.GN
@@ -34,6 +36,25 @@ object NativeBridge {
     private var activityRef: WeakReference<Activity>? = null
     private const val TAG = "NativeBridge"
 
+    private fun runOnUiThread(activity: Activity, block: () -> Unit) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            block()
+            return
+        }
+        // Avoid touching View/WebView on non-UI threads
+        Handler(Looper.getMainLooper()).post {
+            try {
+                if (activity.isFinishing || activity.isDestroyed) {
+                    Log.w(TAG, "Skip UI task: activity is finishing/destroyed")
+                    return@post
+                }
+                block()
+            } catch (e: Exception) {
+                Log.e(TAG, "UI task failed", e)
+            }
+        }
+    }
+
     private fun Any?.toStringAnyMap(): Map<String, Any?>? {
         val m = this as? Map<*, *> ?: return null
         val out = LinkedHashMap<String, Any?>(m.size)
@@ -45,21 +66,26 @@ object NativeBridge {
 
     fun register(activity: Activity, successCallBack: (String) -> Unit, failCallBack: (String) -> Unit) {
         activityRef = WeakReference<Activity>(activity)
-        GN.register(activity, object: GoEasyListener{
-            override fun onRegisterSuccess(regId: String?) {
-                successCallBack.invoke(regId ?: "")
-            }
-            override fun onRegisterFailed(code: Int, errorMsg: String?) {
-                failCallBack.invoke(errorMsg ?: "")
-            }
-        });
+        runOnUiThread(activity) {
+            GN.register(activity, object : GoEasyListener {
+                override fun onRegisterSuccess(regId: String?) {
+                    successCallBack.invoke(regId ?: "")
+                }
+
+                override fun onRegisterFailed(code: Int, errorMsg: String?) {
+                    failCallBack.invoke(errorMsg ?: "")
+                }
+            })
+        }
     }
 
     fun init(activity: Activity, host: String, appkey: String, modules: List<String>, allowNotification: Boolean?) {
         activityRef = WeakReference(activity)
         val options = InitOptions(host, appkey, modules, allowNotification = allowNotification)
-        GoEasy.init(activity, options)
-        Log.d(TAG, "GoEasy initialized successfully")
+        runOnUiThread(activity) {
+            GoEasy.init(activity, options)
+            Log.d(TAG, "GoEasy initialized successfully")
+        }
     }
 
     fun connect(
