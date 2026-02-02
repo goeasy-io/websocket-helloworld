@@ -1,0 +1,295 @@
+<template>
+	<view class="content">
+		<view class="header">
+			<text class="title">GoEasy Websocket示例</text>
+			<text class="description">UniappX Hello world</text>
+		</view>
+		<view class="send-box">
+			<input class="send-input" v-model="message" @confirm="sendMessageByEnter" />
+			<text class="send-text" @click="sendMessage">发送</text>
+		</view>
+		<view class="button-box">
+			<text class="button-item" @click="history">history</text>
+			<text class="button-item" @click="unsubscribe">unsubscribe</text>
+			<text class="button-item" @click="disconnect">disconnect</text>
+		</view>
+		<view class="message-content">
+			<text class="message-text" v-for="(msg, index) in messages" :key="index">{{ msg }}</text>
+		</view>
+	</view>
+</template>
+
+<script setup>
+
+	import { GoEasyUts as GoEasy, PubSubMessage } from '@/uni_modules/goeasy-websocket'
+
+	// #ifdef APP-IOS
+	import { PubSub } from "@/uni_modules/goeasy-websocket"
+	const pubsub = new PubSub()
+	// #endif
+	// #ifndef APP-IOS
+	const pubsub = GoEasy.pubsub
+	// #endif
+	// #ifdef APP-ANDROID
+	import Build from "android.os.Build"
+	// #endif
+
+	let message = ref('')
+	let messages = ref<string[]>([])
+
+	function formatDate(date : Date) : string {
+		const hours = ("0" + date.getHours()).slice(-2);
+		const minutes = ("0" + date.getMinutes()).slice(-2);
+		return hours + ":" + minutes;
+	}
+
+	function unshiftMessage(content : string) : void {
+		const formattedTime = formatDate(new Date());
+		const message = formattedTime + " " + content;
+		messages.value.unshift(message);
+	}
+
+	function connectGoEasy() {
+		GoEasy.connect({
+			onSuccess: () => {
+				console.log("GoEasy connect successfully.")
+				unshiftMessage("连接成功")
+			},
+			onFailed: (error) => {
+				console.log("Failed to connect GoEasy, code:" + error.code + ",error:" + error.content);
+			},
+			onProgress: (attempts) => {
+				console.log("GoEasy is connecting", attempts);
+			}
+		});
+	}
+
+	function subscribe() {
+		pubsub.subscribe({
+			channel: "my_channel",
+			onMessage: (message : PubSubMessage) => {
+				unshiftMessage(message.content)
+			},
+			onSuccess: () => {
+				unshiftMessage("订阅成功")
+			},
+			onFailed: (error) => {
+				unshiftMessage("订阅失败，错误编码：" + error.code + " 错误信息：" + error.content);
+			}
+		});
+	}
+
+	function sendMessage() {
+		if (message.value.trim() !== "") {
+			pubsub.publish({
+				channel: "my_channel",
+				message: message.value,
+				notification: {
+					title: "收到一条新消息",
+					body: message.value,
+					sound: "message",
+					badge: "+1",
+					vendorOptions:{
+						xiaomi: {
+							channel_id: '110828'
+						}
+					}
+				},
+				onSuccess: () => {
+					message.value = ''; //清空发送消息内容
+				},
+				onFailed: (error) => {
+					unshiftMessage("消息发送失败，错误编码：" + error.code + " 错误信息：" + error.content);
+				}
+			});
+		}
+	}
+
+	function sendMessageByEnter(event : UniInputConfirmEvent) {
+		message.value = event.detail.value;
+		sendMessage();
+	}
+
+	function history() {
+		pubsub.history({
+			channel: 'my_channel',
+			limit: 10, //可选项，返回的消息条数，默认为10条，最多30条
+			onSuccess: function (response) {
+				console.log("收到历史消息: " + JSON.stringify(response));
+
+			},
+			onFailed: function (error) { //获取失败
+				console.log("Failed to obtain history, code:" + error.code + ",error:" + error.content);
+			}
+		});
+	}
+
+	function unsubscribe() {
+		pubsub.unsubscribe({
+			channel: "my_channel",
+			onSuccess: () => {
+				unshiftMessage("取消订阅成功")
+			},
+			onFailed: function (error) {
+				console.log("取消订阅失败，错误编码：" + error.code + " 错误信息：" + error.content)
+			}
+		});
+	}
+
+	function disconnect() {
+		//断开连接
+		GoEasy.disconnect({
+			onSuccess: function(){
+				console.log("GoEasy disconnect successfully.")
+			},
+			onFailed: function(error){
+				console.log("Failed to disconnect GoEasy, code:"+error?.code+ ",error:"+error?.content);
+			}
+		});
+
+	}
+
+	function requestPushPermission() {
+		// #ifdef APP-ANDROID
+		const activity = UTSAndroid.getUniActivity()!
+		if (Build.VERSION.SDK_INT >= 33) {
+			const permission = "android.permission.POST_NOTIFICATIONS"
+			if (UTSAndroid.checkSystemPermissionGranted(activity, [permission])) {
+				console.log("通知权限已授予")
+				return
+			}
+			UTSAndroid.requestSystemPermission(activity, [permission], (granted : boolean, permissions : string[]) => {
+				if (granted) {
+				    console.log("通知权限已授予")
+				}
+			}, (granted : boolean, permissions : string[]) => {
+				uni.showToast({
+					title: "通知权限被拒绝",
+					position: "bottom"
+				})
+			})
+		} else {
+			console.log("Android 版本低于 13，无需申请通知权限")
+		}
+		// #endif
+	}
+
+	onLoad(() => {
+		// requestPushPermission();
+
+		//连接GoEasy
+		connectGoEasy()
+		//接收消息
+		subscribe()
+	});
+</script>
+
+<style>
+	/* uni-page-body {
+    height: 100%;;
+} */
+	.content {
+		padding: 0 20px;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+	}
+
+	.header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 50px;
+	}
+
+	.header .title {
+		color: #D02129;
+		font-weight: bold;
+		font-size: 26px;
+		line-height: 33px;
+	}
+
+	.header .description {
+		color: #D02129;
+		font-size: 20px;
+		line-height: 33px;
+	}
+
+	.send-box {
+		display: flex;
+		flex-direction: row;
+		height: 40px;
+		margin-top: 32px;
+		margin-bottom: 32px;
+	}
+
+	.send-input {
+		width: 250px;
+		/* flex-grow: 1; */
+		background: #EFEFEF;
+		border: 1px solid #C8C7CC;
+		border-radius: 6px;
+		padding: 8px;
+		font-size: 17px;
+	}
+
+	.send-text {
+		color: #D02129;
+		margin-left: 9px;
+		font-size: 17px;
+		height: 40px;
+		line-height: 40px;
+		width: 40px;
+		text-align: right;
+	}
+
+	.button-box{
+		display: flex;
+		flex-direction: row;
+	}
+
+	.button-item{
+		margin-left: 10px;
+		font-size: 17px;
+		color: #d02129;
+		height: 40px;
+		line-height: 40px;
+		width: 50px;
+	}
+
+	.message-content {
+		flex: 1;
+		margin-bottom: 50px;
+		/* overflow-y: auto; */
+		background: #FFFFFF;
+		border: 1px solid #DADADA;
+		margin-top: 26px;
+		/* scrollbar-width: thin; */
+	}
+
+	.message-content::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+	}
+
+	/*滚动条里面小方块*/
+	.message-content::-webkit-scrollbar-thumb {
+		border-radius: 10px !important;
+		background: #b6b6b6 !important;
+	}
+
+	.message-text {
+		padding: 4px 11px;
+		font-size: 17px;
+		color: #333333;
+	}
+
+	.version {
+		text-align: center;
+		line-height: 30px;
+		font-size: 18px;
+		color: #FFFFFF;
+		/* user-select: text; */
+	}
+</style>

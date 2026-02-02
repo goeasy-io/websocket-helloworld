@@ -1,0 +1,16 @@
+{
+    "HUAWEI_APPID": "华为APP ID(ClientID)",
+    "HONOR_APPID": "荣耀APP ID",
+    "VIVO_APPID": "VIVO AppID",
+    "VIVO_APPKEY": "VIVO AppKey",
+    "XIAOMI_APPID": "小米AppID",
+    "XIAOMI_APPKEY": "小米AppKey",
+    "MEIZU_APPID": "魅族App ID",
+    "MEIZU_APPKEY": "魅族App Key",
+    "OPPO_APPID": "OPPO appid",
+    "OPPO_APPKEY": "OPPO appkey",
+    "OPPO_APPSECRET": "OPPO appsecret",
+    "FCM_PROJECT_ID": "FCM Project ID",
+    "FCM_APPID": "FCM App ID",
+    "FCM_CURRENT_KEY": "FCM current_key"
+}

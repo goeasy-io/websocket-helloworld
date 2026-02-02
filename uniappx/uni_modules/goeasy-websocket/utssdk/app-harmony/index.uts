@@ -1,0 +1,219 @@
+import window from '@ohos.window';
+import { common } from '@kit.AbilityKit';
+import { 
+	GoEasyOptions, 
+	ConnectOptions, 
+	GResult, 
+	SubscribeOptions, 
+	PubSubMessage, 
+	PublishOptions, 
+	HistoryOptions, 
+	HistoryResponse, 
+	UnSubscribeOptions,
+	DisConnectOptions
+} from "../interface.uts"
+
+export * from "../interface.uts"
+
+import { 
+	GoEasy, 
+	PubSubMessage as HarmonyPubSubMessage,
+	InitOptions as HarmonyInitOptions,
+	ConnectOptions as HarmonyConnectOptions,
+	SubscribeOptions as HarmonySubscribeOptions,
+	PublishOptions as HarmonyPublishOptions,
+	NotificationOptions as HarmonyNotificationOptions,
+	VendorOptions as HarmonyVendorOptions,
+	UnsubscribeOptions as HarmonyUnsubscribeOptions,
+	HistoryOptions as HarmonyHistoryOptions,
+	DisconnectOptions as HarmonyDisconnectOptions,
+	ErrorInfo as HarmonyErrorInfo
+} from 'goeasy'
+
+
+let _windowStage : window.WindowStage;
+
+UTSHarmony.onAppAbilityWindowStageCreate((windowStage : window.WindowStage) => {
+	_windowStage = windowStage
+})
+
+
+/**
+ * PubSub 类
+ */
+export class PubSub {
+
+	subscribe(options : SubscribeOptions) : void {
+		const subscribeOptions : HarmonySubscribeOptions = {
+			channel: options.channel,
+			onMessage: (message : HarmonyPubSubMessage) => {
+				options.onMessage?.({
+					channel: message.channel,
+					content: message.content,
+					time: message.time
+				} as PubSubMessage)
+			},
+			onSuccess: () => {
+				options.onSuccess?.()
+			},
+			onFailed: (error : HarmonyErrorInfo) => {
+				options.onFailed?.({
+					code: error.code,
+					data: error.content?.toString() ?? "",
+					content: error.content
+				} as GResult)
+			}
+		}
+		GoEasy.pubsub.subscribe(subscribeOptions)
+		console.log("GoEasyUts.pubsub.subscribe called with channel:", options.channel)
+	}
+
+	publish(options : PublishOptions) : void {
+		const publishParams : HarmonyPublishOptions = {
+			channel: options.channel,
+			message: options.message,
+			onSuccess: () => {
+				options.onSuccess?.()
+			},
+			onFailed: (error : any) => {
+				options.onFailed?.({
+					code: -1,
+					data: "",
+					content: (error as Error).message
+				} as GResult)
+			}
+		}
+		if (options.qos != null) {
+			publishParams.qos = options.qos
+		}
+		if (options.notification != null) {
+			const n = options.notification!
+			publishParams.notification = {
+				title: n.title,
+				body: n.body,
+				sound: n.sound,
+				badge: n.badge,
+				vendorOptions: n.vendorOptions as HarmonyVendorOptions
+			} as HarmonyNotificationOptions
+		}
+		GoEasy.pubsub.publish(publishParams)
+		console.log("GoEasyUts.pubsub.publish called with channel:", options.channel)
+	}
+
+	unsubscribe(options : UnSubscribeOptions) : void {
+		const unsubscribeOptions : HarmonyUnsubscribeOptions = {
+			channel: options.channel,
+			onSuccess: () => {
+				options.onSuccess?.()
+			},
+			onFailed: (error : HarmonyErrorInfo) => {
+				options.onFailed?.({
+					code: error.code,
+					data: error.content?.toString() ?? "",
+					content: error.content
+				} as GResult)
+			}
+		}
+		GoEasy.pubsub.unsubscribe(unsubscribeOptions)
+		console.log("GoEasyUts.pubsub.unsubscribe called with channel:", options.channel)
+	}
+
+	history(options : HistoryOptions) : void {
+		const historyOptions : HarmonyHistoryOptions = {
+			channel: options.channel,
+			onSuccess: (response : any) => {
+				options.onSuccess?.(response as HistoryResponse)
+			},
+			onFailed: (error : HarmonyErrorInfo) => {
+				options.onFailed?.({
+					code: error.code,
+					data: error.content?.toString() ?? "",
+					content: error.content
+				} as GResult)
+			}
+		}
+		if (options.start != null) {
+			historyOptions.start = options.start
+		}
+		if (options.end != null) {
+			historyOptions.end = options.end
+		}
+		if (options.limit != null) {
+			historyOptions.limit = options.limit
+		}
+		GoEasy.pubsub.history(historyOptions)
+		console.log("GoEasyUts.pubsub.history called with channel:", options.channel)
+	}
+
+}
+
+/**
+ * 鸿蒙平台的 GoEasy UTS 实现
+ */
+export class GoEasyUts {
+
+	static pubsub : PubSub = new PubSub()
+
+	static getInstance(options : GoEasyOptions) : void {
+		const context : common.UIAbilityContext = UTSHarmony.getUIAbilityContext();
+		const initOptions : HarmonyInitOptions = {
+			host: options.host,
+			appkey: options.appkey,
+			windowStage: _windowStage,
+			context: context,
+			modules: options.modules
+		}
+		if (options.allowNotification != null) {
+			initOptions.allowNotification = options.allowNotification
+		}
+		GoEasy.init(initOptions)
+		console.log("GoEasy.init completed successfully")
+	}
+
+	static connect(connectOptions : ConnectOptions) : void {
+		const harmonyConnectOptions : HarmonyConnectOptions = {
+			onSuccess: () => {
+				connectOptions.onSuccess?.()
+			},
+			onFailed: (error : HarmonyErrorInfo) => {
+				connectOptions.onFailed?.({
+					code: error.code,
+					data: error.content?.toString() ?? "",
+					content: error.content
+				} as GResult)
+			},
+			onProgress: (progress : number) => {
+				connectOptions.onProgress?.(progress)
+			}
+		}
+		if (connectOptions.id != null) {
+			harmonyConnectOptions.id = connectOptions.id
+		}
+		if (connectOptions.data != null) {
+			harmonyConnectOptions.data = JSON.stringify(connectOptions.data)
+		}
+		if (connectOptions.otp != null) {
+			harmonyConnectOptions.otp = connectOptions.otp
+		}
+		GoEasy.connect(harmonyConnectOptions)
+		console.log("GoEasyUts.connect called")
+	}
+
+	static disconnect(options : DisConnectOptions) : void {
+		const disconnectOptions : HarmonyDisconnectOptions = {
+			onSuccess: () => {
+				options.onSuccess?.()
+			},
+			onFailed: (error : HarmonyErrorInfo) => {
+				options.onFailed?.({
+					code: error.code,
+					data: error.content?.toString() ?? "",
+					content: error.content
+				} as GResult)
+			}
+		}
+		GoEasy.disconnect(disconnectOptions)
+		console.log("GoEasyUts.disconnect called")
+	}
+
+}

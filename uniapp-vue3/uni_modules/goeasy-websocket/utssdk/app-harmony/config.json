@@ -1,0 +1,8 @@
+{
+  "compatibleSdkVersion": "20",
+  "targetSdkVersion": "20",
+  "compileSdkVersion": "20",
+  "dependencies": {
+    "goeasy": "./libs/goeasy.har"
+  }
+}

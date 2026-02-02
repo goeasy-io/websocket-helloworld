@@ -1,0 +1,139 @@
+// 使用 type 来自定义类型
+// UTS 的类型有：
+// 基础类型：boolean、number、string、any、null，都是小写。前3个typeof返回类型名称，null的typeof是object，any的typeof是运行时值的类型。
+// 对象类型：Date、Array、Map、Set、UTSJSONObject，首字母大写。typeof返回"object"，判断准确类型需使用 instanceof
+// 特殊类型：function、class、error。
+// 平台专有类型：BigInt、Int、Float、Double、NSString、kotlin.Array...
+
+export type InitOptions = {
+	host : string
+	appkey : string
+	modules : Array<string>
+	allowNotification ?: boolean
+}
+
+export type CallBackOptions = {
+	onSuccess ?: (data ?: any) => void
+	onFailed ?: (result ?: GResult) => void
+}
+
+export type GResult = {
+	code : number
+	data ?: string | number
+	content ?: string | number | any
+}
+
+export type GoEasyOptions = {
+	host : string
+	appkey : string
+	modules : Array<string>
+	allowNotification ?: boolean
+}
+
+type wxmpOption = {
+	appid : string
+	openid : string
+}
+
+export type ConnectOptions = {
+	id ?: string
+	data ?: object
+	otp ?: string
+	wxmpId ?: wxmpOption
+	onSuccess ?: () => void
+	onFailed ?: (result : GResult) => void
+	onProgress ?: (progress : number) => void
+}
+
+export type DisConnectOptions = {
+	onSuccess ?: () => void
+	onFailed ?: (result : GResult) => void
+}
+
+export type PubSubMessage = {
+	channel : string
+	content : string
+	time ?: number | string
+}
+
+export type SubscribeOptions = {
+	channel : string
+	onMessage ?: (message : PubSubMessage) => void
+	onSuccess ?: () => void
+	onFailed ?: (error : GResult) => void
+}
+
+export type UnSubscribeOptions = {
+	channel : string
+	onSuccess ?: () => void
+	onFailed ?: (error : GResult) => void
+}
+
+export type NotificationOption = {
+	title : string
+	body : string
+	sound?: string
+	badge?: string
+	vendorOptions?: VendorOptions
+}
+export type VendorOptions = {
+	huawei?: HuaweiOptions
+	harmony?: HarmonyOptions
+	xiaomi?: XiaomiOptions
+	oppo?: OppoOptions
+	vivo?: VivoOptions
+}
+export type HuaweiOptions = {
+  category: string;
+}
+
+export type HarmonyOptions = {
+  category: string;
+}
+
+export type XiaomiOptions = {
+  channel_id: string | number;
+}
+
+export type OppoOptions = {
+  channel_id: string;
+}
+
+export type VivoOptions = {
+  // 消息类型 0：运营类消息，1：系统类消息
+  classification: 0 | 1;
+  category: string;
+}
+
+export type PublishOptions = {
+	channel : string
+	message : string
+	qos ?: number
+	notification ?: NotificationOption
+	onSuccess ?: () => void
+	onFailed ?: (error : GResult) => void
+}
+
+
+export type GHistoryMessage = {
+	time: number
+	content: string
+}
+
+export type GHistoryContent = {
+	messages: GHistoryMessage[]
+}
+
+export type HistoryResponse = {
+	code: number
+	content: GHistoryContent
+}
+
+export type HistoryOptions = {
+	channel : string
+	start ?: number
+	end ?: number
+	limit ?: number
+	onSuccess ?: (response: HistoryResponse) => void
+	onFailed ?: (error : GResult) => void
+}

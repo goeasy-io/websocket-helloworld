@@ -1,0 +1,20 @@
+<script lang="uts">
+	export default {
+		onLaunch() {
+			console.log('App Launch')
+		},
+		onShow() {
+			console.log('App Show')
+		},
+		onHide() {
+			console.log('App Hide')
+		},
+		onExit() {
+			console.log('App Exit')
+		},
+	}
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,323 @@
+// iOS 平台的 UTS 实现
+// 参考 goeasy-push 插件的实现模式
+// 使用 Swift framework 封装原生 SDK 调用
+import { GoEasyOptions, ConnectOptions, CallBackOptions, GResult, SubscribeOptions, PubSubMessage, PublishOptions, UnSubscribeOptions, DisConnectOptions, HistoryOptions, HistoryResponse, GHistoryMessage, GHistoryContent } from "../interface.uts"
+import { Int32, Int64 } from "Swift";
+import { GNotification } from "GoEasySwift";
+import { UTSiOSHookProxy } from "DCloudUTSFoundation";
+import { Data } from "Foundation";
+
+export * from "../interface.uts"
+
+
+/**
+ * PubSub 类
+ */
+export class PubSub {
+
+	@UTSJS.keepAlive
+	subscribe(options : SubscribeOptions) : void {
+		const onMessage = function (msg : any) : void {
+			if (msg instanceof Map) {
+				const map = msg as Map<string, any>
+				options.onMessage?.({
+					channel: map.get("channel") as string,
+					content: map.get("content") as string,
+					time: map.get("time") as number
+				} as PubSubMessage)
+			}
+		}
+
+		const onSuccess = function (_ : any) : void {
+			options.onSuccess?.()
+		}
+
+		const onFailed = function (result : any) : void {
+			let code = 408
+			let content = ""
+			if (result instanceof Map) {
+				const map = result as Map<string, any>
+				code = map.get("code") as number
+				content = map.get("data") as string
+			}
+			options.onFailed?.({
+				code: code,
+				content: content
+			} as GResult)
+		}
+
+		// 调用 Swift 桥接
+		GPubSubBridge.subscribe(
+			options.channel,
+			onMessage,
+			onSuccess,
+			onFailed
+		)
+
+		console.log("GPubSub.subscribe:", options.channel)
+	}
+
+	@UTSJS.keepAlive
+	publish(options : PublishOptions) : void {
+		const onSuccess = function (_ : any) : void {
+			options.onSuccess?.()
+		}
+
+		const onFailed = function (result : any) : void {
+			let code = 408
+			let content = ""
+			if (result instanceof Map) {
+				const map = result as Map<string, any>
+				code = map.get("code") as number
+				content = map.get("data") as string
+			}
+			options.onFailed?.({
+				code: code,
+				content: content
+			} as GResult)
+		}
+
+		const qos = options.qos != null ? options.qos as Int32 : null
+		let notificationMap : Map<string, any> | null = null
+		if (options.notification != null) {
+			const n = options.notification!
+			const m = new Map<string, any>()
+			m.set("title", n.title)
+			m.set("body", n.body)
+			const sound = n.sound
+			if (sound != null) {
+				m.set("sound", sound)
+			}
+			const badge = n.badge
+			if (badge != null) {
+				m.set("badge", badge)
+			}
+			const vendorOptions = options.notification!.vendorOptions
+			if (vendorOptions != null) {
+				const v = new Map<string, any>()
+				if (vendorOptions.huawei != null) {
+					const h = new Map<string, any>()
+					h.set("category", vendorOptions.huawei!.category)
+					v.set("huawei", h)
+				}
+				if (vendorOptions.xiaomi != null) {
+					const x = new Map<string, any>()
+					x.set("channel_id", vendorOptions.xiaomi!.channel_id)
+					v.set("xiaomi", x)
+				}
+				if (vendorOptions.oppo != null) {
+					const o = new Map<string, any>()
+					o.set("channel_id", vendorOptions.oppo!.channel_id)
+					v.set("oppo", o)
+				}
+				if (vendorOptions.vivo != null) {
+					const vi = new Map<string, any>()
+					vi.set("classification", vendorOptions.vivo!.classification)
+					vi.set("category", vendorOptions.vivo!.category)
+					v.set("vivo", vi)
+				}
+				if (vendorOptions.harmony != null) {
+					const har = new Map<string, any>()
+					har.set("category", vendorOptions.harmony!.category)
+					v.set("harmony", har)
+				}
+				m.set("vendorOptions", v)
+			}
+			notificationMap = m
+		}
+
+		GPubSubBridge.publish(
+			options.channel,
+			options.message,
+			qos,
+			notificationMap,
+			onSuccess,
+			onFailed
+		)
+
+		console.log("GPubSub.publish:", options.channel)
+	}
+
+	@UTSJS.keepAlive
+	unsubscribe(options : UnSubscribeOptions) : void {
+		const onSuccess = function (_ : any) : void {
+			options.onSuccess?.()
+		}
+
+		const onFailed = function (result : any) : void {
+			let code = 408
+			let content = ""
+			if (result instanceof Map) {
+				const map = result as Map<string, any>
+				code = map.get("code") as number
+				content = map.get("data") as string
+			}
+			options.onFailed?.({
+				code: code,
+				content: content
+			} as GResult)
+		}
+
+		// 调用 Swift 桥接
+		GPubSubBridge.unsubscribe(
+			options.channel,
+			onSuccess,
+			onFailed
+		)
+
+		console.log("GPubSub.unsubscribe:", options.channel)
+	}
+
+	@UTSJS.keepAlive
+	history(options : HistoryOptions) : void {
+		const onSuccess = function (response : any) : void {
+			if (response instanceof Map) {
+				const map = response as Map<string, any>
+				const contentMap = map.get("content") as Map<string, any>
+				const messagesArr = contentMap.get("messages") as Array<Map<string, any>>
+
+				const historyMessages = messagesArr.map((m : Map<string, any>) : GHistoryMessage => {
+					return {
+						time: m.get("time") as number,
+						content: m.get("content") as string
+					} as GHistoryMessage
+				})
+
+				options.onSuccess?.({
+					code: map.get("code") as number,
+					content: {
+						messages: historyMessages
+					} as GHistoryContent
+				} as HistoryResponse)
+			}
+		}
+
+		const onFailed = function (result : any) : void {
+			let code = 408
+			let content = ""
+			if (result instanceof Map) {
+				const map = result as Map<string, any>
+				code = map.get("code") as number
+				content = map.get("data") as string
+			}
+			options.onFailed?.({
+				code: code,
+				content: content
+			} as GResult)
+		}
+
+		const start = options.start != null ? options.start as Int64 : null
+		const end = options.end != null ? options.end as Int64 : null
+		const limit = options.limit != null ? options.limit as Int32 : null
+
+		// 调用 Swift 桥接
+		GPubSubBridge.history(
+			options.channel,
+			start,
+			end,
+			limit,
+			onSuccess,
+			onFailed
+		)
+
+		console.log("GPubSub.history:", options.channel)
+	}
+
+}
+
+
+/**
+ * iOS 平台的 GoEasy UTS 实现
+ * 
+ */
+
+export class GoEasyUts {
+	static pubsub: PubSub = new PubSub()
+
+	static getInstance(options : GoEasyOptions) : void {
+		GoEasyBridge.initGoEasy(options.host, options.appkey, options.modules, options.allowNotification)
+	}
+
+
+	@UTSJS.keepAlive
+	static connect(connectOptions : ConnectOptions) : void {
+		const onSuccess = function (_ : any) : void {
+			connectOptions.onSuccess?.()
+		}
+
+		const onFailed = function (result : any) : void {
+			let code = 408
+			let data = ""
+			if (result instanceof Map) {
+				const map = result as Map<string, any>
+				code = map.get("code") as number
+				data = map.get("data") as string
+			}
+			connectOptions.onFailed?.({
+				code: code,
+				data: data,
+				content: data
+			} as GResult)
+		}
+
+		let onProgress = function (attempts : Int32) : void {
+			connectOptions.onProgress?.(attempts as number)
+		}
+
+		const id = connectOptions.id
+		const data = connectOptions.data as Map<string, string> | null
+		const otp = connectOptions.otp
+
+		// 使用桥接层调用，直接传递回调函数
+		GoEasyBridge.connect(id, data, otp, onSuccess, onFailed, onProgress)
+
+		console.log("GoEasyUts.connect called")
+	}
+
+	static disconnect(options : DisConnectOptions) : void {
+		const onSuccess = function (_ : any) : void {
+			options.onSuccess?.()
+		}
+
+		const onFailed = function (result : any) : void {
+			let code = 408
+			let data = ""
+			if (result instanceof Map) {
+				const map = result as Map<string, any>
+				code = map.get("code") as number
+				data = map.get("data") as string
+			}
+			options.onFailed?.({
+				code: code,
+				data: data,
+				content: data
+			} as GResult)
+		}
+
+		// 使用桥接层调用
+		GoEasyBridge.disconnect(onSuccess, onFailed)
+
+		console.log("GoEasyUts.disconnect called")
+	}
+}
+
+
+// -----------------------------------
+// UTS iOS Hook Proxy
+export class AppHookProxy implements UTSiOSHookProxy {
+	onCreate() {
+	}
+	applicationDidFinishLaunchingWithOptions(application : UIApplication | null, launchOptions : Map<UIApplication.LaunchOptionsKey, any> | null = null) : boolean {
+		console.log("[AppHookProxy] applicationDidFinishLaunchingWithOptions called")
+		GNotification.setup()
+		
+		return false
+	}
+	didRegisterForRemoteNotifications(token : Data | null) {
+		console.log("[AppHookProxy] didRegisterForRemoteNotifications called, token:", token)
+		if (token != null) {
+			GNotification.registerPush(token!)
+		}
+	}
+}
+

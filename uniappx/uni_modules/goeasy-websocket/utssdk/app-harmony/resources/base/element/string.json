@@ -1,0 +1,8 @@
+{
+  "string": [
+    {
+      "name": "get_bundle_info_tips",
+      "value": "获取 client_Id 信息以推送消息"
+    }
+  ]
+}

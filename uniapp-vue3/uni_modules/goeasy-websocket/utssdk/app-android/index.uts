@@ -1,0 +1,241 @@
+// Android 平台的 UTS 实现
+// 参考 goeasy-push 插件的实现模式
+// 使用 Kotlin 文件封装原生 SDK 调用，在 UTS 中导入使用
+//
+// 参考文档：
+// - UTS 语法：https://uniapp.dcloud.net.cn/tutorial/syntax-uts.html
+// - UTS API插件：https://uniapp.dcloud.net.cn/plugin/uts-plugin.html
+// - Android UTS 配置：https://doc.dcloud.net.cn/uni-app-x/native/use/androiduts.html
+
+import { GoEasyOptions, ConnectOptions, CallBackOptions, GResult, SubscribeOptions, PubSubMessage, PublishOptions, HistoryOptions, HistoryResponse, GHistoryContent, GHistoryMessage, UnSubscribeOptions, DisConnectOptions } from "../interface.uts"
+import Activity from "android.app.Activity"
+import NativeBridge from 'uts.sdk.modules.goeasyWebsocket.NativeBridge'
+
+export * from "../interface.uts"
+
+export function getRegId(success?: (regId: string) => void, fail?: (error: string) => void): void {
+    try {
+        const activity: Activity = UTSAndroid.getUniActivity()!
+        NativeBridge.register(activity,
+            (regId: string) => {
+                if (success != null) {
+                    success(regId)
+                }
+            },
+            (err: string) => {
+                if (fail != null) {
+                    fail(err)
+                }
+            }
+        )
+    } catch (e) {
+        console.error("getRegId failed:", e)
+        if (fail != null) {
+            fail((e as Error).message)
+        }
+    }
+}
+
+// /**
+//  * PubSub 类
+//  */
+export class PubSub {
+	subscribe(options : SubscribeOptions) : void {
+		NativeBridge.subscribe(
+			options.channel,
+			(channel : string, content : string) => {
+				options.onMessage?.({
+					channel: channel,
+					content: content
+				} as PubSubMessage)
+			},
+			() => {
+				options.onSuccess?.()
+			},
+			(code : number, content : string | null) => {
+				options.onFailed?.({
+					code: code,
+					data: content,
+					content: content
+				} as GResult)
+			}
+		)
+		console.log("GoEasyUts.pubsub.subscribe called with channel:", options.channel)
+	}
+
+	publish(options : PublishOptions) : void {
+		const qosValue : Int | null = options.qos != null ? Math.floor(options.qos) as Int : null
+		let notificationMap : Map<string, any> | null = null
+		if (options.notification != null) {
+			const n = options.notification!
+			notificationMap = new Map<string, any>()
+			notificationMap.set("title", n.title)
+			notificationMap.set("body", n.body)
+			const sound = n.sound
+			if (sound != null) {
+				notificationMap.set("sound", sound)
+			}
+			const badge = n.badge
+			if (badge != null) {
+				notificationMap.set("badge", badge)
+			}
+			const vendorOptions = options.notification!.vendorOptions
+			if (vendorOptions != null) {
+				const v = new Map<string, any>()
+				if (vendorOptions.huawei != null) {
+					const h = new Map<string, any>()
+					h.set("category", vendorOptions.huawei!.category)
+					v.set("huawei", h)
+				}
+				if (vendorOptions.xiaomi != null) {
+					const x = new Map<string, any>()
+					x.set("channel_id", vendorOptions.xiaomi!.channel_id)
+					v.set("xiaomi", x)
+				}
+				if (vendorOptions.oppo != null) {
+					const o = new Map<string, any>()
+					o.set("channel_id", vendorOptions.oppo!.channel_id)
+					v.set("oppo", o)
+				}
+				if (vendorOptions.vivo != null) {
+					const vi = new Map<string, any>()
+					vi.set("classification", vendorOptions.vivo!.classification)
+					vi.set("category", vendorOptions.vivo!.category)
+					v.set("vivo", vi)
+				}
+				if (vendorOptions.harmony != null) {
+					const har = new Map<string, any>()
+					har.set("category", vendorOptions.harmony!.category)
+					v.set("harmony", har)
+				}
+				notificationMap.set("vendorOptions", v)
+			}
+		}
+		
+		NativeBridge.publish(
+			options.channel,
+			options.message,
+			qosValue,
+			notificationMap,
+			() => {
+				options.onSuccess?.()
+			},
+			(code : number, content : string | null) => {
+				options.onFailed?.({
+					code: code,
+					data: content,
+					content: content
+				} as GResult)
+			}
+		)
+		console.log("GoEasyUts.pubsub.publish called with channel:", options.channel, "message:", options.message)
+	}
+
+	unsubscribe(options : UnSubscribeOptions) : void {
+		NativeBridge.unsubscribe(
+			options.channel,
+			() => {
+				options.onSuccess?.()
+			},
+			(code : number, content : string | null) => {
+				options.onFailed?.({
+					code: code,
+					data: content,
+					content: content
+				} as GResult)
+			}
+		)
+		console.log("GoEasyUts.pubsub.unsubscribe called with channel:", options.channel)
+	}
+
+	history(options : HistoryOptions) : void {
+		const start : Long | null = options.start != null ? options.start as Long : null
+		const end : Long | null = options.end != null ? options.end as Long : null
+		const limit : Int | null = options.limit != null ? options.limit as Int : null
+
+		NativeBridge.history(
+			options.channel,
+			start,
+			end,
+			limit,
+			(res : any) => {
+				const text = res as string
+				const response = JSON.parse<HistoryResponse>(text)
+				if (response != null) {
+					options.onSuccess?.(response!)
+				}
+			},
+			(code : number, content : string | null) => {
+				options.onFailed?.({
+					code: code,
+					data: content,
+					content: content
+				} as GResult)
+			}
+		)
+		console.log("GoEasyUts.pubsub.history called with channel:", options.channel)
+	}
+
+}
+
+export class GoEasyUts {
+	static pubsub : PubSub = new PubSub()
+
+	static getInstance(options : GoEasyOptions) : void {
+		console.log("GoEasy.init called with host:", options.host, "appkey:", options.appkey)
+		const activity : Activity = UTSAndroid.getUniActivity()!
+		// 调用原生桥接层的方法
+		NativeBridge.init(activity, options.host, options.appkey, options.modules, options.allowNotification)
+		console.log("GoEasy.init completed successfully")
+	}
+
+	static connect(connectOptions : ConnectOptions) : void {
+		const id = connectOptions.id
+		const data = connectOptions.data as Map<string, string> | null
+		const otp = connectOptions.otp
+		NativeBridge.connect(
+			id,
+			data,
+			otp,
+			() => {
+				connectOptions.onSuccess?.()
+			},
+			(code : Int, data : string | null) => {
+				connectOptions.onFailed?.({
+					code: code,
+					data: data,
+					content: data
+				} as GResult)
+			},
+			connectOptions.onProgress
+		)
+		console.log("GoEasyUts.connect called with options:", connectOptions)
+	}
+
+	static disconnect(options : DisConnectOptions) : void {
+		NativeBridge.disconnect(
+			() => {
+				options.onSuccess?.()
+			},
+			(code : Int, data : string | null) => {
+				options.onFailed?.({
+					code: code,
+					data: data,
+					content: data
+				} as GResult)
+			}
+		)
+		console.log("GoEasyUts.disconnect called")
+	}
+
+	// static onClickNotification(callback: (message: string) => void) : void {
+	// 	try {
+	// 		NativeBridge.setNotificationClickCallback((message: string) => {
+	// 			callback(message)
+	// 		})
+	// 	} catch (e) {
+	// 		console.error("GoEasy 设置通知点击回调失败:", e)
+	// 	}
+	// }
+
+}

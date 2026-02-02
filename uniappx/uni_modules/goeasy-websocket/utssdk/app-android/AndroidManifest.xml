@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+	package="uts.sdk.modules.goeasyWebsocket">
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
+	<application>
+		<meta-data
+			android:name="io.goeasy.meizu.app_id"
+			android:value="_${MEIZU_APPID}" />
+		<meta-data
+			android:name="io.goeasy.meizu.app_key"
+			android:value="${MEIZU_APPKEY}" />
+		<meta-data
+			android:name="io.goeasy.xiaomi.app_id"
+			android:value="_${XIAOMI_APPID}" />
+		<meta-data
+			android:name="io.goeasy.xiaomi.app_key"
+			android:value="_${XIAOMI_APPKEY}" />
+		<meta-data
+			android:name="com.vivo.push.api_key"
+			android:value="${VIVO_APPKEY}" />
+		<meta-data
+			android:name="com.vivo.push.app_id"
+			android:value="${VIVO_APPID}" />
+		<meta-data
+			android:name="io.goeasy.oppo.app_id"
+			android:value="_${OPPO_APPID}" />
+		<meta-data
+			android:name="io.goeasy.oppo.app_key"
+			android:value="${OPPO_APPKEY}" />
+		<meta-data
+			android:name="io.goeasy.oppo.app_secret"
+			android:value="${OPPO_APPSECRET}" />
+		<meta-data
+			android:name="com.huawei.hms.client.appid"
+			android:value="${HUAWEI_APPID}" />
+		<!-- FCM -->
+		<meta-data
+			android:name="io.goeasy.fcm.project_id"
+			android:value="${FCM_PROJECT_ID}" />
+		<meta-data
+			android:name="io.goeasy.fcm.app_id"
+			android:value="${FCM_APPID}" />
+		<meta-data
+			android:name="io.goeasy.fcm.current_key"
+			android:value="${FCM_CURRENT_KEY}" />
+		<!-- Honor -->
+		<meta-data
+			android:name="com.hihonor.push.app_id"
+			android:value="${HONOR_APPID}" />
+	</application>
+</manifest>

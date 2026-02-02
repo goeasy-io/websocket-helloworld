@@ -1,0 +1,24 @@
+import { GoEasyOptions, ConnectOptions, CallBackOptions, PubSubMessage } from "../interface.uts";
+import GoEasy from './goeasy-lite.esm.min.js'
+
+export * from "../interface.uts"
+
+export class GoEasyUts {
+  static pubsub = GoEasy.pubsub;
+  
+  static getInstance(options: GoEasyOptions): any {
+    return GoEasy.getInstance(options);
+  }
+  
+  static connect(connectOptions : ConnectOptions) {
+    GoEasy.connect(connectOptions);
+  }
+  
+  static disconnect(options : CallBackOptions) {
+    GoEasy.disconnect(options);
+  }
+  
+  static getConnectionStatus() : string {
+    return GoEasy.getConnectionStatus();
+  }
+}
