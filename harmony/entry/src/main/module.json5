@@ -36,6 +36,12 @@
         }
       }
     ],
+    "metadata": [
+      {
+        "name": "client_id",
+        "value": "6917575502611302000" // todo：替换为您的appId/clientId
+      }
+    ],
     "abilities": [
       {
         "name": "EntryAbility",
