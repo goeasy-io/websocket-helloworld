@@ -10,11 +10,11 @@
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		X/fFOAQkiSmwew7uMKvfWZPntKM=
+		fsY/xUyg/mKKronsHA5PBK5t6Xg=
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		pEcb5GL4/gntM/NiKarhDzJk6fs=
+		5CkTJid49HUBWdCqXRYKpTKlD9Q=
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -22,19 +22,19 @@
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		pEcb5GL4/gntM/NiKarhDzJk6fs=
+		5CkTJid49HUBWdCqXRYKpTKlD9Q=
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		MCtxykJegi6AsXAeuNeRRNubeGY=
+		L9XXJiI80uLz6/b5h5N2/zBkM2o=
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		X/fFOAQkiSmwew7uMKvfWZPntKM=
+		fsY/xUyg/mKKronsHA5PBK5t6Xg=
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		L6Db1bWk+mghjKmrJ6byA2Dqmis=
+		jQrklX7r6DOIOevDxL0XL5Kk/Ro=
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -42,11 +42,11 @@
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		L6Db1bWk+mghjKmrJ6byA2Dqmis=
+		jQrklX7r6DOIOevDxL0XL5Kk/Ro=
 		</data>
 		<key>Modules/GoEasySwift.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		CRxNdZQM6mts0HmBG/DGnGhjGy0=
+		h/05zKDmdFdZbQ630uosnA+OUSI=
 		</data>
 		<key>WebViewBridge.html</key>
 		<data>
@@ -63,14 +63,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			eH4KqQBdCSZdwy+YOMyiT62stKjWueKZvnkv5J7sbTw=
+			XoZK056BRzvOFQKgD2MbxRRjlsiaRzfCNulI+aBHaHE=
 			</data>
 		</dict>
 		<key>Modules/GoEasySwift.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			bexlQ1y/KvY4wDM9qn17f4Qq9qddIof4zSnS3yPPnbw=
+			Ih6O1LnCf5Kr+pKHfTFNf0t3okVcnGBpDQqJVjQd6E4=
 			</data>
 		</dict>
 		<key>Modules/GoEasySwift.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -84,28 +84,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bexlQ1y/KvY4wDM9qn17f4Qq9qddIof4zSnS3yPPnbw=
+			Ih6O1LnCf5Kr+pKHfTFNf0t3okVcnGBpDQqJVjQd6E4=
 			</data>
 		</dict>
 		<key>Modules/GoEasySwift.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Qghmg4wch5K5s4v/23Eos+F1PPgloEP5XOez2nJ6Shs=
+			jLuapjRiS6hM1aQ934aAye2bRaoBzQMK57LFE4sibug=
 			</data>
 		</dict>
 		<key>Modules/GoEasySwift.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eH4KqQBdCSZdwy+YOMyiT62stKjWueKZvnkv5J7sbTw=
+			XoZK056BRzvOFQKgD2MbxRRjlsiaRzfCNulI+aBHaHE=
 			</data>
 		</dict>
 		<key>Modules/GoEasySwift.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			gc1qgmbe2lefkmct4L9/QOfWaoFja/swPH0j+J1LRLM=
+			Yzx82wZmSZQ/fclTekkmVlhBwxq+VyXhayOjjHzRUAI=
 			</data>
 		</dict>
 		<key>Modules/GoEasySwift.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -119,14 +119,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gc1qgmbe2lefkmct4L9/QOfWaoFja/swPH0j+J1LRLM=
+			Yzx82wZmSZQ/fclTekkmVlhBwxq+VyXhayOjjHzRUAI=
 			</data>
 		</dict>
 		<key>Modules/GoEasySwift.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			h9XSV6CGbQdLdsGXqDUq/4pkuabXgjOq/96Vi8SlGdc=
+			9kbNVhc+pWf1JE/F/wLQ2QBCAD+CFd1Pt8X4N1OkE1I=
 			</data>
 		</dict>
 		<key>WebViewBridge.html</key>

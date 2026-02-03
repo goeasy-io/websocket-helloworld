@@ -223,26 +223,8 @@ public class UnSubscribePresenceOptions : GoEasySwift.CallBackOptions {
   public init(channel: Swift.String, onSuccess: @escaping () -> Swift.Void, onFailed: @escaping (GoEasySwift.GResult) -> Swift.Void)
   @objc deinit
 }
-public typealias InitOptions = GoEasySwift.V2Api.Common.InitOptions
-public typealias ConnectOptionsV2 = GoEasySwift.V2Api.Common.ConnectOptions
-public typealias DisConnectOptionsV2 = GoEasySwift.V2Api.Common.DisConnectOptions
-public typealias SetBadgeOptionsV2 = GoEasySwift.V2Api.Common.SetBadgeOptions
-public typealias GResultV2 = GoEasySwift.V2Api.Common.GResult
-public typealias PublishOptionsV2 = GoEasySwift.V2Api.Pubsub.PublishOptions
-public typealias SubscribeOptionsV2 = GoEasySwift.V2Api.Pubsub.SubscribeOptions
-public typealias UnSubscribeOptionsV2 = GoEasySwift.V2Api.Pubsub.UnSubscribeOptions
-public typealias SubscribePresenceOptionsV2 = GoEasySwift.V2Api.Pubsub.SubscribePresenceOptions
-public typealias UnSubscribePresenceOptionsV2 = GoEasySwift.V2Api.Pubsub.UnSubscribePresenceOptions
-public typealias HistoryOptionsV2 = GoEasySwift.V2Api.Pubsub.HistoryOptions
-public typealias HereNowOptionsV2 = GoEasySwift.V2Api.Pubsub.HereNowOptions
-public typealias MessageCreateOptions = GoEasySwift.V2Api.IM.MessageCreateOptions
-public typealias TextMessageCreateOptions = GoEasySwift.V2Api.IM.TextMessageCreateOptions
-public typealias FileMessageCreateOptions = GoEasySwift.V2Api.IM.FileMessageCreateOptions
-public typealias CustomMessageCreateOptions = GoEasySwift.V2Api.IM.CustomMessageCreateOptions
-public class V2Api {
-  public init()
-  public class Common {
-    public init()
+public struct V2Api {
+  public struct Common {
     public struct GResult : Swift.Codable {
       public var code: Swift.Int
       public var data: Swift.String
@@ -418,7 +400,6 @@ public class V2Api {
       public func encode(to encoder: any Swift.Encoder) throws
       public init(from decoder: any Swift.Decoder) throws
     }
-    @objc deinit
   }
   public class IM {
     public init()
@@ -737,7 +718,6 @@ public class V2Api {
   }
   public struct GNotification {
   }
-  @objc deinit
 }
 public struct GIM {
   public init()
