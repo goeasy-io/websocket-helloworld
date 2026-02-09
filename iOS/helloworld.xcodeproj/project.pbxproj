@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -45,6 +45,10 @@
 		C5BC899A2F31E76E00993C36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C814C57487DE8A9CFA881ABF /* Pods-helloworld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helloworld.release.xcconfig"; path = "Target Support Files/Pods-helloworld/Pods-helloworld.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C5FD7EC42F39BF1E0088A93C /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		97546A1E2A5FAEA10018971D /* Frameworks */ = {
@@ -89,6 +93,7 @@
 		97546A232A5FAEA10018971D /* helloworld */ = {
 			isa = PBXGroup;
 			children = (
+				C5FD7EC42F39BF1E0088A93C /* Resources */,
 				C5BC899A2F31E76E00993C36 /* Info.plist */,
 				C53F92672F2C9D3400D802C7 /* helloworld.entitlements */,
 				97546A242A5FAEA10018971D /* helloworldApp.swift */,
@@ -133,6 +138,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C5FD7EC42F39BF1E0088A93C /* Resources */,
 			);
 			name = helloworld;
 			productName = helloworld;
