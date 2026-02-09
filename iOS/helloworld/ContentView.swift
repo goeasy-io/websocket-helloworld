@@ -118,6 +118,7 @@ struct ContentView: View {
             notification: GoEasySwift.V2Api.Common.NotificationOptions(
                 title: "您有一条新消息请查收",
                 body: message,
+                sound: "message",
                 badge: "+1",
                 vendorOptions: GoEasySwift.V2Api.Common.VendorOptions(
                     huawei: GoEasySwift.V2Api.Common.HuaweiOptions(
