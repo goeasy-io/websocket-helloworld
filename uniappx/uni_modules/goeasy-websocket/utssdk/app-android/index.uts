@@ -108,6 +108,11 @@ export class PubSub {
 					har.set("category", vendorOptions.harmony!.category)
 					v.set("harmony", har)
 				}
+				if (vendorOptions.honor != null) {
+					const hon = new Map<string, any>()
+					hon.set("importance", vendorOptions.honor!.importance)
+					v.set("honor", hon)
+				}
 				notificationMap.set("vendorOptions", v)
 			}
 		}

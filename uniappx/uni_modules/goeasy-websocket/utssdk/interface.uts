@@ -78,6 +78,7 @@ export type NotificationOption = {
 }
 export type VendorOptions = {
 	huawei?: HuaweiOptions
+	honor?: HonorOptions
 	harmony?: HarmonyOptions
 	xiaomi?: XiaomiOptions
 	oppo?: OppoOptions
@@ -85,6 +86,10 @@ export type VendorOptions = {
 }
 export type HuaweiOptions = {
   category: string;
+}
+
+export type HonorOptions = {
+  importance: string;
 }
 
 export type HarmonyOptions = {

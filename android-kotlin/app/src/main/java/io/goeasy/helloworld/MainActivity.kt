@@ -2,6 +2,7 @@ package io.goeasy.helloworld
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +22,13 @@ import io.goeasy.sdk.types.pubsub.SubscribeOptions
 import io.goeasy.sdk.types.pubsub.PublishOptions
 import io.goeasy.sdk.types.common.NotificationOptions
 import io.goeasy.sdk.types.common.GResult
+import io.goeasy.sdk.types.common.HarmonyOptions
+import io.goeasy.sdk.types.common.HonorOptions
+import io.goeasy.sdk.types.common.HuaweiOptions
+import io.goeasy.sdk.types.common.OppoOptions
+import io.goeasy.sdk.types.common.VendorOptions
+import io.goeasy.sdk.types.common.VivoOptions
+import io.goeasy.sdk.types.common.XiaomiOptions
 import io.goeasy.sdk.types.pubsub.PubSubMessage
 import java.text.SimpleDateFormat
 import java.util.*
@@ -100,7 +108,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun subscribe() {
         GoEasy.pubsub.subscribe(SubscribeOptions(
-            channel = "test_channel",
+            channel = "my_channel",
             onMessage = { message: PubSubMessage ->
                 Log.i(TAG,"Message content: ${message.content}")
                 unshiftMessage(message.content)
@@ -118,12 +126,35 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun sendMessage(message: String) {
         GoEasy.pubsub.publish(PublishOptions(
-            channel = "test_channel",
+            channel = "my_channel",
             message = message,
             qos = 1,
             notification = NotificationOptions(
                 title = "您有一条消息",
-                body = message
+                body = message,
+                sound = "message",
+                badge = "+1",
+                vendorOptions = VendorOptions(
+                    huawei = HuaweiOptions(
+                        category = "EXPRESS"
+                    ),
+                    oppo = OppoOptions(
+                        channel_id = "order_channel"
+                    ),
+                    xiaomi = XiaomiOptions(
+                        channel_id = "110828"
+                    ),
+                    vivo = VivoOptions(
+                        classification = 1,
+                        category = "ORDER"
+                    ),
+                    honor = HonorOptions(
+                        importance = "NORMAL"
+                    ),
+                    harmony = HarmonyOptions(
+                        category = "IM"
+                    ),
+                )
             ),
             onSuccess = {
                 Log.i(TAG, "消息发送成功")

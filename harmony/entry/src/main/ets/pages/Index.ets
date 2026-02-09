@@ -81,9 +81,25 @@ struct Index {
           sound: "message",
           badge: "+1",
           vendorOptions:{
+            huawei: {
+              category: 'EXPRESS'  // "VOIP"、"IM"
+            },
+            oppo: {
+              channel_id: 'order_channel'
+            },
+            xiaomi: {
+              channel_id: '110828'
+            },
+            vivo:{
+              classification:1,
+              category: "ORDER"
+            },
+            honor: {
+              importance: 'NORMAL'
+            },
             harmony: {
               category: 'IM'
-            },
+            }
           }
         },
         onSuccess: () => {

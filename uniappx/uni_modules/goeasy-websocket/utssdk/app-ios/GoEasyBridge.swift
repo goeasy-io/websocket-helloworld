@@ -116,8 +116,9 @@ public class GPubSubBridge {
                 }
                 var vivo: GoEasySwift.V2Api.Common.VivoOptions? = nil
                 if let vi = v["vivo"] as? [String: Any] {
+                    let classificationValue = vi["classification"] as? Int
                     vivo = GoEasySwift.V2Api.Common.VivoOptions(
-                        classification: vi["classification"] as? Int,
+                        classification: classificationValue,
                         category: vi["category"] as? String
                     )
                 }
@@ -125,8 +126,13 @@ public class GPubSubBridge {
                 if let har = v["harmony"] as? [String: Any] {
                     harmony = GoEasySwift.V2Api.Common.HarmonyOptions(category: har["category"] as? String ?? "")
                 }
+                var honor: GoEasySwift.V2Api.Common.HonorOptions? = nil
+                if let hon = v["honor"] as? [String: Any] {
+                    honor = GoEasySwift.V2Api.Common.HonorOptions(importance: hon["importance"] as? String ?? "")
+                }
                 vendorOptions = GoEasySwift.V2Api.Common.VendorOptions(
                     huawei: huawei,
+                    honor: honor,
                     xiaomi: xiaomi,
                     oppo: oppo,
                     vivo: vivo,

@@ -90,8 +90,24 @@
 					sound: "message",
 					badge: "+1",
 					vendorOptions:{
+						huawei: {
+							category: 'EXPRESS'  // "VOIP"、"IM"
+						},
+						oppo: {
+							channel_id: 'order_channel'
+						},
 						xiaomi: {
 							channel_id: '110828'
+						},
+						vivo:{
+							classification:1,
+							category: "ORDER"
+						},
+						honor: {
+							importance: 'NORMAL'
+						},
+						harmony: {
+							category: 'IM'
 						}
 					}
 				},
@@ -99,6 +115,7 @@
 					message.value = ''; //清空发送消息内容
 				},
 				onFailed: (error) => {
+					console.log("消息发送失败:",error)
 					unshiftMessage("消息发送失败，错误编码：" + error.code + " 错误信息：" + error.content);
 				}
 			});

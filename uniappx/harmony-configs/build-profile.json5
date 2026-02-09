@@ -1,32 +1,32 @@
 {
   "app": {
     "signingConfigs": [
-        {
-					"name": "default",
-					"type": "HarmonyOS",
-					"material": {
-						"storeFile": "/Users/xxx/push/push_release.p12",
-						"storePassword": "0000001864E9FAEC918813FB695E6771ADF6B8F66EF5D802DE16AF1E3F6A15C53B447D902A340228",
-						"keyAlias": "testalias",
-						"keyPassword": "0000001894F8341E24CA52F4C51AD54DF4B4E01E304E43DBAE1799B428F7C161F382479AA038DA1B",
-						"signAlg": "SHA256withECDSA",
-						"profile": "/Users/xxx/push/push_releaseRelease.p7b",
-						"certpath": "/Users/xxx/push/push_release.cer"
-					}
-				},
-				{
-					"name": "release",
-					"type": "HarmonyOS",
-					"material": {
-						"certpath": "/Users/xxx/push/push_release.cer",
-						"keyAlias": "testalias",
-						"keyPassword": "00000018330281EA94D5EB1A59082973108C5CD61812C4540EBD063866F3FF4763CC529C5289E746",
-						"profile": "/Users/xxx/push/push_releaseRelease.p7b",
-						"signAlg": "SHA256withECDSA",
-						"storeFile": "/Users/xxx/push/push_release.p12",
-						"storePassword": "000000185CFEB3E6365529A9560EC1FFED18B877B7D9292129BD16C61B1D95D7E58963A069202D34"
-					}
-				}
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "storeFile": "/Users/betty/Documents/uwant/push/push_release.p12",
+          "storePassword": "0000001864E9FAEC918813FB695E6771ADF6B8F66EF5D802DE16AF1E3F6A15C53B447D902A340228",
+          "keyAlias": "testalias",
+          "keyPassword": "0000001894F8341E24CA52F4C51AD54DF4B4E01E304E43DBAE1799B428F7C161F382479AA038DA1B",
+          "signAlg": "SHA256withECDSA",
+          "profile": "/Users/betty/Documents/uwant/push/push_releaseRelease.p7b",
+          "certpath": "/Users/betty/Documents/uwant/push/push_release.cer"
+        }
+      },
+      {
+        "name": "release",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/betty/Documents/uwant/push/push_release.cer",
+          "keyAlias": "testalias",
+          "keyPassword": "00000018330281EA94D5EB1A59082973108C5CD61812C4540EBD063866F3FF4763CC529C5289E746",
+          "profile": "/Users/betty/Documents/uwant/push/push_releaseRelease.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/betty/Documents/uwant/push/push_release.p12",
+          "storePassword": "000000185CFEB3E6365529A9560EC1FFED18B877B7D9292129BD16C61B1D95D7E58963A069202D34"
+        }
+      }
     ],
     "products": [
       {

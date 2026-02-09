@@ -93,7 +93,7 @@ struct ContentView: View {
 
     func subscribe() {
         let subscribeOptions = GoEasySwift.V2Api.Pubsub.SubscribeOptions(
-            channel: "testChannel",
+            channel: "my_channel",
             onSuccess: {
                 unshiftMessage("订阅成功")
                 print("订阅成功")
@@ -113,12 +113,33 @@ struct ContentView: View {
 
     func publish() {
         let options = GoEasySwift.V2Api.Pubsub.PublishOptions(
-            channel: "testChannel",
+            channel: "my_channel",
             message: message,
             notification: GoEasySwift.V2Api.Common.NotificationOptions(
                 title: "您有一条新消息请查收",
                 body: message,
-                badge: "+1"
+                badge: "+1",
+                vendorOptions: GoEasySwift.V2Api.Common.VendorOptions(
+                    huawei: GoEasySwift.V2Api.Common.HuaweiOptions(
+                        category: "EXPRESS"   // "VOIP" / "IM"
+                    ),
+                    honor: GoEasySwift.V2Api.Common.HonorOptions(
+                        importance: "NORMAL"
+                    ),
+                    xiaomi: GoEasySwift.V2Api.Common.XiaomiOptions(
+                        channel_id: .stringValue("110828")
+                    ),
+                    oppo: GoEasySwift.V2Api.Common.OppoOptions(
+                        channel_id: "order_channel"
+                    ),
+                    vivo: GoEasySwift.V2Api.Common.VivoOptions(
+                        classification: 1,
+                        category: "ORDER"
+                    ),
+                    harmony: GoEasySwift.V2Api.Common.HarmonyOptions(
+                        category: "IM"
+                    )
+                )
             ),
             qos: 1,
             onSuccess: {

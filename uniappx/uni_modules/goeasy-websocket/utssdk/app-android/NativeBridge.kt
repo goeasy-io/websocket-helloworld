@@ -288,6 +288,9 @@ object NativeBridge {
                     },
                     harmony = v["harmony"].toStringAnyMap()?.let {
                         io.goeasy.sdk.types.common.HarmonyOptions(category = it["category"] as? String ?: "")
+                    },
+                    honor = v["honor"].toStringAnyMap()?.let {
+                        io.goeasy.sdk.types.common.HonorOptions(importance = it["importance"] as? String ?: "")
                     }
                 )
             }
