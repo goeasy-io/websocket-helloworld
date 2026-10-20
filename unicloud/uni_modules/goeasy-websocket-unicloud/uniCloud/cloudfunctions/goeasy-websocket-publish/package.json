@@ -1,7 +1,0 @@
-{
-  "name": "goeasy-websocket-publish",
-  "dependencies": {},
-  "extensions": {
-    "uni-cloud-jql": {}
-  }
-}
