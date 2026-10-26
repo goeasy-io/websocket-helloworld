@@ -1,16 +1,22 @@
 PODS:
-  - GoEasySwift (0.1.12)
+  - GoEasySDK (0.1.1-2)
 
 DEPENDENCIES:
-  - GoEasySwift (= 0.1.12)
+  - GoEasySDK (from `https://gitee.com/goeasy-io/goeasy-swift-snapshot.git`, tag `0.1.1-2`)
 
-SPEC REPOS:
-  trunk:
-    - GoEasySwift
+EXTERNAL SOURCES:
+  GoEasySDK:
+    :git: https://gitee.com/goeasy-io/goeasy-swift-snapshot.git
+    :tag: 0.1.1-2
+
+CHECKOUT OPTIONS:
+  GoEasySDK:
+    :git: https://gitee.com/goeasy-io/goeasy-swift-snapshot.git
+    :tag: 0.1.1-2
 
 SPEC CHECKSUMS:
-  GoEasySwift: ae5a82334746723832239ab88266eaed0c0a0309
+  GoEasySDK: 17dbeb1ac5b4151c3ef24cbc06b4a788775f613d
 
-PODFILE CHECKSUM: 571bcd2d81aa1618350e9d9b04bf4fdb0ae240fc
+PODFILE CHECKSUM: 470e3482bc9a2691a0616b4470f8a98f890c5f2a
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.17.0

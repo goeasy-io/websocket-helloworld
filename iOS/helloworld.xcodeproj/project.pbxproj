@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04E0AC56308F086600D89A32 /* message.caf in Resources */ = {isa = PBXBuildFile; fileRef = 04E0AC55308F086600D89A32 /* message.caf */; };
+		45361E6E7528B1B6424CB853 /* Pods_helloworld.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7317D36D17C71C8EE1599E /* Pods_helloworld.framework */; };
 		97546A252A5FAEA10018971D /* helloworldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97546A242A5FAEA10018971D /* helloworldApp.swift */; };
 		97546A272A5FAEA10018971D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97546A262A5FAEA10018971D /* ContentView.swift */; };
 		97546A292A5FAEA80018971D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97546A282A5FAEA80018971D /* Assets.xcassets */; };
@@ -15,6 +17,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04E0AC53308F02BD00D89A32 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		04E0AC54308F02C200D89A32 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = SOURCE_ROOT; };
+		04E0AC55308F086600D89A32 /* message.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = message.caf; sourceTree = "<group>"; };
+		04E0AC57308F08F700D89A32 /* helloworld.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = helloworld.entitlements; sourceTree = "<group>"; };
 		97546A212A5FAEA10018971D /* helloworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = helloworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97546A242A5FAEA10018971D /* helloworldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helloworldApp.swift; sourceTree = "<group>"; };
 		97546A262A5FAEA10018971D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -31,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45361E6E7528B1B6424CB853 /* Pods_helloworld.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +55,8 @@
 		2F37907D0092003FC4D99D7A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				04E0AC53308F02BD00D89A32 /* Podfile */,
+				04E0AC54308F02C200D89A32 /* Podfile.lock */,
 				D196CB7E4C78B5582403245F /* Pods-helloworld.debug.xcconfig */,
 				E5A7D699790CD19A06D92AFD /* Pods-helloworld.release.xcconfig */,
 			);
@@ -57,6 +66,7 @@
 		97546A182A5FAEA10018971D = {
 			isa = PBXGroup;
 			children = (
+				04E0AC55308F086600D89A32 /* message.caf */,
 				97546A232A5FAEA10018971D /* helloworld */,
 				97546A222A5FAEA10018971D /* Products */,
 				2F37907D0092003FC4D99D7A /* Pods */,
@@ -75,6 +85,7 @@
 		97546A232A5FAEA10018971D /* helloworld */ = {
 			isa = PBXGroup;
 			children = (
+				04E0AC57308F08F700D89A32 /* helloworld.entitlements */,
 				97546A242A5FAEA10018971D /* helloworldApp.swift */,
 				97546A262A5FAEA10018971D /* ContentView.swift */,
 				97546A282A5FAEA80018971D /* Assets.xcassets */,
@@ -151,6 +162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E0AC56308F086600D89A32 /* message.caf in Resources */,
 				97546A2C2A5FAEA80018971D /* Preview Assets.xcassets in Resources */,
 				97546A292A5FAEA80018971D /* Assets.xcassets in Resources */,
 			);
@@ -319,6 +331,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = helloworld/helloworld.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"helloworld/Preview Content\"";
@@ -335,7 +348,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.goeasy.helloworld;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.goeasy.swift-demo";
 				PRODUCT_NAME = helloworld;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -349,6 +362,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = helloworld/helloworld.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"helloworld/Preview Content\"";
@@ -365,7 +379,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.goeasy.helloworld;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.goeasy.swift-demo";
 				PRODUCT_NAME = helloworld;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

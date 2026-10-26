@@ -1,5 +1,5 @@
 import SwiftUI
-import GoEasySwift
+import GoEasySDK
 
 struct ContentView: View {
 
@@ -57,56 +57,54 @@ struct ContentView: View {
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .edgesIgnoringSafeArea(.all)
         .onAppear {
-            initGoEasy()
             connect()
             subscribe()
         }
     }
 
-    func initGoEasy() {
-        GoEasy.initGoEasy(host: GoEasyConfig.host, appkey: GoEasyConfig.appkey)
-    }
-
     func connect() {
-        let connectEventListener = ConnectEventListener()
-        connectEventListener.onSuccess = { result in
-            unshiftMessage("连接成功")
-            print("连接成功result：\(result)")
+        GoEasy.connect { result in
+            switch result {
+            case .success:
+                unshiftMessage("连接成功")
+                print("连接成功")
+            case .failure(let error):
+                print("连接失败：\(error)")
+            }
         }
-        connectEventListener.onFailed = { result in
-            print("连接失败result：\(result)")
-        }
-        connectEventListener.onProgress = { attempts in
-            print("尝试重连次数:\(attempts)")
-        }
-        GoEasy.connect(connectEventListener: connectEventListener)
     }
 
     func subscribe() {
-        let subscribeEventListener = SubscribeEventListener()
-        subscribeEventListener.onSuccess = { result in
-            unshiftMessage("订阅成功")
-        }
-        subscribeEventListener.onFailed = { result in
-            unshiftMessage("订阅失败")
-        }
-        subscribeEventListener.onMessage = { message in
-            unshiftMessage(message.content)
-        }
-        GPubSub.subscribe(channel: "test_channel", subscribeEventListener: subscribeEventListener)
+        GoEasy.ws.subscribe(
+            channels: ["test_channel"],
+            onMessage: { message in
+                print("收到消息：\(message)")
+                unshiftMessage(message.content)
+            },
+            completion: { result in
+                switch result {
+                case .success:
+                    unshiftMessage("订阅成功")
+                case .failure(let error):
+                    print("订阅失败：\(error)")
+                    unshiftMessage("订阅失败")
+                }
+            }
+        )
     }
 
     func publish() {
-        let publishEventListener = GoEasyEventListener()
-        publishEventListener.onSuccess = { result in
-            print("发送成功 code:\(result.code) data:\(result.data)")
-            message = ""
+        let options = PublishOptions(channel: "test_channel", content: message, qos: 1)
+        GoEasy.ws.publish(options) { result in
+            switch result {
+            case .success:
+                print("发送成功")
+                message = ""
+            case .failure(let error):
+                print("发送失败：\(error)")
+                unshiftMessage("发送失败")
+            }
         }
-        publishEventListener.onFailed = { result in
-            unshiftMessage("发送失败")
-        }
-        let options = PublishOptions(channel: "test_channel", message: message, qos: 1)
-        GPubSub.publish(options: options, publishEventListener: publishEventListener)
     }
 
     func unshiftMessage(_ message: String) {
