@@ -1,119 +1,64 @@
 package io.goeasy.helloworld
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import io.goeasy.*
-import io.goeasy.helloworld.GoEasyConfig.appkey
-import io.goeasy.helloworld.GoEasyConfig.host
-import io.goeasy.pubsub.GPubSub
-import io.goeasy.pubsub.PubSubMessage
-import io.goeasy.pubsub.PublishOptions
-import io.goeasy.pubsub.SubscribeEventListener
-import java.text.SimpleDateFormat
-import java.util.*
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
-
+/**
+ * GoEasy WebSocket 示例。
+ *
+ * 连接、订阅、收发消息的逻辑在 ChatViewModel 里，这里只负责把状态显示到界面。
+ */
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private var messages: TextView? = null
-    private var input: EditText? = null
 
+    private val viewModel: ChatViewModel by viewModels()
+    private lateinit var messages: TextView
+    private lateinit var input: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val button = findViewById<TextView>(R.id.button)
-        button.setOnClickListener(this)
 
         input = findViewById(R.id.message)
         messages = findViewById(R.id.message_list)
-        messages?.movementMethod = ScrollingMovementMethod()
+        messages.movementMethod = ScrollingMovementMethod()
+        findViewById<TextView>(R.id.button).setOnClickListener(this)
 
-        //初始化GoEasy
-        initGoEasy()
-        //连接GoEasy
-        connectGoEasy()
-        //接收消息
-        subscribe()
+        lifecycleScope.launch {
+            viewModel.messages.collect { messages.text = it }
+        }
 
+        showNotificationMessage(intent)
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        showNotificationMessage(intent)
     }
 
     override fun onClick(v: View?) {
-        when(v?.id){
-            R.id.button -> {
-                val content = input?.text.toString()
-                sendMessage(content)
-            }
+        if (v?.id == R.id.button) {
+            viewModel.send(input.text.toString())
+            input.setText("")
         }
     }
 
-    private fun initGoEasy() {
-        GoEasy.init(host, appkey, this.applicationContext)
+    /** 展示通知栏点进来的消息 */
+    private fun showNotificationMessage(intent: Intent) {
+        val content = intent.getStringExtra(EXTRA_MESSAGE) ?: return
+        intent.removeExtra(EXTRA_MESSAGE)
+        viewModel.onNotificationMessage(content)
     }
 
-    private fun connectGoEasy() {
-        val connectOptions = ConnectOptions()
-        GoEasy.connect(connectOptions, object : ConnectEventListener() {
-            override fun onSuccess(data: GResult<*>) {
-                unshiftMessage("连接成功")
-            }
-
-            override fun onFailed(error: GResult<*>) {
-                unshiftMessage("Failed to connect GoEasy, code:" + error.code + ",error:" + error.data);
-            }
-
-            override fun onProgress(attempts: Int) {
-                Log.i("Kotlin Hello World", "GoEasy connect progress attempts: $attempts")
-            }
-        })
+    companion object {
+        const val EXTRA_MESSAGE = "message"
     }
-
-    private fun subscribe() {
-        GPubSub.subscribe("test_channel", object : SubscribeEventListener() {
-            override fun onMessage(message: PubSubMessage) {
-                unshiftMessage(message.content)
-            }
-
-            override fun onSuccess(data: GResult<*>) {
-                unshiftMessage("订阅成功")
-            }
-
-            override fun onFailed(error: GResult<*>) {
-                unshiftMessage("订阅失败，错误编码：" + error.code + " 错误信息：" + error.data);
-            }
-        })
-    }
-
-    private fun sendMessage(message: String) {
-        val publishOptions = PublishOptions("test_channel", message);
-        GPubSub.publish(publishOptions, object : GoEasyEventListener() {
-            override fun onSuccess(data: GResult<*>) {
-                Log.i("Kotlin Hello World", data.data as String)
-            }
-            override fun onFailed(error: GResult<*>) {
-                unshiftMessage("消息发送失败，错误编码：" + error.code + " 错误信息：" + error.data);
-            }
-        })
-    }
-
-    @SuppressLint("SimpleDateFormat", "SetTextI18n")
-    private fun unshiftMessage(message: String) {
-        runOnUiThread {
-            val simpleDateFormat = SimpleDateFormat("HH:mm")
-            val date = simpleDateFormat.format(Date())
-
-            val newMessage = "$date $message\n"
-            val originalContent = messages?.text
-            messages!!.text = "$newMessage$originalContent"
-
-            input?.setText("")
-        }
-    }
-
 }
-

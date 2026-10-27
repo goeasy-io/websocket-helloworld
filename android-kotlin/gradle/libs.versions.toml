@@ -1,0 +1,25 @@
+[versions]
+agp = "9.2.1"
+coreKtx = "1.10.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity = "1.8.2"
+lifecycle = "2.6.1"
+constraintLayout = "2.2.0"
+androidxJunit = "1.1.5"
+goeasy = "0.1.3"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+goeasy-android = { group = "io.goeasy", name = "goeasy-android", version.ref = "goeasy" }
+goeasy-notification = { group = "io.goeasy", name = "goeasy-notification", version.ref = "goeasy" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }

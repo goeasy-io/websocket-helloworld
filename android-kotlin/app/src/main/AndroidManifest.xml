@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.goeasy.helloworld">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".GoEasyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Helloworld">
-        <activity android:name="io.goeasy.helloworld.MainActivity" android:windowSoftInputMode="adjustPan" android:exported="true">
+
+        <!-- Xiaomi -->
+        <meta-data android:name="io.goeasy.xiaomi.app_id" android:value="xxxx" />
+        <meta-data android:name="io.goeasy.xiaomi.app_key" android:value="xxxx" />
+        <!-- VIVO -->
+        <meta-data android:name="com.vivo.push.api_key" android:value="xxxx" />
+        <meta-data android:name="com.vivo.push.app_id" android:value="xxxx" />
+        <!-- OPPO -->
+        <meta-data android:name="io.goeasy.oppo.app_id" android:value="xxxx" />
+        <meta-data android:name="io.goeasy.oppo.app_key" android:value="xxxx" />
+        <meta-data android:name="io.goeasy.oppo.app_secret" android:value="xxxx" />
+        <!-- Huawei -->
+        <meta-data android:name="com.huawei.hms.client.appid" android:value="xxxx" />
+        <!-- Honor -->
+        <meta-data android:name="com.hihonor.push.app_id" android:value="xxxx" />
+        <!-- FCM -->
+        <meta-data android:name="io.goeasy.fcm.project_id" android:value="xxxx" />
+        <meta-data android:name="io.goeasy.fcm.app_id" android:value="xxxx" />
+        <meta-data android:name="io.goeasy.fcm.current_key" android:value="xxxx" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
