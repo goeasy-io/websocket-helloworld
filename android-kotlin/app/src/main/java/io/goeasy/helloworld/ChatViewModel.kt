@@ -21,6 +21,11 @@ class ChatViewModel : ViewModel() {
     private val lines = ArrayDeque<String>()
 
     init {
+        val state =  GoEasy.state;
+        append("当前连接状态: $state")
+        GoEasy.onStateChange { event ->
+            append("当前状态: ${event.current}, 尝试连接次数: ${event.attempts}, 错误: ${event.error?.let { "[${it.code}] ${it.message}" } ?: "无"}")
+        }
         connectGoEasy()
         subscribe()
     }
