@@ -12,7 +12,7 @@ import java.util.Date
 /**
  * 持有连接与消息状态，Activity 重建（旋转屏幕）时不会断开重连、也不会重复订阅。
  */
-class ChatViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
 
     private val _messages = MutableStateFlow("")
     val messages: StateFlow<String> = _messages.asStateFlow()
@@ -33,7 +33,7 @@ class ChatViewModel : ViewModel() {
     fun send(content: String) {
         if (content.isBlank()) return
 
-        val options = PublishOptions(channel = GoEasyConfig.channel, content = content)
+        val options = PublishOptions(channel = "test_mychannel", content = content)
         GoEasy.ws.publish(options) { result ->
             if (result.isSuccess) {
                 append("发送成功: $content")
@@ -60,7 +60,7 @@ class ChatViewModel : ViewModel() {
 
     private fun subscribe() {
         GoEasy.ws.subscribe(
-            listOf(GoEasyConfig.channel),
+            listOf("test_mychannel"),
             { message -> append(message.content) }
         ) { result ->
             if (result.isSuccess) {

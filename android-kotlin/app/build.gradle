@@ -7,8 +7,8 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        // 与各厂商推送平台绑定的包名，不可随意修改
-        applicationId = "com.uwantsoft.uwantone"
+        //如需离线通知栏推送，要与各厂商推送平台绑定的包名一致
+        applicationId = "io.goeasy.helloworld"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -18,17 +18,22 @@ android {
     }
 
     signingConfigs {
-
+        release {
+            keyAlias = "xxxx"
+            keyPassword = "xxxx"
+            storeFile = file("xxxx.keystore")
+            storePassword = "xxxx"
+        }
     }
 
     buildTypes {
         debug {
-            signingConfig = signingConfigs.getByName("config")
+            signingConfig = signingConfigs.release
         }
         release {
             // 保持关闭：SDK 通过 ServiceLoader 发现通知 provider，R8 优化可能将其折叠
             minifyEnabled = false
-            signingConfig = signingConfigs.getByName("config")
+            signingConfig = signingConfigs.release
             proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"

@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  */
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private val viewModel: ChatViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var messages: TextView
     private lateinit var input: EditText
 

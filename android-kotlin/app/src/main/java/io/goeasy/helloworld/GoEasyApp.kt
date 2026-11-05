@@ -14,8 +14,8 @@ class GoEasyApp : Application() {
         super.onCreate()
 
         GoEasy.init(
-            host = GoEasyConfig.host,
-            appkey = GoEasyConfig.appkey,
+            host = "hangzhou.goeasy.io",
+            appkey = "BC-xxxx",
             notification = true,
             context = applicationContext
         )
