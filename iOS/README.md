@@ -6,7 +6,7 @@
 3. 进入应用详情，即可看到自己的appkey
 
 ### 替换appkey
-打开GoEasyConfig.swift，将appkey替换成您应用的common key
+打开helloworldApp.swift，将appkey替换成您应用的common key
 
 ### 运行步骤
 
