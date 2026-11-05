@@ -117,6 +117,9 @@ struct ContentView: View {
         dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
         let current_time = dateFormatter.string(from: Date())
         messages.append(current_time + " " + message)
+        if messages.count > 100 {
+            messages.removeFirst(messages.count - 100)
+        }
     }
 }
 
