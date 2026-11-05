@@ -38,7 +38,7 @@ class MainViewModel : ViewModel() {
             if (result.isSuccess) {
                 append("发送成功: $content")
             } else {
-                append("消息发送失败，错误编码：" + result.error?.code + " 错误信息：" + result.error?.message)
+                append("消息发送失败，错误编码：${result.error?.code} 错误信息：${result.error?.message}")
             }
         }
     }
@@ -53,7 +53,7 @@ class MainViewModel : ViewModel() {
             if (result.isSuccess) {
                 append("连接成功")
             } else {
-                append("连接失败，错误编码：" + result.error?.code + " 错误信息：" + result.error?.message)
+                append("连接失败，错误编码：${result.error?.code} 错误信息：${result.error?.message}")
             }
         }
     }
@@ -61,12 +61,12 @@ class MainViewModel : ViewModel() {
     private fun subscribe() {
         GoEasy.ws.subscribe(
             listOf("test_mychannel"),
-            { message -> append(message.content) }
+            { message -> append("收到消息: ${message.content}") }
         ) { result ->
             if (result.isSuccess) {
                 append("订阅成功")
             } else {
-                append("订阅失败，错误编码：" + result.error?.code + " 错误信息：" + result.error?.message)
+                append("订阅失败，错误编码：${result.error?.code}  错误信息：${result.error?.message}")
             }
         }
     }
