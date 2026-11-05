@@ -17,29 +17,29 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        release {
-            keyAlias = "xxxx"
-            keyPassword = "xxxx"
-            storeFile = file("xxxx.keystore")
-            storePassword = "xxxx"
-        }
-    }
-
-    buildTypes {
-        debug {
-            signingConfig = signingConfigs.release
-        }
-        release {
-            // 保持关闭：SDK 通过 ServiceLoader 发现通知 provider，R8 优化可能将其折叠
-            minifyEnabled = false
-            signingConfig = signingConfigs.release
-            proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
-            )
-        }
-    }
+//如需离线通知栏推送，打开下面的注释，并填入正确信息
+//    signingConfigs {
+//        release {
+//            keyAlias = "xxxx"
+//            keyPassword = "xxxx"
+//            storeFile = file("xxxx.keystore")
+//            storePassword = "xxxx"
+//        }
+//    }
+//
+//    buildTypes {
+//        debug {
+//            signingConfig = signingConfigs.release
+//        }
+//        release {
+//            minifyEnabled = true
+//            signingConfig = signingConfigs.release
+//            proguardFiles(
+//                    getDefaultProguardFile("proguard-android-optimize.txt"),
+//                    "proguard-rules.pro"
+//            )
+//        }
+//    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
