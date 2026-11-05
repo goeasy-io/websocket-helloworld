@@ -26,8 +26,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
            didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
         GoEasy.initSDK(
-            host: GoEasyConfig.host,
-            appkey: GoEasyConfig.appkey,
+            host: "hangzhou.goeasy.io",
+            appkey: "您的appkey",
             notification: true)
         // 监听通知点击事件
         GoEasy.notification.onClick { data in

@@ -57,17 +57,15 @@ struct ContentView: View {
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .edgesIgnoringSafeArea(.all)
         .onAppear {
-            let state = GoEasy.state;
-            unshiftMessage("当前连接状态: \(state)")
-            GoEasy.onStateChange { event in
-                unshiftMessage("当前状态: \(event.current), 尝试连接次数: \(event.attempts), 错误: \(event.error.map { "[\($0.code)] \($0.message)" } ?? "无")")
-            }
             connect()
             subscribe()
         }
     }
 
     func connect() {
+        GoEasy.onStateChange { event in
+            unshiftMessage("当前状态: \(event.current), 尝试 \(event.attempts) 次, 错误: \(event.error.map { "[\($0.code)] \($0.message)" } ?? "无")")
+        }
         GoEasy.connect { result in
             switch result {
             case .success:

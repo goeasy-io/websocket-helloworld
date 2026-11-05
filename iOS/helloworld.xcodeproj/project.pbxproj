@@ -13,7 +13,6 @@
 		97546A272A5FAEA10018971D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97546A262A5FAEA10018971D /* ContentView.swift */; };
 		97546A292A5FAEA80018971D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97546A282A5FAEA80018971D /* Assets.xcassets */; };
 		97546A2C2A5FAEA80018971D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97546A2B2A5FAEA80018971D /* Preview Assets.xcassets */; };
-		97546A332A5FAF880018971D /* GoEasyConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97546A322A5FAF880018971D /* GoEasyConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,7 +25,6 @@
 		97546A262A5FAEA10018971D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		97546A282A5FAEA80018971D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97546A2B2A5FAEA80018971D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		97546A322A5FAF880018971D /* GoEasyConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoEasyConfig.swift; sourceTree = "<group>"; };
 		BA7317D36D17C71C8EE1599E /* Pods_helloworld.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_helloworld.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D196CB7E4C78B5582403245F /* Pods-helloworld.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helloworld.debug.xcconfig"; path = "Target Support Files/Pods-helloworld/Pods-helloworld.debug.xcconfig"; sourceTree = "<group>"; };
 		E5A7D699790CD19A06D92AFD /* Pods-helloworld.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-helloworld.release.xcconfig"; path = "Target Support Files/Pods-helloworld/Pods-helloworld.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 				97546A262A5FAEA10018971D /* ContentView.swift */,
 				97546A282A5FAEA80018971D /* Assets.xcassets */,
 				97546A2A2A5FAEA80018971D /* Preview Content */,
-				97546A322A5FAF880018971D /* GoEasyConfig.swift */,
 			);
 			path = helloworld;
 			sourceTree = "<group>";
@@ -202,7 +199,6 @@
 			files = (
 				97546A272A5FAEA10018971D /* ContentView.swift in Sources */,
 				97546A252A5FAEA10018971D /* helloworldApp.swift in Sources */,
-				97546A332A5FAF880018971D /* GoEasyConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
