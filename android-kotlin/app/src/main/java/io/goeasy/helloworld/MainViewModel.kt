@@ -22,10 +22,18 @@ class MainViewModel : ViewModel() {
     /** 消息按接收顺序存放，最新的在最前面 */
     private val lines = ArrayDeque<String>()
 
+    private var started = false
+
     init {
         GoEasy.onStateChange { event ->
             append("当前状态: ${event.current}, 尝试: ${event.attempts}次, 错误: ${event.error?.let { "[${it.code}] ${it.message}" } ?: "无"}")
         }
+    }
+
+    /** 由 Activity 在通知权限授权流程结束后调用，避免重复连接 */
+    fun start() {
+        if (started) return
+        started = true
         connectGoEasy()
         subscribe()
     }
