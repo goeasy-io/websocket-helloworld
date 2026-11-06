@@ -97,7 +97,8 @@ struct ContentView: View {
     }
 
     func publish() {
-        let options = PublishOptions(channel: "test_channel", content: message, qos: 1)
+        let notificationOptions = NotificationOptions(title: "GoEasy推送", body: "您有一条新的消息")
+        let options = PublishOptions(channel: "test_channel", content: message, notification: notificationOptions)
         GoEasy.ws.publish(options) { result in
             switch result {
             case .success:
