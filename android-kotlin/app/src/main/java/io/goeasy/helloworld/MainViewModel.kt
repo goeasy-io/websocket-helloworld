@@ -1,5 +1,6 @@
 package io.goeasy.helloworld
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import io.goeasy.GoEasy
 import io.goeasy.ws.PublishOptions
@@ -21,10 +22,8 @@ class MainViewModel : ViewModel() {
     private val lines = ArrayDeque<String>()
 
     init {
-        val state =  GoEasy.state;
-        append("当前连接状态: $state")
         GoEasy.onStateChange { event ->
-            append("当前状态: ${event.current}, 尝试连接次数: ${event.attempts}, 错误: ${event.error?.let { "[${it.code}] ${it.message}" } ?: "无"}")
+            append("当前状态: ${event.current}, 尝试: ${event.attempts}次, 错误: ${event.error?.let { "[${it.code}] ${it.message}" } ?: "无"}")
         }
         connectGoEasy()
         subscribe()
@@ -36,16 +35,11 @@ class MainViewModel : ViewModel() {
         val options = PublishOptions(channel = "test_mychannel", content = content)
         GoEasy.ws.publish(options) { result ->
             if (result.isSuccess) {
-                append("发送成功: $content")
+                Log.i("GoEasy", "发送成功")
             } else {
-                append("消息发送失败，错误编码：${result.error?.code} 错误信息：${result.error?.message}")
+                append("发送失败，错误：${result.error?.let { "[${it.code}] ${it.message}"}}")
             }
         }
-    }
-
-    /** 通知栏点进来的消息 */
-    fun onNotificationMessage(content: String) {
-        append("点击通知: $content")
     }
 
     private fun connectGoEasy() {
@@ -53,7 +47,7 @@ class MainViewModel : ViewModel() {
             if (result.isSuccess) {
                 append("连接成功")
             } else {
-                append("连接失败，错误编码：${result.error?.code} 错误信息：${result.error?.message}")
+                append("连接失败，错误：${result.error?.let { "[${it.code}] ${it.message}"}}")
             }
         }
     }
@@ -66,7 +60,7 @@ class MainViewModel : ViewModel() {
             if (result.isSuccess) {
                 append("订阅成功")
             } else {
-                append("订阅失败，错误编码：${result.error?.code}  错误信息：${result.error?.message}")
+                append("订阅失败，错误：${result.error?.let { "[${it.code}] ${it.message}"}}")
             }
         }
     }

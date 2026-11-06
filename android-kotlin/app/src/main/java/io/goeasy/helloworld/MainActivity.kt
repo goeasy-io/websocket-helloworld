@@ -34,14 +34,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         lifecycleScope.launch {
             viewModel.messages.collect { messages.text = it }
         }
-
-        showNotificationMessage(intent)
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
-        showNotificationMessage(intent)
     }
 
     override fun onClick(v: View?) {
@@ -49,13 +46,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             viewModel.send(input.text.toString())
             input.setText("")
         }
-    }
-
-    /** 展示通知栏点进来的消息 */
-    private fun showNotificationMessage(intent: Intent) {
-        val content = intent.getStringExtra(EXTRA_MESSAGE) ?: return
-        intent.removeExtra(EXTRA_MESSAGE)
-        viewModel.onNotificationMessage(content)
     }
 
     companion object {
