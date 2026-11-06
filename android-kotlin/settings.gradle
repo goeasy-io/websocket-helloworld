@@ -2,13 +2,7 @@ import org.gradle.api.initialization.resolve.RepositoriesMode
 
 pluginManagement {
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
     }
@@ -19,16 +13,14 @@ plugins {
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
     repositories {
+        // 国内镜像放前面，避免官方源不通导致依赖解析失败
+        maven { url = "https://maven.aliyun.com/repository/google" }
+        maven { url = "https://maven.aliyun.com/repository/public" }
         google()
         mavenCentral()
-        mavenLocal()
-
-        maven { url = "https://developer.huawei.com/repo/" }
-        maven { url = "https://mvn.getui.com/nexus/content/repositories/releases" }
         maven { url = "https://jitpack.io" }
-        maven { url = "https://maven.aliyun.com/repository/public" }
-        maven { url = "https://maven.aliyun.com/repository/google" }
     }
 }
 
