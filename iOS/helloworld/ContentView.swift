@@ -58,7 +58,6 @@ struct ContentView: View {
         .edgesIgnoringSafeArea(.all)
         .onAppear {
             connect()
-            subscribe()
         }
     }
 
@@ -71,6 +70,7 @@ struct ContentView: View {
             case .success:
                 unshiftMessage("连接成功")
                 print("连接成功")
+                subscribe()
             case .failure(let error):
                 print("连接失败：\(error)")
             }
