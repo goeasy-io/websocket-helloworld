@@ -3,6 +3,7 @@ package io.goeasy.helloworld
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import io.goeasy.GoEasy
+import io.goeasy.notification.NotificationOptions
 import io.goeasy.ws.PublishOptions
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,9 +31,10 @@ class MainViewModel : ViewModel() {
     }
 
     fun send(content: String) {
-        if (content.isBlank()) return
-
-        val options = PublishOptions(channel = "test_mychannel", content = content)
+        val options = PublishOptions(channel = "test_mychannel", content = content, notification = NotificationOptions(
+            title = "GoEasy推送",
+            body = "您有一条新的消息",
+        ))
         GoEasy.ws.publish(options) { result ->
             if (result.isSuccess) {
                 Log.i("GoEasy", "发送成功")
