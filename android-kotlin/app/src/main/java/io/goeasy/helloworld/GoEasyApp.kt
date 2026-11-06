@@ -20,7 +20,7 @@ class GoEasyApp : Application() {
         )
 
         GoEasy.notification.onClick { data ->
-            Log.i("GoEasy","收到通知栏数据：${data}")
+            Log.i("GoEasy","点击通知栏：${data}")
         }
     }
 }

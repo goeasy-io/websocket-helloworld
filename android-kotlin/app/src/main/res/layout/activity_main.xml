@@ -19,29 +19,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.081" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:text="Kotlin Hello world"
-        android:textColor="#D02129"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.138" />
+        app:layout_constraintVertical_bias="0.10" />
 
     <EditText
         android:id="@+id/message"
         android:layout_width="243dp"
         android:layout_height="33dp"
         android:background="#EFEFEF"
-        android:hint=""
+        android:hint="输入消息后发送"
         android:maxLines="1"
         android:paddingLeft="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,7 +34,7 @@
         app:layout_constraintHorizontal_bias="0.251"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.225" />
+        app:layout_constraintVertical_bias="0.20" />
 
     <TextView
         android:id="@+id/button"
@@ -65,7 +50,7 @@
         app:layout_constraintHorizontal_bias="0.88"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintVertical_bias="0.20" />
 
     <LinearLayout
         android:layout_width="300dp"
