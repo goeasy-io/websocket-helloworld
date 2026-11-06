@@ -1,7 +1,7 @@
 package io.goeasy.helloworld
 
 import android.app.Application
-import android.content.Intent
+import android.util.Log
 import io.goeasy.GoEasy
 import org.json.JSONObject
 
