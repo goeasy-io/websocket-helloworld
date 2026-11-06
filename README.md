@@ -3,7 +3,7 @@
 无需搭建websocket服务，几行代码，搞定websocket消息实时推送！
 
 ### 功能特性
-* 客户端SDK支持Uniapp, 各种小程序, Web页面, Cocos Creator以及Vue, React, Taro等各种前端主流框架
+* 客户端SDK支持Andoird, ios, Uniapp, 各种小程序, Web页面, Cocos Creator以各种主流客户端技术
 * 服务端支持PHP、C#、 Java、Go、Python、Node、Ruby等任何语言以及Unicloud或其他云函数通过Rest API推送消息
 * 内置心跳检测和消息Ack确认机制，断网自动重连，消息自动补发
 * Uniapp通知栏提醒支持各大厂商通道集成、微信模板消息推送提醒
@@ -12,7 +12,7 @@
 * webhook支持同步用户在线状态和消息数据至指定服务器
 
 ### 体验在线示例和源码
-#### [GoEasy Websocket HelloWord在线体验(免注册)](https://www.goeasy.io/cn/demos/demos.html#helloworld)
+#### [GoEasy Websocket HelloWord在线体验(免注册)](https://www.goeasy.io/cn/ws/demos.html)
 #### 本项目源码说明
 
 包含web-vue3、uniapp-vue3、uniapp-nvue、微信小程序、android-kotlin、iOS共六个版本的GoEasy Webscoket消息推送示例
