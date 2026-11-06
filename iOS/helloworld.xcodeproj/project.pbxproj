@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04E0AC53308F02BD00D89A32 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		04E0AC53308F02BD00D89A32 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		04E0AC54308F02C200D89A32 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = SOURCE_ROOT; };
 		04E0AC55308F086600D89A32 /* message.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = message.caf; sourceTree = "<group>"; };
 		04E0AC57308F08F700D89A32 /* helloworld.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = helloworld.entitlements; sourceTree = "<group>"; };
