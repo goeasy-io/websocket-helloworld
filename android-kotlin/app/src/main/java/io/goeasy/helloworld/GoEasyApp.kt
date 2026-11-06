@@ -3,7 +3,6 @@ package io.goeasy.helloworld
 import android.app.Application
 import android.util.Log
 import io.goeasy.GoEasy
-import org.json.JSONObject
 
 /**
  * 初始化 GoEasy，并接管通知栏点击。
