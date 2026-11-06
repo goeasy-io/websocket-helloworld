@@ -1,9 +1,7 @@
 package io.goeasy.helloworld
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -16,7 +14,7 @@ import kotlinx.coroutines.launch
  *
  * 连接、订阅、收发消息的逻辑在 ChatViewModel 里，这里只负责把状态显示到界面。
  */
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
     private lateinit var messages: TextView
@@ -29,26 +27,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         input = findViewById(R.id.message)
         messages = findViewById(R.id.message_list)
         messages.movementMethod = ScrollingMovementMethod()
-        findViewById<TextView>(R.id.button).setOnClickListener(this)
+        findViewById<TextView>(R.id.button).setOnClickListener {
+            viewModel.send(input.text.toString())
+            input.setText("")
+        }
 
         lifecycleScope.launch {
             viewModel.messages.collect { messages.text = it }
         }
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-    }
-
-    override fun onClick(v: View?) {
-        if (v?.id == R.id.button) {
-            viewModel.send(input.text.toString())
-            input.setText("")
-        }
-    }
-
-    companion object {
-        const val EXTRA_MESSAGE = "message"
     }
 }
