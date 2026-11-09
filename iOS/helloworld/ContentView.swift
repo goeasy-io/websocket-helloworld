@@ -28,7 +28,9 @@ struct ContentView: View {
                             .stroke(Color.gray, lineWidth: 1)
                     )
                 Button(action: {
-                    publish()
+                    Task {
+                        await publish()
+                    }
                 }) {
                     Text("发送")
                         .foregroundColor(Color("GoEasyRed"))
@@ -57,57 +59,52 @@ struct ContentView: View {
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .edgesIgnoringSafeArea(.all)
         .onAppear {
-            connect()
+            Task {
+                await connect()
+            }
         }
     }
 
-    func connect() {
+    func connect() async {
         GoEasy.onStateChange { event in
             unshiftMessage("当前状态: \(event.current), 尝试 \(event.attempts) 次, 错误: \(event.error.map { "[\($0.code)] \($0.message)" } ?? "无")")
         }
-        GoEasy.connect { result in
-            switch result {
-            case .success:
-                unshiftMessage("连接成功")
-                print("连接成功")
-                subscribe()
-            case .failure(let error):
-                print("连接失败：\(error)")
-            }
+        do {
+            try await GoEasy.connect()
+            unshiftMessage("连接成功")
+            print("连接成功")
+            await subscribe()
+        } catch {
+            print("连接失败：\(error)")
         }
     }
 
-    func subscribe() {
-        GoEasy.ws.subscribe(
-            channels: ["test_channel"],
-            onMessage: { message in
+    func subscribe() async {
+        do {
+            let stream = GoEasy.ws.subscribe(
+                channels: ["test_channel"]
+            )
+            unshiftMessage("订阅成功")
+            for try await message in stream {
                 print("收到消息：\(message)")
                 unshiftMessage(message.content)
-            },
-            completion: { result in
-                switch result {
-                case .success:
-                    unshiftMessage("订阅成功")
-                case .failure(let error):
-                    print("订阅失败：\(error)")
-                    unshiftMessage("订阅失败")
-                }
-            }
-        )
+           }
+        } catch {
+            print("订阅失败：\(error)")
+            unshiftMessage("订阅失败")
+        }
     }
 
-    func publish() {
+    func publish() async {
         let notificationOptions = NotificationOptions(title: "GoEasy推送", body: "您有一条新的消息")
         let options = PublishOptions(channel: "test_channel", content: message, notification: notificationOptions)
-        GoEasy.ws.publish(options) { result in
-            switch result {
-            case .success:
-                print("发送成功")
-                message = ""
-            case .failure(let error):
-                print("发送失败：\(error)")
-                unshiftMessage("发送失败")
-            }
+        do {
+            try await GoEasy.ws.publish(options)
+            print("发送成功")
+            message = ""
+        } catch {
+            print("发送失败：\(error)")
+            unshiftMessage("发送失败")
         }
     }
 
