@@ -81,14 +81,14 @@ struct ContentView: View {
 
     func subscribe() async {
         do {
-            let stream = GoEasy.ws.subscribe(
-                channels: ["test_channel"]
+            try await GoEasy.ws.subscribe(
+                channels: ["test_channel"],
+                onMessage: { message in
+                    print("收到消息：\(message)")
+                    unshiftMessage(message.content)
+                }
             )
             unshiftMessage("订阅成功")
-            for try await message in stream {
-                print("收到消息：\(message)")
-                unshiftMessage(message.content)
-           }
         } catch {
             print("订阅失败：\(error)")
             unshiftMessage("订阅失败")
