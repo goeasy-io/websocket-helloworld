@@ -5,6 +5,7 @@ struct ContentView: View {
 
     @State var message = ""
     @State var messages: [String] = []
+    @FocusState private var isInputFocused: Bool
     
     var body: some View {
 
@@ -20,17 +21,15 @@ struct ContentView: View {
             }
 
             HStack {
-                TextField("", text: $message)
-                    .padding()
-                    .frame(width: 270.0, height: 30.0)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
+                TextField("请输入消息", text: $message)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 270.0)
+                    .focused($isInputFocused)
                 Button(action: {
                     Task {
                         await publish()
                     }
+                    isInputFocused = false
                 }) {
                     Text("发送")
                         .foregroundColor(Color("GoEasyRed"))
@@ -39,7 +38,7 @@ struct ContentView: View {
             }
 
             ScrollView {
-                if (!messages.isEmpty) {
+                if !messages.isEmpty {
                     ForEach(messages.reversed(), id: \.self) { content in
                         Text("\(content)")
                             .lineLimit(nil)
@@ -50,48 +49,35 @@ struct ContentView: View {
                 }
 
             }
-            .frame(width: 320.0, height: 400.0)
+            .frame(width: 320.0)
+            .frame(maxHeight: .infinity)
             .overlay(
                 RoundedRectangle(cornerRadius: 2)
                     .stroke(Color.gray, lineWidth: 1)
             )
+            .padding(.bottom, 100)
         }
+        .padding(.top, 30)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .edgesIgnoringSafeArea(.all)
-        .onAppear {
-            Task {
-                await connect()
+        .task {
+            // ① 连接 → ② 订阅，从上到下连续执行；
+            //    任一步失败都会抛错跳到 catch，后续步骤自动不再执行
+            GoEasy.onStateChange { event in
+                addMessage("\(event.current), 尝试 \(event.attempts) 次, 错误: \(event.error)")
             }
-        }
-    }
-
-    func connect() async {
-        GoEasy.onStateChange { event in
-            unshiftMessage("当前状态: \(event.current), 尝试 \(event.attempts) 次, 错误: \(event.error.map { "[\($0.code)] \($0.message)" } ?? "无")")
-        }
-        do {
-            try await GoEasy.connect()
-            unshiftMessage("连接成功")
-            print("连接成功")
-            await subscribe()
-        } catch {
-            print("连接失败：\(error)")
-        }
-    }
-
-    func subscribe() async {
-        do {
-            try await GoEasy.ws.subscribe(
-                channels: ["test_channel"],
-                onMessage: { message in
-                    print("收到消息：\(message)")
-                    unshiftMessage(message.content)
+            do {
+                try await GoEasy.connect()
+                addMessage("连接成功")
+                try await GoEasy.ws.subscribe(
+                    channels: ["test_channel"],
+                    onMessage: { message in
+                    addMessage(message.content)
                 }
-            )
-            unshiftMessage("订阅成功")
-        } catch {
-            print("订阅失败：\(error)")
-            unshiftMessage("订阅失败")
+                )
+                addMessage("订阅成功")
+            } catch {
+                addMessage("连接或订阅失败：\(error)")
+            }
         }
     }
 
@@ -100,19 +86,21 @@ struct ContentView: View {
         let options = PublishOptions(channel: "test_channel", content: message, notification: notificationOptions)
         do {
             try await GoEasy.ws.publish(options)
-            print("发送成功")
             message = ""
         } catch {
-            print("发送失败：\(error)")
-            unshiftMessage("发送失败")
+            addMessage("发送失败：\(error)")
         }
     }
 
-    func unshiftMessage(_ message: String) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
-        let current_time = dateFormatter.string(from: Date())
-        messages.append(current_time + " " + message)
+    private static let messageDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm:ss"
+        return formatter
+    }()
+
+    func addMessage(_ text: String) {
+        let currentTime = Self.messageDateFormatter.string(from: Date())
+        messages.append("\(currentTime) \(text)")
         if messages.count > 100 {
             messages.removeFirst(messages.count - 100)
         }

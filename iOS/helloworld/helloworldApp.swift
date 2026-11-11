@@ -31,11 +31,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
             notification: true)
         // 监听通知点击事件
         GoEasy.notification.onClick { data in
-            // UI 操作与页面跳转必须在主线程进行
-            DispatchQueue.main.async {
-                // 在这里编写页面跳转逻辑
-                print("点击通知 data: \(data)")
-            }
+            // 在这里编写页面跳转逻辑
+            print("点击通知 data: \(data)")
         }
 
      return true
