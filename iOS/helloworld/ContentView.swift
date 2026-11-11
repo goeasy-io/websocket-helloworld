@@ -60,19 +60,23 @@ struct ContentView: View {
         .padding(.top, 30)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .task {
-            // ① 连接 → ② 订阅，从上到下连续执行；
-            //    任一步失败都会抛错跳到 catch，后续步骤自动不再执行
+            //监听网络状态变化
             GoEasy.onStateChange { event in
                 addMessage("\(event.current), 尝试 \(event.attempts) 次, 错误: \(event.error)")
             }
+
             do {
+                //连接
                 try await GoEasy.connect()
                 addMessage("连接成功")
+
+                //订阅消息
                 try await GoEasy.ws.subscribe(
-                    channels: ["test_channel"],
+                    channels: ["demo_channel"],
                     onMessage: { message in
-                    addMessage(message.content)
-                }
+                        //收到消息
+                        addMessage(message.content)
+                    }
                 )
                 addMessage("订阅成功")
             } catch {
@@ -83,8 +87,9 @@ struct ContentView: View {
 
     func publish() async {
         let notificationOptions = NotificationOptions(title: "GoEasy推送", body: "您有一条新的消息")
-        let options = PublishOptions(channel: "test_channel", content: message, notification: notificationOptions)
+        let options = PublishOptions(channel: "demo_channel", content: message, notification: notificationOptions)
         do {
+            //发送消息
             try await GoEasy.ws.publish(options)
             message = ""
         } catch {
