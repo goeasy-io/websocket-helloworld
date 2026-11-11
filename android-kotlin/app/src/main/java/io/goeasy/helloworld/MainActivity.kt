@@ -6,17 +6,20 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import io.goeasy.GoEasy
 import io.goeasy.notification.NotificationOptions
+import io.goeasy.runtime.GoEasyException
 import io.goeasy.ws.PublishOptions
 import java.text.SimpleDateFormat
 import java.util.Date
+import kotlinx.coroutines.launch
 
 /**
  * GoEasy 实时消息 Demo，三步看懂核心用法：
  *
- * ① 建立连接 —— GoEasy.connect
- * ② 订阅频道 —— GoEasy.ws.subscribe
+ * ① 建立连接 —— GoEasy.connect（协程方法，失败抛错）
+ * ② 订阅频道 —— GoEasy.ws.subscribe（协程方法，失败抛错）
  * ③ 接收消息 —— subscribe 的 message 回调
  *
  * appkey 等初始化配置在 GoEasyApp 里，其余代码都是为上面三步服务的 UI。
@@ -47,27 +50,18 @@ class MainActivity : AppCompatActivity() {
 
         // 若需接收通知提醒，需在应用设置中开启通知权限，或在连接 GoEasy 之前通过代码获取权限。
         // 即使没有通知权限也不影响 WebSocket 消息收发，仅影响通知提醒。
-        // ---------- ① 建立连接 ----------
-        GoEasy.connect { result ->
-            if (result.isSuccess) {
+        // ---------- ① 连接 → ② 订阅，从上到下连续执行；失败抛 GoEasyException 跳到 catch ----------
+        lifecycleScope.launch {
+            try {
+                GoEasy.connect()
                 append("连接成功")
-            } else {
-                append("连接失败：${result.error?.let { "[${it.code}] ${it.message}" }}")
-            }
-        }
-
-        // ---------- ② 订阅频道 ③ 接收消息 ----------
-        GoEasy.ws.subscribe(
-            listOf("demo_channel"),
-            { message ->
-                // ③ 收到消息，可在此打断点调试
-                append("收到消息: ${message.content}")
-            }
-        ) { result ->
-            if (result.isSuccess) {
+                GoEasy.ws.subscribe(listOf("demo_channel")) { message ->
+                    // ③ 收到消息，可在此打断点调试
+                    append(message.content)
+                }
                 append("订阅成功")
-            } else {
-                append("订阅失败：${result.error?.let { "[${it.code}] ${it.message}" }}")
+            } catch (e: GoEasyException) {
+                append("连接或订阅失败：[${e.code}] ${e.message}")
             }
         }
     }
@@ -82,19 +76,20 @@ class MainActivity : AppCompatActivity() {
                 body = "您有一条新的消息",
             )
         )
-        GoEasy.ws.publish(options) { result ->
-            if (result.isSuccess) {
+        lifecycleScope.launch {
+            try {
+                GoEasy.ws.publish(options)
                 // 发送成功后自己会在 demo_channel 上收到回读，这里只打日志即可
                 Log.i("GoEasy", "发送成功: $content")
-            } else {
-                append("发送失败：${result.error?.let { "[${it.code}] ${it.message}" }}")
+            } catch (e: GoEasyException) {
+                append("发送失败：[${e.code}] ${e.message}")
             }
         }
     }
 
     /** 新消息追加到列表顶部；超过 100 条时丢掉最旧的（统一在主线程更新，避免跨线程） */
     private fun append(message: String) {
-        val text = SimpleDateFormat("HH:mm").format(Date()) + " " + message
+        val text = SimpleDateFormat("HH:mm:ss").format(Date()) + " " + message
         runOnUiThread {
             lines.addFirst(text)
             while (lines.size > 100) {
