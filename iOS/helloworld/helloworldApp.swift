@@ -25,8 +25,10 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
            _ application: UIApplication,
            didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+
+        //初始化GoEasy
         GoEasy.initSDK(
-            host: "hangzhou.goeasy.io",
+            host: "hangzhou.goeasy.io", //若是新加坡区域：singapore.goeasy.io
             appkey: "您的appkey",
             notification: true)
         // 监听通知点击事件
