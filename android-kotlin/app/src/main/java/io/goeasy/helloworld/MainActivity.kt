@@ -15,21 +15,11 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import kotlinx.coroutines.launch
 
-/**
- * GoEasy 实时消息 Demo，三步看懂核心用法：
- *
- * ① 建立连接 —— GoEasy.connect（协程方法，失败抛错）
- * ② 订阅频道 —— GoEasy.ws.subscribe（协程方法，失败抛错）
- * ③ 接收消息 —— subscribe 的 message 回调
- *
- * appkey 等初始化配置在 GoEasyApp 里，其余代码都是为上面三步服务的 UI。
- */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var messages: TextView
     private lateinit var input: EditText
 
-    /** 消息按接收顺序存放，最多保留 100 条，避免内存越滚越大 */
     private val lines = ArrayDeque<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,24 +29,27 @@ class MainActivity : AppCompatActivity() {
         input = findViewById(R.id.message)
         messages = findViewById(R.id.message_list)
         messages.movementMethod = ScrollingMovementMethod()
+
         findViewById<TextView>(R.id.button).setOnClickListener {
             publish(input.text.toString())
-            input.setText("")
         }
 
         GoEasy.onStateChange { event ->
             append("当前状态: ${event.current}, 尝试: ${event.attempts}次")
         }
 
-        // 若需接收通知提醒，需在应用设置中开启通知权限，或在连接 GoEasy 之前通过代码获取权限。
-        // 即使没有通知权限也不影响 WebSocket 消息收发，仅影响通知提醒。
-        // ---------- ① 连接 → ② 订阅，从上到下连续执行；失败抛 GoEasyException 跳到 catch ----------
+
+        /**
+        * todo:
+        * 若需接收通知提醒，需在应用设置中开启通知权限，或在连接 GoEasy 之前通过代码获取权限。
+        * 即使没有通知权限也不影响 WebSocket 消息收发，仅影响通知提醒
+        **/
         lifecycleScope.launch {
             try {
                 GoEasy.connect()
                 append("连接成功")
                 GoEasy.ws.subscribe(listOf("demo_channel")) { message ->
-                    // ③ 收到消息，可在此打断点调试
+                    // ③ 收到消
                     append(message.content)
                 }
                 append("订阅成功")
@@ -79,15 +72,14 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 GoEasy.ws.publish(options)
-                // 发送成功后自己会在 demo_channel 上收到回读，这里只打日志即可
                 Log.i("GoEasy", "发送成功: $content")
+                input.setText("")
             } catch (e: GoEasyException) {
                 append("发送失败：[${e.code}] ${e.message}")
             }
         }
     }
 
-    /** 新消息追加到列表顶部；超过 100 条时丢掉最旧的（统一在主线程更新，避免跨线程） */
     private fun append(message: String) {
         val text = SimpleDateFormat("HH:mm:ss").format(Date()) + " " + message
         runOnUiThread {

@@ -13,7 +13,7 @@ class GoEasyApp : Application() {
         super.onCreate()
 
         GoEasy.init(
-            host = "hangzhou.goeasy.io",
+            host = "hangzhou.goeasy.io", //若是新加坡区域：singapore.goeasy.io
             appkey = "BC-xxxx",
             notification = true,
             context = applicationContext
